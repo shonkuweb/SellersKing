@@ -316,3 +316,35 @@
   overflow: hidden;
   pointer-events: none;
 }
+
+.alertError {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.alertNotice {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.dropzoneUploading {
+  opacity: 0.7;
+  pointer-events: none;
+  border-color: #f59e0b;
+  background: #fffbeb;
+}

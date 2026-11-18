@@ -75,7 +75,10 @@ export default function HeroSettingsEditor({ onSavingChange }) {
 
     try {
       for (const file of filesToUpload) {
-        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        const isSupportedImage =
+          file.type?.startsWith("image/") ||
+          /\.(jpe?g|png|webp|gif|avif)$/i.test(file.name);
+        if (!isSupportedImage) {
           throw new Error(`"${file.name}" is not a supported format. Please choose JPG, PNG, or WebP.`);
         }
 
@@ -158,10 +161,10 @@ export default function HeroSettingsEditor({ onSavingChange }) {
   };
 
   const handleUploadImage = (type, event) => {
-    const files = event.target.files;
+    const fileList = event.target.files ? Array.from(event.target.files) : [];
     event.target.value = "";
-    if (files && files.length) {
-      processFiles(type, files);
+    if (fileList.length > 0) {
+      processFiles(type, fileList);
     }
   };
 
@@ -264,6 +267,17 @@ export default function HeroSettingsEditor({ onSavingChange }) {
         Configure dynamic hero banners with separate mobile and desktop uploads (hosted on Cloudflare R2), plus scrolling tickers.
       </p>
 
+      {error && (
+        <div className={heroStyles.alertError} role="alert">
+          {error}
+        </div>
+      )}
+      {notice && (
+        <div className={heroStyles.alertNotice} role="status">
+          <FiCheck aria-hidden="true" /> {notice}
+        </div>
+      )}
+
       <form onSubmit={save} aria-label="Hero banner settings">
         <fieldset className={styles.fields} disabled={saving || uploading}>
           {/* SECTION 1: MOBILE HERO BANNERS */}
@@ -338,17 +352,19 @@ export default function HeroSettingsEditor({ onSavingChange }) {
             )}
 
             <input
+              id="mobile-hero-file-input"
               ref={mobileFileInputRef}
               className={heroStyles.fileInputHidden}
               type="file"
               multiple
-              accept="image/jpeg,image/png,image/webp"
+              accept="image/jpeg,image/png,image/webp,image/jpg"
               disabled={uploading || saving || mobileImages.length >= 5}
               onChange={(e) => handleUploadImage("mobile", e)}
             />
 
-            <div
-              className={`${heroStyles.dropzone} ${isMobileDragging ? heroStyles.dropzoneDragging : ""}`}
+            <label
+              htmlFor="mobile-hero-file-input"
+              className={`${heroStyles.dropzone} ${isMobileDragging ? heroStyles.dropzoneDragging : ""} ${uploading && uploadingSection === "mobile" ? heroStyles.dropzoneUploading : ""}`}
               onDragOver={(e) => { e.preventDefault(); setIsMobileDragging(true); }}
               onDragEnter={(e) => { e.preventDefault(); setIsMobileDragging(true); }}
               onDragLeave={(e) => { e.preventDefault(); setIsMobileDragging(false); }}
@@ -359,13 +375,6 @@ export default function HeroSettingsEditor({ onSavingChange }) {
                   processFiles("mobile", e.dataTransfer.files);
                 }
               }}
-              onClick={() => {
-                if (!uploading && !saving && mobileImages.length < 5) {
-                  mobileFileInputRef.current?.click();
-                }
-              }}
-              role="button"
-              tabIndex={0}
               aria-label="Upload mobile hero banners"
             >
               <span className={heroStyles.dropzoneIcon}>
@@ -387,7 +396,7 @@ export default function HeroSettingsEditor({ onSavingChange }) {
                     : "Select up to 5 JPG, PNG or WebP images optimized for smartphone screens."}
                 </span>
               </div>
-            </div>
+            </label>
           </section>
 
           {/* SECTION 2: DESKTOP HERO BANNERS (COVERS FULL WIDTH IN DESKTOP VIEW) */}
@@ -467,17 +476,19 @@ export default function HeroSettingsEditor({ onSavingChange }) {
             )}
 
             <input
+              id="desktop-hero-file-input"
               ref={desktopFileInputRef}
               className={heroStyles.fileInputHidden}
               type="file"
               multiple
-              accept="image/jpeg,image/png,image/webp"
+              accept="image/jpeg,image/png,image/webp,image/jpg"
               disabled={uploading || saving || desktopImages.length >= 5}
               onChange={(e) => handleUploadImage("desktop", e)}
             />
 
-            <div
-              className={`${heroStyles.dropzone} ${isDesktopDragging ? heroStyles.dropzoneDragging : ""}`}
+            <label
+              htmlFor="desktop-hero-file-input"
+              className={`${heroStyles.dropzone} ${isDesktopDragging ? heroStyles.dropzoneDragging : ""} ${uploading && uploadingSection === "desktop" ? heroStyles.dropzoneUploading : ""}`}
               onDragOver={(e) => { e.preventDefault(); setIsDesktopDragging(true); }}
               onDragEnter={(e) => { e.preventDefault(); setIsDesktopDragging(true); }}
               onDragLeave={(e) => { e.preventDefault(); setIsDesktopDragging(false); }}
@@ -488,13 +499,6 @@ export default function HeroSettingsEditor({ onSavingChange }) {
                   processFiles("desktop", e.dataTransfer.files);
                 }
               }}
-              onClick={() => {
-                if (!uploading && !saving && desktopImages.length < 5) {
-                  desktopFileInputRef.current?.click();
-                }
-              }}
-              role="button"
-              tabIndex={0}
               aria-label="Upload desktop hero banners"
             >
               <span className={heroStyles.dropzoneIcon}>
@@ -516,7 +520,7 @@ export default function HeroSettingsEditor({ onSavingChange }) {
                     : "Select up to 5 widescreen JPG, PNG or WebP images spanning the full width of desktop screens."}
                 </span>
               </div>
-            </div>
+            </label>
           </section>
 
           {/* Below Ticker Text */}
