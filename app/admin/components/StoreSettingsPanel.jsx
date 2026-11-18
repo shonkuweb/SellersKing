@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { FiArrowUpRight, FiImage, FiLock, FiNavigation, FiPercent, FiTruck, FiVideo, FiX } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import VideoSettingsEditor from "./VideoSettingsEditor";
 import HeroSettingsEditor from "./HeroSettingsEditor";
 import DeliverySettingsEditor from "./DeliverySettingsEditor";
 import PasswordSettingsEditor from "./PasswordSettingsEditor";
 import OffersSettingsEditor from "./OffersSettingsEditor";
 import NavbarSettingsEditor from "./NavbarSettingsEditor";
+import WhatsappSettingsEditor from "./WhatsappSettingsEditor";
 import styles from "./StoreSettingsPanel.module.css";
 
 const settings = [
@@ -16,6 +18,7 @@ const settings = [
   { id: 'delivery', title: 'Delivery & Shipping', description: 'Standard charges and free delivery conditions', icon: FiTruck },
   { id: 'password', title: 'Password Update', description: 'Update admin panel login password', icon: FiLock },
   { id: 'videos', title: 'Video Cards', description: 'Video links, captions and section visibility', icon: FiVideo },
+  { id: 'whatsapp', title: 'WhatsApp', description: 'WhatsApp support status and connection channel', icon: FaWhatsapp },
 ];
 
 export default function StoreSettingsPanel({ active }) {
@@ -66,6 +69,7 @@ export default function StoreSettingsPanel({ active }) {
         {selected === 'delivery' && <DeliverySettingsEditor onSavingChange={setSaving} />}
         {selected === 'password' && <PasswordSettingsEditor onSavingChange={setSaving} />}
         {selected === 'videos' && <VideoSettingsEditor onSavingChange={setSaving} />}
+        {selected === 'whatsapp' && <WhatsappSettingsEditor onClose={close} />}
       </div>
     </dialog>}
   </div>;
