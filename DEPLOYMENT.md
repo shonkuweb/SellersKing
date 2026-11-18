@@ -97,15 +97,15 @@ The app will be running and listening locally at `127.0.0.1:3005`.
 
 ## 6. Configure Reverse Proxy on Host
 
-Because other projects are running on the VPS, your host's reverse proxy routes web traffic from your domain to `http://127.0.0.1:3005`.
+Because other projects are running on the VPS, your host's reverse proxy routes web traffic from `sellersking.shonku.site` to `http://127.0.0.1:3005`.
 
 ### Option A: Host Nginx
 
-Add a server block to `/etc/nginx/sites-available/sabujkuthi`:
+Add a server block to `/etc/nginx/sites-available/sellersking`:
 
 ```nginx
 server {
-    server_name sabujkuthi.com www.sabujkuthi.com;
+    server_name sellersking.shonku.site;
 
     # Allow image uploads up to 25MB
     client_max_body_size 25M;
@@ -127,15 +127,15 @@ server {
 Enable it and obtain an SSL certificate:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/sabujkuthi /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/sellersking /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
-sudo certbot --nginx -d sabujkuthi.com -d www.sabujkuthi.com
+sudo certbot --nginx -d sellersking.shonku.site
 ```
 
 ### Option B: Nginx Proxy Manager (GUI)
 1. Add a **Proxy Host**.
-2. Domain Names: `sabujkuthi.com`, `www.sabujkuthi.com`
+2. Domain Names: `sellersking.shonku.site`
 3. Scheme: `http`
 4. Forward Hostname / IP: `host.docker.internal` (or your VPS local IP `172.17.0.1` / `127.0.0.1`)
 5. Forward Port: `3005`
