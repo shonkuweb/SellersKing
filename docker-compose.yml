@@ -6,8 +6,8 @@ services:
     container_name: sellersking_app
     restart: always
     ports:
-      # Map to host port (default: 3005). Change APP_PORT in your .env if 3005 is in use by another VPS app.
-      - "${APP_PORT:-3005}:3000"
+      # Map to host port (default: 3006). Change APP_PORT in your .env if 3006 is in use by another VPS app.
+      - "${APP_PORT:-3006}:3000"
     volumes:
       # Persistent SQLite volume - preserves products, categories, orders and settings
       - ./data:/data
