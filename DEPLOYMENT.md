@@ -1,6 +1,6 @@
-# SabujKuthi VPS Deployment Guide
+# Sellers King Info Tech VPS Deployment Guide
 
-This guide walks you through deploying **SabujKuthi Nursery** on a Linux VPS (Ubuntu/Debian) where other websites and Docker containers are already running.
+This guide walks you through deploying **Sellers King Info Tech** on a Linux VPS (Ubuntu/Debian) where other websites and Docker containers are already running.
 
 ---
 
@@ -8,7 +8,7 @@ This guide walks you through deploying **SabujKuthi Nursery** on a Linux VPS (Ub
 
 - **Docker** and **Docker Compose** installed.
 - An existing reverse proxy (e.g. **Nginx**, **Caddy**, or **Nginx Proxy Manager**) handling ports 80/443 and SSL certificates (Let's Encrypt).
-- A domain name (e.g. `sabujkuthi.com`) with DNS A records pointing to your VPS IP address.
+- A domain name (e.g. `sellersking.com`) with DNS A records pointing to your VPS IP address.
 
 ---
 
@@ -17,8 +17,8 @@ This guide walks you through deploying **SabujKuthi Nursery** on a Linux VPS (Ub
 On your VPS:
 
 ```bash
-git clone https://github.com/shonkuweb/Sabujkuthi.git
-cd Sabujkuthi
+git clone https://github.com/shonkuweb/sellersking.git
+cd sellersking
 ```
 
 ---
