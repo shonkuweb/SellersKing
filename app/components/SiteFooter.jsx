@@ -24,14 +24,14 @@ export default function SiteFooter() {
   return (
     <footer className="nursery-footer">
       <svg className="footer-wave-top" viewBox="0 0 500 44" preserveAspectRatio="none" aria-hidden="true">
-        <path fill="#567f25" d="M0 24C45-8 75 47 155 24S263-11 500 17V44H0Z" />
-        <path fill="#103b16" d="M0 42C57 3 80 49 157 29S284-8 500 29V44H0Z" />
+        <path fill="#1E3A8A" d="M0 24C45-8 75 47 155 24S263-11 500 17V44H0Z" />
+        <path fill="#0F172A" d="M0 42C57 3 80 49 157 29S284-8 500 29V44H0Z" />
       </svg>
       <div className="nursery-footer-inner">
         <div className="footer-desktop-grid">
           <div className="footer-brand-column">
             <Link href="/" className="footer-brand" aria-label={`${business.name} home`}>
-              <img className="footer-logo" src={business.footerLogoCdn || "/images/sabujkuthi-footer-logo.png"} alt={business.name} width={2172} height={724} />
+              <img className="footer-logo" src={business.footerLogoCdn || "/images/sellersking-logo.png"} alt={business.name} width={2172} height={724} />
             </Link>
             <div className="footer-intro">
               <p>Grow greener, live better.<br />With {business.name}.</p>
@@ -86,11 +86,6 @@ export default function SiteFooter() {
           <p>Made with <span aria-label="love">♥</span> in West Bengal</p>
         </div>
       </div>
-      <svg className="footer-wave-bottom" viewBox="0 0 500 60" preserveAspectRatio="none" aria-hidden="true">
-        <path fill="#315c20" d="M0 6C95 66 111 16 198 36S320 5 500 27V60H0Z" />
-        <path fill="#567f25" d="M0 40C77-10 113 4 195 26S291 64 376 36S453 20 500 25V60H0Z" />
-        <path fill="#234f1c" d="M0 51C104 1 130 18 218 39S346 58 500 30V60H0Z" />
-      </svg>
     </footer>
   );
 }

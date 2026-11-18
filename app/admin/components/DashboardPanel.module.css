@@ -78,8 +78,8 @@
 }
 
 .refreshBtn:hover {
-  background: #f0f6f2;
-  color: #1a4d32;
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 
 .spinning {
@@ -134,14 +134,14 @@
 
 .statCard:hover {
   transform: translateY(-2px);
-  border-color: #b8d4c3;
-  box-shadow: 0 4px 12px rgba(38, 120, 74, 0.08);
+  border-color: #bfdbfe;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
 }
 
 .statCardActive {
-  border-color: #26784a;
-  background: #fcfefc;
-  box-shadow: 0 4px 14px rgba(38, 120, 74, 0.12);
+  border-color: #2563EB;
+  background: #fcfdfe;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15);
 }
 
 .statIconWrap {

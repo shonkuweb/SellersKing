@@ -117,7 +117,7 @@ export default function AccountPage() {
             <FiAward />
             <span>Creator & Partner Network</span>
           </div>
-          <h2 className={styles.affiliateHeading}>Join Sabuj Kuthi Affiliate Programme</h2>
+          <h2 className={styles.affiliateHeading}>Join Sellers King Info Tech Affiliate Programme</h2>
           <p className={styles.affiliateSub}>
             Share authentic gardening, rare caudex adeniums & organic fertilizers with your audience. Earn attractive commissions and exclusive discount codes for your followers.
           </p>

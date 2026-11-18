@@ -594,7 +594,7 @@ export default function InventoryPanel() {
             <div className={invStyles.statCard}>
               <span className={invStyles.statDotInStock} aria-hidden="true" />
               <span>In Stock:</span>
-              <strong style={{ color: "#26784a" }}>{inStockCount}</strong>
+              <strong style={{ color: "#2563EB" }}>{inStockCount}</strong>
             </div>
             <div className={invStyles.statCard}>
               <span className={invStyles.statDotSoldOut} aria-hidden="true" />
@@ -872,7 +872,7 @@ export default function InventoryPanel() {
                         </td>
                         <td>
                           <div>
-                            <strong style={{ color: "#1a4d32", fontSize: 14 }}>
+                            <strong style={{ color: "#0f172a", fontSize: 14 }}>
                               ₹{formatRupee(product.price)}
                             </strong>
                             {product.oldPrice && (
@@ -896,7 +896,7 @@ export default function InventoryPanel() {
                                 width: 8,
                                 height: 8,
                                 borderRadius: "50%",
-                                background: product.inStock ? "#26784a" : "#dc2626",
+                                background: product.inStock ? "#2563EB" : "#dc2626",
                                 marginRight: 4,
                               }}
                             />

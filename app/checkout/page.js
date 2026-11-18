@@ -145,7 +145,7 @@ export default function CheckoutPage() {
       const checkout = new Razorpay({
         key: result.keyId, amount: result.amount, currency: result.currency,
         order_id: result.razorpayOrderId, name: business.name, description: `Order ${result.receipt}`,
-        prefill: result.customer, theme: { color: '#26784a' },
+        prefill: result.customer, theme: { color: '#2563EB' },
         handler: async payment => {
           setMessage('Confirming your payment with Razorpay…');
           try {

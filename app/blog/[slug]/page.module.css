@@ -20,7 +20,7 @@
 }
 
 .breadcrumbs a {
-  color: #26784a;
+  color: #2563EB;
   text-decoration: none;
 }
 
@@ -34,8 +34,8 @@
   gap: 6px;
   padding: 4px 12px;
   border-radius: 999px;
-  background: rgba(38, 120, 74, 0.1);
-  color: #1a5c36;
+  background: rgba(37, 99, 235, 0.1);
+  color: #1d4ed8;
   font-size: 11.5px;
   font-weight: 700;
   text-transform: uppercase;
@@ -98,16 +98,16 @@
 .articleBody h2 {
   font-size: 22px;
   font-weight: 700;
-  color: #15381f;
+  color: #0f172a;
   margin: 32px 0 14px;
-  border-left: 3px solid #26784a;
+  border-left: 3px solid #2563EB;
   padding-left: 12px;
 }
 
 .articleBody h3 {
   font-size: 18px;
   font-weight: 700;
-  color: #1a4225;
+  color: #1e293b;
   margin: 26px 0 12px;
 }
 
@@ -129,8 +129,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  background: #f0f7f2;
-  border: 1px solid #d4e7d9;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
   border-radius: 14px;
   gap: 16px;
   flex-wrap: wrap;
@@ -139,7 +139,7 @@
 
 .shareBox strong {
   font-size: 14.5px;
-  color: #173b22;
+  color: #0f172a;
 }
 
 .whatsappShare {
@@ -160,7 +160,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #26784a;
+  color: #2563EB;
   text-decoration: none;
   font-weight: 600;
   font-size: 14px;

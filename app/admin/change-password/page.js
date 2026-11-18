@@ -126,7 +126,7 @@ export default function ChangePasswordPage() {
             type="submit"
             disabled={loading}
             style={{
-              flex: 1, padding: '12px', background: loading ? '#2c8f3e' : '#1f6b2c', color: 'white', border: 'none', borderRadius: '8px', cursor: loading ? 'not-allowed' : 'pointer', fontWeight: '600', transition: 'all 0.2s ease'
+              flex: 1, padding: '12px', background: loading ? '#3b82f6' : '#2563EB', color: 'white', border: 'none', borderRadius: '8px', cursor: loading ? 'not-allowed' : 'pointer', fontWeight: '600', transition: 'all 0.2s ease'
             }}
           >
             {loading ? 'Updating...' : 'Change Password'}

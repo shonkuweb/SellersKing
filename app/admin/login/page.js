@@ -26,8 +26,7 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
-        router.push('/admin');
-        router.refresh();
+        window.location.href = '/admin';
       } else {
         const data = await res.json();
         setError(data.message || 'Invalid password');
@@ -74,7 +73,7 @@ export default function LoginPage() {
         width: '60vw',
         height: '60vw',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(31,107,44,0.1) 0%, rgba(31,107,44,0) 70%)',
+        background: 'radial-gradient(circle, rgba(37,99,235,0.1) 0%, rgba(37,99,235,0) 70%)',
         zIndex: 0
       }}></div>
 
@@ -145,8 +144,8 @@ export default function LoginPage() {
                 boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
               }}
               onFocus={(e) => {
-                e.target.style.border = '1px solid #1f6b2c';
-                e.target.style.boxShadow = '0 0 0 4px rgba(31, 107, 44, 0.1)';
+                e.target.style.border = '1px solid #2563EB';
+                e.target.style.boxShadow = '0 0 0 4px rgba(37, 99, 235, 0.1)';
               }}
               onBlur={(e) => {
                 e.target.style.border = '1px solid rgba(0,0,0,0.1)';
@@ -161,7 +160,7 @@ export default function LoginPage() {
             style={{
               width: '100%',
               padding: '16px',
-              background: loading ? '#2c8f3e' : '#1f6b2c',
+              background: loading ? '#3b82f6' : '#2563EB',
               color: 'white',
               border: 'none',
               borderRadius: '12px',
@@ -169,14 +168,14 @@ export default function LoginPage() {
               fontSize: '1.05rem',
               fontWeight: '600',
               transition: 'all 0.2s ease',
-              boxShadow: '0 4px 12px rgba(31, 107, 44, 0.2)',
+              boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               gap: '8px'
             }}
-            onMouseOver={(e) => !loading && (e.target.style.transform = 'translateY(-1px)', e.target.style.boxShadow = '0 6px 16px rgba(31, 107, 44, 0.3)')}
-            onMouseOut={(e) => !loading && (e.target.style.transform = 'none', e.target.style.boxShadow = '0 4px 12px rgba(31, 107, 44, 0.2)')}
+            onMouseOver={(e) => !loading && (e.target.style.transform = 'translateY(-1px)', e.target.style.boxShadow = '0 6px 16px rgba(37, 99, 235, 0.3)')}
+            onMouseOut={(e) => !loading && (e.target.style.transform = 'none', e.target.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.2)')}
             onMouseDown={(e) => !loading && (e.target.style.transform = 'translateY(1px)')}
             onMouseUp={(e) => !loading && (e.target.style.transform = 'translateY(-1px)')}
           >

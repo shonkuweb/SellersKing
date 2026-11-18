@@ -86,7 +86,7 @@ export default function ShowcasePage({ params }) {
             <h3>No Products in this Showcase Yet</h3>
             <p>Products are being added to this showcase. Explore our complete nursery inventory below.</p>
             <Link href="/collection" className={styles.ctaBtn}>
-              Browse All Plants
+              Browse All Categories
             </Link>
           </div>
         ) : (

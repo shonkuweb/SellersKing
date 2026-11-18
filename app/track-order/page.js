@@ -145,7 +145,7 @@ function TrackOrderContent() {
         <div className={styles.headerArea}>
           <div className={styles.badge}>
             <FaLeaf />
-            <span>SabujKuthi Order Tracking</span>
+            <span>Sellers King Info Tech Order Tracking</span>
           </div>
           <h1 className={styles.title}>Track Your Order</h1>
           <p className={styles.subtitle}>
@@ -159,7 +159,7 @@ function TrackOrderContent() {
           </div>
           <h2>Customer Login Required</h2>
           <p>
-            To protect customer privacy and ensure order security, you must be logged in to your SabujKuthi account to track orders.
+            To protect customer privacy and ensure order security, you must be logged in to your Sellers King Info Tech account to track orders.
           </p>
           <div className={styles.loginGateActions}>
             <Link
@@ -186,7 +186,7 @@ function TrackOrderContent() {
       <div className={styles.headerArea}>
         <div className={styles.badge}>
           <FaLeaf />
-          <span>SabujKuthi Nursery Live Tracking</span>
+          <span>Sellers King Info Tech Live Tracking</span>
         </div>
         <h1 className={styles.title}>Track Your Order</h1>
         <p className={styles.subtitle}>
@@ -368,7 +368,7 @@ function TrackOrderContent() {
               🌿 Need immediate assistance or care advice for your order <strong>{orderData.reference}</strong>?
             </p>
             <a
-              href={`https://wa.me/918637054105?text=${encodeURIComponent(`Hello SabujKuthi Nursery, I would like an update on my order ${orderData.reference}.`)}`}
+              href={`https://wa.me/918637054105?text=${encodeURIComponent(`Hello Sellers King Info Tech, I would like an update on my order ${orderData.reference}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.whatsappBtn}

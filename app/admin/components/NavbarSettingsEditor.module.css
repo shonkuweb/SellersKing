@@ -28,12 +28,12 @@
 }
 
 .subTabBtn:hover {
-  color: #1a5c36;
+  color: #1d4ed8;
 }
 
 .subTabBtnActive {
-  color: #1a5c36;
-  border-bottom-color: #26784a;
+  color: #1d4ed8;
+  border-bottom-color: #2563EB;
 }
 
 .cardSection {
@@ -137,13 +137,13 @@
 }
 
 .typeRadioLabel:hover {
-  border-color: #26784a;
+  border-color: #2563EB;
 }
 
 .typeRadioActive {
-  background: #eaf6ee;
-  border-color: #26784a;
-  color: #1c5e37;
+  background: #eff6ff;
+  border-color: #2563EB;
+  color: #1d4ed8;
 }
 
 /* Navbar Link Cards */
@@ -193,7 +193,7 @@
 }
 
 .ctaLabelInput:focus {
-  border-color: #26784a;
+  border-color: #2563EB;
 }
 
 .typeBadge {
@@ -207,8 +207,8 @@
 }
 
 .badgeCollection {
-  background: #e7f5ec;
-  color: #1f6b3d;
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 
 .badgeCustom {
@@ -239,7 +239,7 @@
 }
 
 .ctaHrefInput:focus {
-  border-color: #26784a;
+  border-color: #2563EB;
 }
 
 .ctaDescInput {
@@ -253,7 +253,7 @@
 }
 
 .ctaDescInput:focus {
-  border-color: #26784a;
+  border-color: #2563EB;
 }
 
 .ctaActionsBar {
@@ -294,7 +294,7 @@
 }
 
 .switch[aria-checked="true"] {
-  background: #26784a;
+  background: #2563EB;
 }
 
 .switch[aria-checked="true"] span {
@@ -325,13 +325,13 @@
 }
 
 .btnPrimary {
-  border: 1px solid #26784a;
-  background: #26784a;
+  border: 1px solid #2563EB;
+  background: #2563EB;
   color: #ffffff;
 }
 
 .btnPrimary:hover {
-  background: #1c603a;
+  background: #1d4ed8;
 }
 
 .btnSecondary {
@@ -528,7 +528,7 @@
 .input:focus,
 .textarea:focus,
 .select:focus {
-  border-color: #26784a;
+  border-color: #2563EB;
 }
 
 .textarea {

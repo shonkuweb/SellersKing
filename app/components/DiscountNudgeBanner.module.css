@@ -3,10 +3,10 @@
   flex-direction: column;
   gap: 8px;
   padding: 12px 14px;
-  background: #f4faf6;
-  border: 1.5px solid #b7dfc7;
+  background: #FFF7ED;
+  border: 1.5px solid #FED7AA;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(38, 120, 74, 0.08);
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.08);
   margin: 10px 0;
 }
 
@@ -22,40 +22,42 @@
   gap: 6px;
   font-size: 12px;
   font-weight: 700;
-  color: #175432;
+  color: #C2410C;
   letter-spacing: 0.2px;
 }
 
 .giftIcon {
   font-size: 14px;
-  color: #1d7946;
+  color: #EA580C;
 }
 
 .discountBadge {
   padding: 2px 7px;
   border-radius: 6px;
-  background: #26784a;
+  background: linear-gradient(135deg, #F59E0B, #EA580C);
   color: #ffffff;
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.3px;
+  box-shadow: 0 1px 4px rgba(234, 88, 12, 0.2);
 }
 
 .nudgeMessage {
   margin: 0;
   font-size: 12.5px;
-  color: #274032;
+  color: #1E293B;
   line-height: 1.45;
 }
 
 .highlight {
-  color: #166534;
+  color: #EA580C;
+  font-weight: 700;
 }
 
 .progressBarWrap {
   width: 100%;
   height: 6px;
-  background: #d8eadf;
+  background: #FED7AA;
   border-radius: 4px;
   overflow: hidden;
   margin: 2px 0;
@@ -63,7 +65,7 @@
 
 .progressBarFill {
   height: 100%;
-  background: linear-gradient(90deg, #3bb371, #10b981);
+  background: linear-gradient(90deg, #F59E0B, #EA580C, #9E2256);
   border-radius: 4px;
   transition: width 0.35s ease;
 }
@@ -77,7 +79,7 @@
 
 .progressText {
   font-size: 11px;
-  color: #698273;
+  color: #64748B;
 }
 
 .ctaButton {
@@ -86,7 +88,7 @@
   gap: 4px;
   font-size: 11.5px;
   font-weight: 600;
-  color: #1b633a;
+  color: #2563EB;
   text-decoration: none;
   padding: 3px 6px;
   border-radius: 4px;
@@ -94,8 +96,8 @@
 }
 
 .ctaButton:hover {
-  background: #e5f4eb;
-  color: #124b2b;
+  background: #EFF6FF;
+  color: #1D4ED8;
   transform: translateX(2px);
 }
 
@@ -105,16 +107,16 @@
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  background: #eaf7ef;
-  border: 1px solid #b2dec3;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
   border-radius: 10px;
-  color: #185c35;
+  color: #1E40AF;
   margin: 10px 0;
 }
 
 .unlockedIcon {
   font-size: 18px;
-  color: #26784a;
+  color: #2563EB;
   flex-shrink: 0;
 }
 
@@ -124,5 +126,5 @@
 }
 
 .unlockedText strong {
-  color: #134e2c;
+  color: #1E3A8A;
 }

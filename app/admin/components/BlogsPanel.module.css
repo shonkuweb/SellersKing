@@ -39,13 +39,13 @@
 }
 
 .primary {
-  border: 1px solid #26784a;
-  background: #26784a;
+  border: 1px solid #2563EB;
+  background: #2563EB;
   color: #fff;
 }
 
 .primary:hover {
-  background: #1c603a;
+  background: #1d4ed8;
 }
 
 .secondary {
@@ -65,8 +65,8 @@
   padding: 12px 16px;
   margin: 0 0 20px;
   border-radius: 8px;
-  background: #e9f5ed;
-  color: #216d42;
+  background: #eff6ff;
+  color: #1e40af;
   font-size: 13px;
 }
 
@@ -186,8 +186,8 @@
 }
 
 .input:focus, .textarea:focus, .select:focus {
-  border-color: #26784a;
-  box-shadow: 0 0 0 3px rgba(38, 120, 74, 0.14);
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
 }
 
 .textarea {
@@ -286,7 +286,7 @@
 }
 
 .switch[aria-checked="true"] {
-  background: #26784a;
+  background: #2563EB;
 }
 
 .switch[aria-checked="true"] span {
@@ -351,8 +351,8 @@
 }
 
 .blogCard:hover {
-  border-color: #bad8c4;
-  box-shadow: 0 6px 18px rgba(38, 120, 74, 0.08);
+  border-color: #bfdbfe;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
 }
 
 .cardCover {
@@ -385,7 +385,7 @@
 }
 
 .badgePublished {
-  background: #1f6b2c;
+  background: #2563EB;
   color: #ffffff;
 }
 
@@ -464,9 +464,9 @@
 }
 
 .iconBtn:hover {
-  background: #eef6f1;
-  color: #1b5e38;
-  border-color: #b7d6c2;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
 }
 
 .iconBtn.danger:hover {

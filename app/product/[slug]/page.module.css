@@ -1,13 +1,13 @@
-.page { background: #fafbf7; padding: 14px 17px 35px; color: #222; }
-.breadcrumbs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; color: #899084; font-size: 11px; line-height: 1.5; }
-.breadcrumbs a { color: #54744c; text-decoration: none; }
+.page { background: #F8FAFC; padding: 14px 17px 35px; color: #0F172A; }
+.breadcrumbs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; color: #64748B; font-size: 11px; line-height: 1.5; }
+.breadcrumbs a { color: #2563EB; text-decoration: none; }
 .layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
-.productImage { aspect-ratio: 1; overflow: hidden; border-radius: 14px; background: #f0f3eb; }
+.productImage { aspect-ratio: 1; overflow: hidden; border-radius: 14px; background: #F1F5F9; }
 .productImage img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.productImage > span { height: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center; color: #8a9a81; font-size: 13px; }
+.productImage > span { height: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center; color: #94A3B8; font-size: 13px; }
 .productImage svg { width: 35px; height: 35px; }
 .carouselContainer { position: relative; width: 100%; border-radius: 14px; overflow: hidden; touch-action: pan-y; }
-.carouselBtn { position: absolute; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.88); color: #223c2a; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); cursor: pointer; z-index: 2; transition: background .15s, transform .15s; }
+.carouselBtn { position: absolute; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.92); color: #0F172A; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); cursor: pointer; z-index: 2; transition: background .15s, transform .15s; }
 .carouselBtn:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
 .carouselBtn svg { width: 18px; height: 18px; }
 .prevBtn { left: 10px; }
@@ -20,61 +20,62 @@
 .titleRow h1 { font-size: 19px; line-height: 1.35; margin: 0; font-weight: 700; overflow-wrap: anywhere; }
 .favorite { display: grid; place-items: center; width: 36px; height: 36px; margin: -4px -4px 0 0; flex-shrink: 0; border: 0; background: transparent; color: #c7ccc4; cursor: pointer; }
 .favorite svg { width: 24px; height: 24px; }
-.saved { color: #E91E8C; }
-.saved svg { fill: #fde8f3; }
-.sold { display: inline-flex; gap: 8px; align-items: center; border: 1px solid #fbcfe8; padding: 7px 10px; border-radius: 6px; color: #E91E8C; background: #fdf2f8; font-size: 12px; margin: 22px 0 0; }
-.sold svg { color: #E91E8C; width: 17px; height: 17px; }
-.share { display: flex; align-items: center; gap: 15px; margin-top: 24px; margin-bottom: 8px; font-size: 14px; color: #60645d; }
-.share a { display: inline-flex; color: #666c61; }
+.saved { color: #EA580C; }
+.saved svg { fill: #FFF7ED; }
+.sold { display: inline-flex; gap: 8px; align-items: center; border: 1px solid #FED7AA; padding: 7px 10px; border-radius: 6px; color: #EA580C; background: #FFF7ED; font-size: 12px; margin: 22px 0 0; }
+.sold svg { color: #EA580C; width: 17px; height: 17px; }
+.share { display: flex; align-items: center; gap: 15px; margin-top: 24px; margin-bottom: 8px; font-size: 14px; color: #64748B; }
+.share a { display: inline-flex; color: #64748B; }
 .share svg { width: 17px; height: 17px; }
 .rating { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 13px; min-height: 20px; }
-.stars { display: flex; gap: 1px; color: #f59b17; }
+.stars { display: flex; gap: 1px; color: #F59E0B; }
 .stars svg { width: 15px; height: 15px; }
-.demo { display: inline-block; padding: 2px 5px; border-radius: 4px; background: #edf1e8; color: #78826d; font-size: 9px; font-weight: 400; line-height: 1.3; }
-.noReviews { color: #8a9182; font-size: 12px; }
+.demo { display: inline-block; padding: 2px 5px; border-radius: 4px; background: #F1F5F9; color: #64748B; font-size: 9px; font-weight: 400; line-height: 1.3; }
+.noReviews { color: #94A3B8; font-size: 12px; }
 .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin: 7px 0 20px; }
-.price > strong { font-size: 25px; line-height: 1.2; }
-.price del { color: #a2a59c; font-size: 12px; }
-.price > span { padding: 4px 7px; border-radius: 8px; font-size: 11px; font-weight: 700; background: #E91E8C; color: #fff; }
-.viewers { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 12px; color: #555c4e; margin: 0 0 16px; }
-.dot { width: 8px; height: 8px; background: #35b563; border-radius: 50%; }
-.delivery { padding: 14px 12px; background: #f0f6ed; border-radius: 9px; margin-bottom: 24px; }
-.delivery label { display: flex; align-items: center; gap: 7px; margin-bottom: 11px; font-weight: 600; font-size: 11px; }
-.delivery label svg { color: #E91E8C; width: 15px; height: 15px; }
+.price > strong { font-size: 25px; line-height: 1.2; color: #0F172A; }
+.price del { color: #94A3B8; font-size: 12px; }
+.price > span { padding: 4px 7px; border-radius: 8px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #F59E0B, #EA580C); color: #fff; }
+.viewers { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 12px; color: #64748B; margin: 0 0 16px; }
+.dot { width: 8px; height: 8px; background: #2563EB; border-radius: 50%; }
+.delivery { padding: 14px 12px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 9px; margin-bottom: 24px; }
+.delivery label { display: flex; align-items: center; gap: 7px; margin-bottom: 11px; font-weight: 600; font-size: 11px; color: #1E40AF; }
+.delivery label svg { color: #2563EB; width: 15px; height: 15px; }
 .delivery > div { display: flex; gap: 8px; }
-.delivery input { width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid #e0e5dc; border-radius: 6px; background: #fff; color: #333; font-family: inherit; font-size: 12px; }
-.delivery button { border: 0; border-radius: 6px; padding: 9px 17px; color: #fff; background: #326c2d; font: 600 12px Arial, sans-serif; cursor: pointer; }
-.delivery p { margin: 12px 0 0; color: #52674a; font-size: 12px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
-.delivery p a { display: block; margin-top: 7px; color: #26784a; }
+.delivery input { width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid #BFDBFE; border-radius: 6px; background: #fff; color: #0F172A; font-family: inherit; font-size: 12px; }
+.delivery button { border: 0; border-radius: 6px; padding: 9px 17px; color: #fff; background: #2563EB; font: 600 12px Arial, sans-serif; cursor: pointer; transition: background 0.15s; }
+.delivery button:hover { background: #1D4ED8; }
+.delivery p { margin: 12px 0 0; color: #334155; font-size: 12px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.delivery p a { display: block; margin-top: 7px; color: #2563EB; }
 .quantityRow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; font-size: 13px; }
-.quantity { display: flex; align-items: center; justify-content: space-between; border: 1px solid #e0e4dc; border-radius: 6px; width: 104px; height: 34px; flex-shrink: 0; }
-.quantity button { display: grid; place-items: center; padding: 0; width: 32px; height: 32px; border: 0; background: transparent; color: #626a5c; cursor: pointer; }
+.quantity { display: flex; align-items: center; justify-content: space-between; border: 1px solid #E2E8F0; border-radius: 6px; width: 104px; height: 34px; flex-shrink: 0; }
+.quantity button { display: grid; place-items: center; padding: 0; width: 32px; height: 32px; border: 0; background: transparent; color: #64748B; cursor: pointer; }
 .quantity button:disabled { opacity: .4; cursor: default; }
 .quantity button svg { width: 12px; height: 12px; }
 .quantity strong, .quantity output { font-size: 13px; font-weight: 600; }
 .buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.buttons button { min-height: 44px; padding: 12px 8px; border: 0; border-radius: 6px; background: #E91E8C; color: #fff; font: 700 13px Arial, sans-serif; cursor: pointer; }
-.buttons button:hover { background: #d0177b; }
-.buttons button:disabled { background: #e7e9e3; color: #a0a59a; cursor: default; }
-.highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); gap: 8px; padding: 20px 9px; background: #fff; border-top: 1px solid #e3e6df; }
+.buttons button { min-height: 44px; padding: 12px 8px; border: 0; border-radius: 6px; background: #2563EB; color: #fff; font: 700 13px Arial, sans-serif; cursor: pointer; transition: background 0.15s; }
+.buttons button:hover { background: #1D4ED8; }
+.buttons button:disabled { background: #e2e8f0; color: #94a3b8; cursor: default; }
+.highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); gap: 8px; padding: 20px 9px; background: #fff; border-top: 1px solid #E2E8F0; }
 .highlights > div { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
-.highlights svg { width: 22px; height: 22px; color: #6b8c60; }
-.highlights span { color: #4f5847; font-size: 10px; line-height: 1.4; white-space: pre-wrap; overflow-wrap: anywhere; }
+.highlights svg { width: 22px; height: 22px; color: #2563EB; }
+.highlights span { color: #64748B; font-size: 10px; line-height: 1.4; white-space: pre-wrap; overflow-wrap: anywhere; }
 .accordions { margin-top: 30px; }
-.accordions details { border-bottom: 1px solid #e1e5dc; }
+.accordions details { border-bottom: 1px solid #E2E8F0; }
 .accordions summary { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 21px 0; font-size: 13px; font-weight: 600; list-style: none; cursor: pointer; }
 .accordions summary::-webkit-details-marker { display: none; }
 .accordions summary svg { width: 15px; height: 15px; transition: transform .15s; }
 .accordions details[open] summary svg { transform: rotate(180deg); }
-.accordions details p { margin: 0 0 20px; white-space: pre-wrap; color: #68725e; font-size: 13px; line-height: 1.75; overflow-wrap: anywhere; }
+.accordions details p { margin: 0 0 20px; white-space: pre-wrap; color: #64748B; font-size: 13px; line-height: 1.75; overflow-wrap: anywhere; }
 .variants { margin-bottom: 20px; }
 .variants h2 { font-size: 14px; margin: 0 0 15px; }
 .variants > div { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 10px 0; font-size: 13px; }
-.variants small { display: block; margin-top: 5px; color: #558348; }
+.variants small { display: block; margin-top: 5px; color: #EA580C; }
 .error { color: #b4492e; font-size: 12px; }
-.message { padding: 40px 17px; text-align: center; font-size: 14px; color: #7e8a72; }
+.message { padding: 40px 17px; text-align: center; font-size: 14px; color: #64748B; }
 .message h1 { font-size: 22px; }
-.message a { color: #427637; }
+.message a { color: #2563EB; }
 .related { margin-top: 38px; }
 .related h2 { margin: 0 0 18px; font-size: 19px; }
 .related > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -86,7 +87,7 @@
   background: transparent;
   padding: 0;
 }
-.page button:focus-visible, .page a:focus-visible, .page input:focus-visible, .page summary:focus-visible { outline: 2px solid #34742e; outline-offset: 3px; }
+.page button:focus-visible, .page a:focus-visible, .page input:focus-visible, .page summary:focus-visible { outline: 2px solid #2563EB; outline-offset: 3px; }
 @media (min-width: 850px) {
   .page { padding: 32px clamp(24px, 3.5vw, 48px) 56px; max-width: 1360px; margin: 0 auto; }
   .layout { grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: start; }
@@ -110,11 +111,11 @@
   }
   .desktopThumbBtn:hover {
     transform: translateY(-2px);
-    border-color: #26784a;
+    border-color: #2563EB;
   }
   .desktopThumbBtnActive {
-    border-color: #26784a;
-    box-shadow: 0 2px 8px rgba(38, 120, 74, 0.25);
+    border-color: #2563EB;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
   }
   .desktopThumbBtn img {
     width: 100%;

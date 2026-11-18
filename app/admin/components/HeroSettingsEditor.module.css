@@ -44,8 +44,8 @@
   width: 36px;
   height: 36px;
   border-radius: 9px;
-  background: #edf5ef;
-  color: #26784a;
+  background: #eff6ff;
+  color: #2563EB;
   font-size: 18px;
   flex-shrink: 0;
 }
@@ -234,9 +234,9 @@
 }
 
 .actionButton:hover:not(:disabled) {
-  background: #f0f7f2;
-  border-color: #26784a;
-  color: #26784a;
+  background: #eff6ff;
+  border-color: #2563EB;
+  color: #2563EB;
 }
 
 .actionButton:disabled {
@@ -274,14 +274,14 @@
 }
 
 .dropzone:hover {
-  border-color: #26784a;
-  background: #f0f7f2;
+  border-color: #2563EB;
+  background: #eff6ff;
 }
 
 .dropzoneDragging {
-  border-color: #26784a !important;
-  background: #eaf5ee !important;
-  box-shadow: 0 0 0 4px rgba(38, 120, 74, 0.18);
+  border-color: #2563EB !important;
+  background: #eff6ff !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
 }
 
 .dropzoneIcon {
@@ -290,8 +290,8 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #e3eee6;
-  color: #26784a;
+  background: #dbeafe;
+  color: #2563EB;
   font-size: 20px;
 }
 

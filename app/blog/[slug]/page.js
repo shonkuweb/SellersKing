@@ -10,9 +10,9 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const blog = await prisma.blogPost.findUnique({ where: { slug } });
-  if (!blog || !blog.isPublished) return { title: "Blog Post | SabujKuthi Nursery" };
+  if (!blog || !blog.isPublished) return { title: "Blog Post | Sellers King Info Tech" };
   return {
-    title: `${blog.title} | SabujKuthi Nursery`,
+    title: `${blog.title} | Sellers King Info Tech`,
     description: blog.excerpt || blog.title,
   };
 }
@@ -59,7 +59,7 @@ export default async function BlogPostPage({ params }) {
           <div className={styles.metaRow}>
             <span className={styles.metaItem}>
               <FiUser aria-hidden="true" />
-              <span>{blog.author || "SabujKuthi Nursery"}</span>
+              <span>{blog.author || "Sellers King Info Tech"}</span>
             </span>
             <span>·</span>
             <span className={styles.metaItem}>
@@ -121,7 +121,7 @@ export default async function BlogPostPage({ params }) {
           </div>
           <a
             href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
-              `${blog.title} - SabujKuthi Nursery`
+              `${blog.title} - Sellers King Info Tech`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

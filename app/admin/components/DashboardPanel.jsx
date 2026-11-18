@@ -101,9 +101,9 @@ export default function DashboardPanel({ active }) {
     : "";
 
   const metricColors = {
-    revenue: { stroke: "#26784a", fill: "rgba(38, 120, 74, 0.15)", unit: "₹" },
-    sales: { stroke: "#0d9488", fill: "rgba(13, 148, 136, 0.15)", unit: "" },
-    visitors: { stroke: "#2563eb", fill: "rgba(37, 99, 235, 0.12)", unit: "" },
+    revenue: { stroke: "#2563eb", fill: "rgba(37, 99, 235, 0.15)", unit: "₹" },
+    sales: { stroke: "#ea580c", fill: "rgba(234, 88, 12, 0.15)", unit: "" },
+    visitors: { stroke: "#9e2256", fill: "rgba(158, 34, 86, 0.15)", unit: "" },
     accounts: { stroke: "#d97706", fill: "rgba(217, 119, 6, 0.14)", unit: "" },
   };
 
@@ -166,7 +166,7 @@ export default function DashboardPanel({ active }) {
           role="button"
           tabIndex={0}
         >
-          <div className={styles.statIconWrap} style={{ background: "#eaf5ee", color: "#26784a" }}>
+          <div className={styles.statIconWrap} style={{ background: "#eff6ff", color: "#2563eb" }}>
             <FiDollarSign />
           </div>
           <div className={styles.statInfo}>
@@ -186,7 +186,7 @@ export default function DashboardPanel({ active }) {
           role="button"
           tabIndex={0}
         >
-          <div className={styles.statIconWrap} style={{ background: "#e6f8f6", color: "#0d9488" }}>
+          <div className={styles.statIconWrap} style={{ background: "#fff7ed", color: "#ea580c" }}>
             <FiShoppingBag />
           </div>
           <div className={styles.statInfo}>
@@ -204,7 +204,7 @@ export default function DashboardPanel({ active }) {
           role="button"
           tabIndex={0}
         >
-          <div className={styles.statIconWrap} style={{ background: "#eef4ff", color: "#2563eb" }}>
+          <div className={styles.statIconWrap} style={{ background: "#fdf2f8", color: "#9e2256" }}>
             <FiUsers />
           </div>
           <div className={styles.statInfo}>

@@ -51,7 +51,7 @@ export default function BlogListingPage() {
             <FaLeaf aria-hidden="true" />
             <span>Nursery Knowledge & Guides</span>
           </div>
-          <h1 className={styles.title}>SabujKuthi Plant Care Blog</h1>
+          <h1 className={styles.title}>Sellers King Info Tech Blog</h1>
           <p className={styles.subtitle}>
             Practical growing advice, organic fertilizer recipes, and seasonal plant protection tips directly from our nursery grounds.
           </p>
@@ -84,7 +84,7 @@ export default function BlogListingPage() {
             <button
               type="button"
               className={styles.filterPill}
-              style={{ background: "#26784a", color: "#fff", borderColor: "#26784a" }}
+              style={{ background: "#2563EB", color: "#fff", borderColor: "#2563EB" }}
               onClick={() => setActiveCategory("All")}
             >
               View All Articles

@@ -10,6 +10,7 @@ import {
   FiCreditCard,
   FiFileText,
   FiHome,
+  FiImage,
   FiLayers,
   FiLogOut,
   FiMenu,
@@ -183,8 +184,8 @@ export default function StoreShell({ children }) {
             <FiSearch className="search-icon" />
             <input
               type="search"
-              placeholder="Search plants, pots, fertilizers..."
-              aria-label="Search plants and products"
+              placeholder="Search products, categories..."
+              aria-label="Search products"
               value={searchQuery}
               onChange={event => setSearchQuery(event.target.value)}
             />
@@ -203,8 +204,8 @@ export default function StoreShell({ children }) {
                 <FiSearch className="desktop-search-icon" aria-hidden="true" />
                 <input
                   type="search"
-                  placeholder="Search plants, pots, fertilizers, gardening tools..."
-                  aria-label="Search plants and products"
+                  placeholder="Search products, categories, accessories..."
+                  aria-label="Search products"
                   value={searchQuery}
                   onChange={event => setSearchQuery(event.target.value)}
                 />
@@ -265,7 +266,7 @@ export default function StoreShell({ children }) {
                       </Link>
                       <Link href="/affiliate" className="profile-flyout-item profile-affiliate-item">
                         <FiAward className="profile-flyout-icon" />
-                        <span>Join Sabuj Kuthi Affiliate Programme</span>
+                        <span>Join Sellers King Info Tech Affiliate Programme</span>
                       </Link>
                       <div className="profile-flyout-divider" />
                       <button type="button" className="profile-flyout-item logout" onClick={handleLogout}>
@@ -290,7 +291,7 @@ export default function StoreShell({ children }) {
                       </Link>
                       <Link href="/affiliate" className="profile-flyout-item profile-affiliate-item">
                         <FiAward className="profile-flyout-icon" />
-                        <span>Join Sabuj Kuthi Affiliate Programme</span>
+                        <span>Join Sellers King Info Tech Affiliate Programme</span>
                       </Link>
                     </>
                   )}
@@ -330,26 +331,26 @@ export default function StoreShell({ children }) {
               </Link>
               <div className="desktop-nav-dropdown">
                 <Link
-                  href="/collection"
-                  className={`desktop-nav-link ${pathname === '/collection' || pathname.startsWith('/category/') ? 'active' : ''}`}
+                  href="/categories"
+                  className={`desktop-nav-link ${pathname === '/categories' || pathname.startsWith('/category/') ? 'active' : ''}`}
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <FaLeaf className="desktop-nav-icon" aria-hidden="true" />
-                  <span>All Plants</span>
+                  <FiLayers className="desktop-nav-icon" aria-hidden="true" />
+                  <span>All Categories</span>
                   <FiChevronDown className="desktop-dropdown-chevron" aria-hidden="true" />
                 </Link>
 
-                <ul className="nav-flyout-menu level-1" role="menu" aria-label="Plant categories">
+                <ul className="nav-flyout-menu level-1" role="menu" aria-label="Categories">
                   <li className="nav-flyout-item" role="none">
                     <Link
-                      href="/collection"
+                      href="/categories"
                       className="nav-flyout-link view-all-link"
                       role="menuitem"
                       onClick={() => setSearchQuery('')}
                     >
-                      <FaLeaf className="nav-flyout-leaf-icon" aria-hidden="true" />
-                      <span className="nav-flyout-label"><strong>All Plants (Explore All)</strong></span>
+                      <FiLayers className="nav-flyout-leaf-icon" aria-hidden="true" />
+                      <span className="nav-flyout-label"><strong>All Categories (Explore All)</strong></span>
                     </Link>
                   </li>
                   {navCategoryTree.length > 0 && <li className="nav-flyout-divider" role="separator" aria-hidden="true" />}
@@ -411,7 +412,7 @@ export default function StoreShell({ children }) {
                           loading="lazy"
                         />
                       ) : (
-                        <FaLeaf aria-hidden="true" />
+                        <FiImage aria-hidden="true" />
                       )}
                     </div>
                     <span className="category-name">{category.name}</span>
@@ -434,8 +435,8 @@ export default function StoreShell({ children }) {
                   </span>
                   <h2 className="category-strip-title">{currentCategory?.name ? `Shop ${currentCategory.name}` : "Shop by Category"}</h2>
                 </div>
-                <Link href="/collection" className="category-strip-view-all" aria-label="Explore all plants" onClick={() => setSearchQuery('')}>
-                  <span>All Plants</span>
+                <Link href="/categories" className="category-strip-view-all" aria-label="Explore all categories" onClick={() => setSearchQuery('')}>
+                  <span>All Categories</span>
                   <FiChevronRight className="category-strip-view-icon" aria-hidden="true" />
                 </Link>
               </div>
@@ -456,7 +457,7 @@ export default function StoreShell({ children }) {
                           loading="lazy"
                         />
                       ) : (
-                        <FaLeaf aria-hidden="true" />
+                        <FiImage aria-hidden="true" />
                       )}
                     </div>
                     <span className="category-name">{sub.name}</span>
@@ -475,7 +476,7 @@ export default function StoreShell({ children }) {
         <aside className={`side-menu ${menuOpen ? 'open' : ''}`} aria-label="Website navigation menu">
           <div className="side-menu-head">
             <div className="side-menu-title-wrap">
-              <span className="side-menu-leaf-badge"><FaLeaf /></span>
+              <span className="side-menu-leaf-badge"><FiLayers /></span>
               <strong>Menu</strong>
             </div>
             <button type="button" className="close-btn-modern" aria-label="Close menu" onClick={closeMenu}>
@@ -504,16 +505,7 @@ export default function StoreShell({ children }) {
                 <FiChevronRight className="side-menu-arrow" />
               </button>
 
-              {/* 3. Plant Collection */}
-              <Link href="/collection" className="side-menu-link" onClick={closeMenu}>
-                <div className="side-menu-item-left">
-                  <span className="side-menu-icon-wrap"><FaLeaf /></span>
-                  <span className="side-menu-text">Plant Collection</span>
-                </div>
-                <FiChevronRight className="side-menu-arrow" />
-              </Link>
-
-              {/* 4. Categories Dropdown */}
+              {/* 3. Categories Dropdown */}
               <div className="side-menu-accordion">
                 <button
                   type="button"
@@ -545,7 +537,7 @@ export default function StoreShell({ children }) {
                             <button
                               type="button"
                               onClick={(e) => toggleMobileCat(category.id, e)}
-                              style={{ background: 'none', border: 'none', padding: '10px 14px', cursor: 'pointer', color: '#15803d' }}
+                              style={{ background: 'none', border: 'none', padding: '10px 14px', cursor: 'pointer', color: '#2563EB' }}
                               aria-label={`Drop down subcategories for ${category.name}`}
                             >
                               <FiChevronDown style={{ transform: mobileExpandedCatIds.has(category.id) ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
@@ -586,7 +578,7 @@ export default function StoreShell({ children }) {
                       onClick={closeMenu}
                     >
                       <span className="accordion-category-dot">🔍</span>
-                      <span className="accordion-category-name">Browse All Plants</span>
+                      <span className="accordion-category-name">Browse All Products</span>
                       <FiChevronRight className="accordion-item-arrow" />
                     </Link>
                   </div>
@@ -674,7 +666,7 @@ export default function StoreShell({ children }) {
                   </Link>
                   <Link href="/affiliate" className="menu-user-pill-link menu-affiliate-link" onClick={closeMenu}>
                     <FiAward />
-                    <span>Join Sabuj Kuthi Affiliate Programme</span>
+                    <span>Join Sellers King Info Tech Affiliate Programme</span>
                   </Link>
                 </div>
               </div>
@@ -690,7 +682,7 @@ export default function StoreShell({ children }) {
                 </div>
                 <Link href="/affiliate" className="menu-guest-affiliate-link" onClick={closeMenu}>
                   <FiAward />
-                  <span>Join Sabuj Kuthi Affiliate Programme</span>
+                  <span>Join Sellers King Info Tech Affiliate Programme</span>
                 </Link>
               </div>
             )}

@@ -331,7 +331,7 @@ function LoginForm() {
                   </select>
                 </div>
                 {state && pincode.length === 6 && (
-                  <p style={{ fontSize: '0.8rem', color: '#15803d', margin: '0.35rem 0 0', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <p style={{ fontSize: '0.8rem', color: '#2563EB', margin: '0.35rem 0 0', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <FiMapPin />
                     <span>Selected for {pincode}, {state} · Used to verify plant delivery</span>
                   </p>

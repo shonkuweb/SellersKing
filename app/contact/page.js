@@ -56,7 +56,7 @@ export default function ContactPage() {
             </div>
 
             <a
-              href={whatsappUrl("Hello SabujKuthi Nursery, I'd like to ask a question.")}
+              href={whatsappUrl("Hello Sellers King Info Tech, I'd like to ask a question.")}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.infoWhatsappBtn}

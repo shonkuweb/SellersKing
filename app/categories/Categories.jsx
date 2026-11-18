@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { FaLeaf } from "react-icons/fa";
-import { FiArrowRight, FiSearch, FiX, FiLayers } from "react-icons/fi";
+import { FiArrowRight, FiSearch, FiX, FiLayers, FiImage } from "react-icons/fi";
 import { useCategoryCatalog } from "../hooks/useCategories";
 import { useCart } from "../context/CartContext";
 import {
@@ -250,7 +250,7 @@ export default function Categories() {
                       />
                     ) : (
                       <div className={styles.imageFallback}>
-                        <FaLeaf aria-hidden="true" />
+                        <FiImage aria-hidden="true" />
                       </div>
                     )}
                   </Link>

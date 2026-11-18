@@ -138,7 +138,7 @@ export default function DeliverySettingsEditor({ onSavingChange }) {
           <div className={styles.visibility} style={{ marginTop: 8 }}>
             <div>
               <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <FiTruck aria-hidden="true" style={{ color: "#26784a" }} /> Active Rule Summary
+                <FiTruck aria-hidden="true" style={{ color: "#2563EB" }} /> Active Rule Summary
               </label>
               <p style={{ marginTop: 4 }}>
                 {threshold === 0

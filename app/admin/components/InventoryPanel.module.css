@@ -43,7 +43,7 @@
 .categoryCheckboxLabel input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: #26784a;
+  accent-color: #2563EB;
   cursor: pointer;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .treeIndicator {
-  color: #26784a;
+  color: #2563EB;
   font-weight: 700;
 }
 
@@ -79,15 +79,15 @@
 }
 
 .primaryBadgeBtn:hover {
-  background: #eaf4ee;
-  color: #175e37;
-  border-color: #b3d7c0;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
 }
 
 .isPrimaryActive {
-  background: #26784a;
+  background: #2563EB;
   color: #ffffff;
-  border-color: #26784a;
+  border-color: #2563EB;
   font-weight: 600;
 }
 
@@ -113,7 +113,7 @@
 
 .scopeOption input[type="radio"] {
   margin-top: 3px;
-  accent-color: #26784a;
+  accent-color: #2563EB;
 }
 
 .scopeOption strong {
@@ -131,14 +131,14 @@
 }
 
 .scopeOption:hover {
-  border-color: #b7d6c2;
-  background: #fbfdfc;
+  border-color: #bfdbfe;
+  background: #eff6ff;
 }
 
 .scopeOptionActive {
-  border-color: #26784a;
-  background: #f2f9f5;
-  box-shadow: 0 2px 8px rgba(38, 120, 74, 0.08);
+  border-color: #2563EB;
+  background: #eff6ff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
 }
 
 /* States Picker */
@@ -182,7 +182,7 @@
 }
 
 .stateChip input[type="checkbox"] {
-  accent-color: #26784a;
+  accent-color: #2563EB;
 }
 
 .pincodesBox {
@@ -201,11 +201,11 @@
   display: inline-flex;
   padding: 3px 8px;
   border-radius: 6px;
-  background: #edf7f1;
-  color: #1c5e39;
+  background: #eff6ff;
+  color: #1d4ed8;
   font-size: 11px;
   font-weight: 600;
-  border: 1px solid #d4ebdc;
+  border: 1px solid #bfdbfe;
 }
 
 .shippingPill {
@@ -255,8 +255,8 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #26784a;
-  box-shadow: 0 0 0 2px rgba(38, 120, 74, 0.2);
+  background: #2563EB;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
 .statDotSoldOut {
@@ -304,9 +304,9 @@
 }
 
 .searchBox:focus-within {
-  border-color: #26784a;
+  border-color: #2563EB;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(38, 120, 74, 0.12);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .searchBox input {
@@ -348,9 +348,9 @@
 }
 
 .filterSelect:focus {
-  border-color: #26784a;
+  border-color: #2563EB;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(38, 120, 74, 0.12);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .viewToggleGroup {
@@ -378,7 +378,7 @@
 
 .viewToggleBtnActive {
   background: #ffffff;
-  color: #26784a;
+  color: #2563EB;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
@@ -406,8 +406,8 @@
 
 .productCard:hover {
   transform: translateY(-3px);
-  border-color: #9cbda7;
-  box-shadow: 0 10px 28px rgba(38, 120, 74, 0.09);
+  border-color: #bfdbfe;
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.09);
 }
 
 .cardImageWrap {
@@ -562,8 +562,8 @@
 }
 
 .quickStockBtn:hover:not(:disabled) {
-  background: #e9f2ec;
-  color: #1a4d32;
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 
 .quickStockBtn:disabled {
@@ -593,9 +593,9 @@
 }
 
 .btnActionEdit:hover:not(:disabled) {
-  background: #eef7f1;
-  border-color: #26784a;
-  color: #26784a;
+  background: #eff6ff;
+  border-color: #2563EB;
+  color: #2563EB;
 }
 
 .btnActionDelete {
@@ -714,8 +714,8 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #edf5ef;
-  color: #26784a;
+  background: #eff6ff;
+  color: #2563EB;
   font-size: 22px;
   margin-bottom: 12px;
 }

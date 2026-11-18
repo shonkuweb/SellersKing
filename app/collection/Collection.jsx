@@ -95,7 +95,7 @@ export default function Collection() {
 
   return <main className={styles.page}>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><span>Collection</span></nav>
-    <div className={styles.heading}><div><h1>Collection</h1><p>Find your next favourite plant.</p></div><button className={styles.filterButton} type="button" aria-expanded={filterOpen} aria-controls="collection-filters" onClick={() => setFilterOpen(current => !current)}><FiSliders aria-hidden="true" />Filter{selected.length > 0 && <span>{selected.length}</span>}</button></div>
+    <div className={styles.heading}><div><h1>Collection</h1><p>Explore all categories and products.</p></div><button className={styles.filterButton} type="button" aria-expanded={filterOpen} aria-controls="collection-filters" onClick={() => setFilterOpen(current => !current)}><FiSliders aria-hidden="true" />Filter{selected.length > 0 && <span>{selected.length}</span>}</button></div>
     {filterOpen && <div className={styles.filters} id="collection-filters"><fieldset><legend>Filter by category</legend><div className={styles.options}>
       {flatCategories.filter(category => !isHiddenByCollapsedParent(category.id)).map(category => {
         const hasChildren = visible.some(c => c.parentId === category.id);
@@ -111,7 +111,7 @@ export default function Collection() {
               <button
                 type="button"
                 onClick={(e) => toggleCollapse(category.id, e)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px 6px', color: '#15803d' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px 6px', color: '#2563EB' }}
                 aria-label={isCollapsed ? `Expand subcategories of ${category.name}` : `Collapse subcategories of ${category.name}`}
               >
                 {isCollapsed ? <FiChevronRight /> : <FiChevronDown />}
@@ -161,7 +161,7 @@ export default function Collection() {
                   <button
                     type="button"
                     onClick={(e) => toggleCollapse(category.id, e)}
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px 6px', color: '#15803d' }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px 6px', color: '#2563EB' }}
                     aria-label={isCollapsed ? `Expand subcategories of ${category.name}` : `Collapse subcategories of ${category.name}`}
                   >
                     {isCollapsed ? <FiChevronRight /> : <FiChevronDown />}
@@ -176,10 +176,10 @@ export default function Collection() {
 
       <div className={styles.desktopContent}>
         {selected.length > 0 && <div className={styles.chips}>{visible.filter(category => selected.includes(category.id)).map(category => <button type="button" key={category.id} onClick={() => toggle(category.id)} aria-label={`Remove ${category.name} filter`}>{category.name}<FiX aria-hidden="true" /></button>)}</div>}
-        <section id="collection-results" aria-label="Plant collection" className={styles.results}>
-          {loading || productsLoading ? <p className={styles.message} role="status">Loading plants…</p> : error || productsError ? <p className={styles.message} role="alert">Unable to load the collection. Please refresh to try again.</p> : <>
-            <p className={styles.count} role="status">{matching.length} {matching.length === 1 ? 'plant' : 'plants'}{searchQuery.trim() ? ` matching “${searchQuery.trim()}”` : ''}{!selected.length && !searchQuery.trim() ? ' in our collection' : ''}</p>
-            {matching.length ? <div className={styles.grid}>{matching.map(product => <ProductCard key={product.id} product={product} />)}</div> : <div className={styles.empty}><h2>{products.length ? 'No matching plants' : 'Our collection is growing'}</h2><p>{products.length ? 'Try another category or search term.' : 'New plants will appear here soon.'}</p>{(selected.length > 0 || searchQuery) && <button type="button" onClick={() => { setSelected([]); setSearchQuery(''); }}>Reset search and filters</button>}</div>}
+        <section id="collection-results" aria-label="Product collection" className={styles.results}>
+          {loading || productsLoading ? <p className={styles.message} role="status">Loading products…</p> : error || productsError ? <p className={styles.message} role="alert">Unable to load the collection. Please refresh to try again.</p> : <>
+            <p className={styles.count} role="status">{matching.length} {matching.length === 1 ? 'product' : 'products'}{searchQuery.trim() ? ` matching “${searchQuery.trim()}”` : ''}{!selected.length && !searchQuery.trim() ? ' in our collection' : ''}</p>
+            {matching.length ? <div className={styles.grid}>{matching.map(product => <ProductCard key={product.id} product={product} />)}</div> : <div className={styles.empty}><h2>{products.length ? 'No matching products' : 'Our collection is growing'}</h2><p>{products.length ? 'Try another category or search term.' : 'New products will appear here soon.'}</p>{(selected.length > 0 || searchQuery) && <button type="button" onClick={() => { setSelected([]); setSearchQuery(''); }}>Reset search and filters</button>}</div>}
           </>}
         </section>
       </div>

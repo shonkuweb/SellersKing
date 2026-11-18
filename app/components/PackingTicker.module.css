@@ -1,7 +1,7 @@
 .ticker {
   overflow: hidden;
   padding: 6px 0;
-  background: #004b23;
+  background: linear-gradient(90deg, #1E3A8A 0%, #2563EB 50%, #9E2256 100%);
   color: #fff;
   font-size: 16px;
   font-weight: 600;

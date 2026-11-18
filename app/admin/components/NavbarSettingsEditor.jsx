@@ -574,7 +574,7 @@ export default function NavbarSettingsEditor({ onSavingChange }) {
                 </div>
 
                 <div className={styles.switchWrap}>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: item.enabled ? "#1b5e38" : "#728479" }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: item.enabled ? "#2563EB" : "#728479" }}>
                     {item.enabled ? "Visible in Navbar" : "Hidden"}
                   </span>
                   <button
@@ -716,7 +716,7 @@ export default function NavbarSettingsEditor({ onSavingChange }) {
 
             {/* Description field for page header */}
             <div style={{ marginTop: 12 }}>
-              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#243e2a", marginBottom: 4 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#0F172A", marginBottom: 4 }}>
                 Page Header Description
               </label>
               <input
@@ -767,9 +767,9 @@ export default function NavbarSettingsEditor({ onSavingChange }) {
                           alignItems: "center",
                           justifyContent: "space-between",
                           padding: "8px 12px",
-                          background: isAssigned ? "#eef8f1" : "#ffffff",
+                          background: isAssigned ? "#eff6ff" : "#ffffff",
                           border: "1px solid",
-                          borderColor: isAssigned ? "#b8deca" : "#e3ebe5",
+                          borderColor: isAssigned ? "#bfdbfe" : "#e2e8f0",
                           borderRadius: 6,
                           cursor: "pointer",
                         }}
@@ -782,14 +782,14 @@ export default function NavbarSettingsEditor({ onSavingChange }) {
                             onChange={() => {}}
                             style={{ cursor: "pointer", width: 16, height: 16 }}
                           />
-                          <span style={{ fontSize: 13, fontWeight: 600, color: "#193524" }}>
+                          <span style={{ fontSize: 13, fontWeight: 600, color: "#0F172A" }}>
                             {p.title}
                           </span>
                           <span style={{ fontSize: 12, color: "#6a7e71" }}>
                             ({p.category?.name || "General"})
                           </span>
                         </div>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: "#1a5c36" }}>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: "#2563EB" }}>
                           ₹{p.price}
                         </span>
                       </div>

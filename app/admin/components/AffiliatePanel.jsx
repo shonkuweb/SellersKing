@@ -861,7 +861,7 @@ export default function AffiliatePanel({ active }) {
                           </span>
                         ) : (
                           <span className={styles.scopeAllBadge}>
-                            <FiShoppingBag /> Store-wide (All Plants)
+                            <FiShoppingBag /> Store-wide (All Products)
                           </span>
                         )}
 
@@ -1138,7 +1138,7 @@ export default function AffiliatePanel({ active }) {
                   rows={4}
                   value={warningModal.warningMessage}
                   onChange={(e) => setWarningModal({ ...warningModal, warningMessage: e.target.value })}
-                  placeholder="e.g. Please ensure you update your video descriptions to cite the official SabujKuthi nursery website..."
+                  placeholder="e.g. Please ensure you update your video descriptions to cite the official Sellers King Info Tech website..."
                   className={styles.modalTextarea}
                 />
                 <span className={styles.fieldHelp}>

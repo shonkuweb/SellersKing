@@ -78,7 +78,7 @@ export default function NewCollectionPage() {
             <h3>No Products Available</h3>
             <p>New botanical arrivals will be listed soon. In the meantime, browse our main catalogue.</p>
             <Link href="/collection" className={styles.ctaBtn}>
-              Browse All Plants
+              Browse All Categories
             </Link>
           </div>
         ) : (

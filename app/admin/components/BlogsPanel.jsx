@@ -20,7 +20,7 @@ const blankBlog = {
   title: "",
   slug: "",
   category: "Plant Care",
-  author: "SabujKuthi Nursery",
+  author: "Sellers King Info Tech",
   excerpt: "",
   content: "",
   coverImage: "",
@@ -195,7 +195,7 @@ export default function BlogsPanel({ active }) {
       <div className={styles.toolbar}>
         <div>
           <h2>Blog & Article Manager</h2>
-          <p>Write gardening articles, plant care tutorials and updates for SabujKuthi customers.</p>
+          <p>Write articles, tutorials and updates for Sellers King Info Tech customers.</p>
         </div>
         <button type="button" className={styles.primary} onClick={openNewForm}>
           <FiPlus aria-hidden="true" />

@@ -253,7 +253,7 @@ export default function AffiliatePage() {
               <FiAlertTriangle />
             </div>
             <div className={styles.warningContent}>
-              <h3 className={styles.warningTitle}>Important Notice from SabujKuthi Administration</h3>
+              <h3 className={styles.warningTitle}>Important Notice from Sellers King Info Tech Administration</h3>
               <p className={styles.warningText}>{account.warningMessage}</p>
             </div>
           </div>
@@ -290,7 +290,7 @@ export default function AffiliatePage() {
               <div>
                 <h2>Your Application is Under Review</h2>
                 <p>
-                  Thank you for applying to the Sabuj Kuthi Affiliate Programme! Our nursery team is currently evaluating your social channels and application note.
+                  Thank you for applying to the Sellers King Info Tech Affiliate Programme! Our team is currently evaluating your social channels and application note.
                 </p>
               </div>
             </div>
@@ -364,7 +364,7 @@ export default function AffiliatePage() {
               <div>
                 <h2>Application Not Approved</h2>
                 <p>
-                  Thank you for your interest in partnering with SabujKuthi Nursery. Unfortunately, we are unable to accept your application at this time.
+                  Thank you for your interest in partnering with Sellers King Info Tech. Unfortunately, we are unable to accept your application at this time.
                 </p>
                 {account.rejectReason && (
                   <div className={styles.rejectReasonBox}>
@@ -545,7 +545,7 @@ export default function AffiliatePage() {
                   <FaLeaf className={styles.tipIcon} />
                   <div>
                     <h4>Highlight Authenticity</h4>
-                    <p>Showcase real unboxing, root development, and graft health of SabujKuthi adeniums and plants in your videos.</p>
+                    <p>Showcase real unboxing and product quality of Sellers King Info Tech products in your videos.</p>
                   </div>
                 </div>
                 <div className={styles.tipItem}>
@@ -571,7 +571,7 @@ export default function AffiliatePage() {
       {/* Hero Intro */}
       <div className={styles.hero}>
         <div className={styles.heroBadge}>
-          <FiAward /> <span>SabujKuthi Creator & Affiliate Hub</span>
+          <FiAward /> <span>Sellers King Info Tech Creator & Affiliate Hub</span>
         </div>
         <h1 className={styles.heroTitle}>Partner with Bengal&apos;s Premier Plant Nursery</h1>
         <p className={styles.heroSubtitle}>
@@ -619,7 +619,7 @@ export default function AffiliatePage() {
                 </div>
                 <h3>Application Submitted Successfully!</h3>
                 <p>
-                  Thank you for applying to the Sabuj Kuthi Affiliate Programme! We have received your application and will review your profile.
+                  Thank you for applying to the Sellers King Info Tech Affiliate Programme! We have received your application and will review your profile.
                 </p>
                 <p className={styles.successNote}>
                   You can log in anytime using your mobile number and password to check your application status.
@@ -936,7 +936,7 @@ export default function AffiliatePage() {
                   }}
                   className={styles.inlineLink}
                 >
-                  Apply to become a SabujKuthi affiliate partner
+                  Apply to become a Sellers King Info Tech affiliate partner
                 </button>
               </p>
             </form>

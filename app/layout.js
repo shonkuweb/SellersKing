@@ -3,6 +3,10 @@ import { Providers } from "./providers";
 import { business, siteUrl } from "../lib/business.mjs";
 
 const description = `${business.name} in ${business.locality}, ${business.region}. Explore our plant collection and shop online. Contact ${business.phoneDisplay}.`;
+export const viewport = {
+  themeColor: '#2563EB',
+};
+
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: `${business.name} | Plants in ${business.locality}, ${business.region}`, template: `%s | ${business.name}` },

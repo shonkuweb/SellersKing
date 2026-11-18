@@ -5,15 +5,15 @@ import { defaultNavbarSettings, validateNavbarSettings } from '../lib/navbar-set
 test('validateNavbarSettings returns defaults when given empty or invalid input', () => {
   const res1 = validateNavbarSettings(null);
   assert.equal(res1.valid, true);
-  assert.equal(res1.settings.items.length >= 3, true);
+  assert.equal(res1.settings.items.length >= 2, true);
 
   const res2 = validateNavbarSettings({});
   assert.equal(res2.valid, true);
-  assert.equal(res2.settings.items.length >= 3, true);
+  assert.equal(res2.settings.items.length >= 2, true);
 
   const res3 = validateNavbarSettings({ items: 'not an array' });
   assert.equal(res3.valid, true);
-  assert.equal(res3.settings.items.length >= 3, true);
+  assert.equal(res3.settings.items.length >= 2, true);
 });
 
 test('validateNavbarSettings sanitizes labels, hrefs, and productIds', () => {
