@@ -63,7 +63,7 @@ export async function POST(request) {
   let coverImage = typeof data.coverImage === 'string' ? data.coverImage.trim() : null;
   if (coverImage && coverImage.startsWith('data:image/')) {
     try {
-      coverImage = await uploadDataUrlToR2(coverImage, 'SabujKuthi/blogs', finalSlug);
+      coverImage = await uploadDataUrlToR2(coverImage, 'sellersking/blogs', finalSlug);
     } catch (err) {
       console.warn('R2 upload failed for blog cover image:', err);
     }
@@ -134,7 +134,7 @@ export async function PUT(request) {
   let coverImage = typeof data.coverImage === 'string' ? data.coverImage.trim() : existing.coverImage;
   if (coverImage && coverImage.startsWith('data:image/')) {
     try {
-      coverImage = await uploadDataUrlToR2(coverImage, 'SabujKuthi/blogs', existing.slug);
+      coverImage = await uploadDataUrlToR2(coverImage, 'sellersking/blogs', existing.slug);
     } catch (err) {
       console.warn('R2 upload failed for blog cover image:', err);
     }

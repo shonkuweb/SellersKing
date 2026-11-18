@@ -14,9 +14,8 @@ if (!config.isConfigured) {
 async function run() {
   console.log('\n--- 1. Uploading static brand assets to R2 ---');
   const staticAssets = [
-    { local: 'public/images/sabujkuthi-logo.png', key: 'SabujKuthi/assets/sabujkuthi-logo.png', type: 'image/png' },
-    { local: 'public/images/sabujkuthi-footer-logo.png', key: 'SabujKuthi/assets/sabujkuthi-footer-logo.png', type: 'image/png' },
-    { local: 'public/images/category-leaves.png', key: 'SabujKuthi/assets/category-leaves.png', type: 'image/png' },
+    { local: 'public/images/sellersking-logo.png', key: 'sellersking/assets/sellersking-logo.png', type: 'image/png' },
+    { local: 'public/images/category-leaves.png', key: 'sellersking/assets/category-leaves.png', type: 'image/png' },
   ];
 
   for (const asset of staticAssets) {
@@ -53,7 +52,7 @@ async function run() {
   for (const cat of categories) {
     if (cat.image && cat.image.startsWith('data:image/')) {
       console.log(`Migrating Category: ${cat.name} (${cat.slug})...`);
-      const r2Url = await uploadDataUrlToR2(cat.image, 'SabujKuthi/categories', cat.slug);
+      const r2Url = await uploadDataUrlToR2(cat.image, 'sellersking/categories', cat.slug);
       updateCat.run(r2Url, cat.id);
       console.log(`  -> ${r2Url}`);
     } else if (cat.image) {
@@ -67,7 +66,7 @@ async function run() {
   for (const prod of products) {
     if (prod.image && prod.image.startsWith('data:image/')) {
       console.log(`Migrating Product: ${prod.title} (${prod.slug})...`);
-      const r2Url = await uploadDataUrlToR2(prod.image, 'SabujKuthi/products', prod.slug);
+      const r2Url = await uploadDataUrlToR2(prod.image, 'sellersking/products', prod.slug);
       updateProd.run(r2Url, prod.id);
       console.log(`  -> ${r2Url}`);
     } else if (prod.image) {

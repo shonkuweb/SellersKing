@@ -100,7 +100,7 @@ async function saveCategory(request, isUpdate) {
     let imageUrl = data.image || '';
     if (imageUrl && imageUrl.startsWith('data:image/')) {
       try {
-        imageUrl = await uploadDataUrlToR2(imageUrl, 'SabujKuthi/categories', baseSlug);
+        imageUrl = await uploadDataUrlToR2(imageUrl, 'sellersking/categories', baseSlug);
       } catch (err) {
         console.warn('R2 upload failed, preserving provided image:', err);
       }

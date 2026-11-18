@@ -71,7 +71,7 @@ async function save(request, update) {
     let imageUrl = data.image || null;
     if (imageUrl && imageUrl.startsWith('data:image/')) {
       try {
-        imageUrl = await uploadDataUrlToR2(imageUrl, 'SabujKuthi/products', baseSlug);
+        imageUrl = await uploadDataUrlToR2(imageUrl, 'sellersking/products', baseSlug);
       } catch (err) {
         console.warn('R2 upload failed, preserving provided image:', err);
       }
@@ -79,7 +79,7 @@ async function save(request, update) {
     let imageUrl2 = data.image2 || null;
     if (imageUrl2 && imageUrl2.startsWith('data:image/')) {
       try {
-        imageUrl2 = await uploadDataUrlToR2(imageUrl2, 'SabujKuthi/products', `${baseSlug}-2`);
+        imageUrl2 = await uploadDataUrlToR2(imageUrl2, 'sellersking/products', `${baseSlug}-2`);
       } catch (err) {
         console.warn('R2 upload failed for image2, preserving provided image:', err);
       }

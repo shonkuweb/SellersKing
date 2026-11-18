@@ -84,22 +84,34 @@ export default function HeroSettingsEditor({ onSavingChange }) {
           compressedFile = await imageCompression(file, {
             maxSizeMB: 0.8,
             maxWidthOrHeight: 1920,
-            useWebWorker: true,
+            useWebWorker: false,
           });
         } catch (compErr) {
           console.warn("Client compression skipped, using original:", compErr);
         }
 
-        const dataUrl = await imageCompression.getDataUrlFromFile(compressedFile);
-
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            dataUrl,
-            filename: file.name || `${type}_hero_banner.jpg`,
-          }),
-        });
+        let res;
+        try {
+          const formData = new FormData();
+          formData.append("file", compressedFile, file.name || `${type}_hero_banner.jpg`);
+          formData.append("folder", `sellersking/hero/${type}`);
+          res = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
+          });
+        } catch (formErr) {
+          console.warn("FormData upload failed, falling back to JSON:", formErr);
+          const dataUrl = await imageCompression.getDataUrlFromFile(compressedFile);
+          res = await fetch("/api/upload", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              dataUrl,
+              filename: file.name || `${type}_hero_banner.jpg`,
+              folder: `sellersking/hero/${type}`,
+            }),
+          });
+        }
 
         const rawText = await res.text();
         let data;

@@ -13,7 +13,8 @@ export async function POST(request) {
         return NextResponse.json({ error: 'No image data received.' }, { status: 400 });
       }
       const filename = (body.filename || 'hero_banner').replace(/[^a-zA-Z0-9.-]/g, '_');
-      const fileUrl = await uploadDataUrlToR2(body.dataUrl, 'SabujKuthi/uploads', filename);
+      const folder = (body.folder || 'sellersking/hero').replace(/^\/+|\/+$/g, '');
+      const fileUrl = await uploadDataUrlToR2(body.dataUrl, folder, filename);
       return NextResponse.json({ Message: 'Success', status: 201, url: fileUrl });
     }
 
@@ -24,9 +25,10 @@ export async function POST(request) {
       return NextResponse.json({ error: 'No files received.' }, { status: 400 });
     }
 
+    const folder = (formData.get('folder') || 'sellersking/hero').replace(/^\/+|\/+$/g, '');
     const buffer = Buffer.from(await file.arrayBuffer());
     const filename = (file.name || 'hero_banner.jpg').replace(/[^a-zA-Z0-9.-]/g, '_');
-    const objectKey = `SabujKuthi/uploads/${Date.now()}_${filename}`;
+    const objectKey = `${folder}/${Date.now()}_${filename}`;
 
     const fileUrl = await uploadToR2(buffer, objectKey, file.type || 'image/jpeg');
     return NextResponse.json({ Message: 'Success', status: 201, url: fileUrl });
