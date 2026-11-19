@@ -78,8 +78,8 @@ export async function GET(request) {
       }
 
       // Address & email resolution
-      let email = null;
-      let address = null;
+      let email = cust.email || null;
+      let address = cust.address || null;
       for (const o of orders) {
         if (!email && o.email) email = o.email;
         if (!address && o.address) address = o.address;
