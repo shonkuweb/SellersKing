@@ -39,6 +39,7 @@ try {
     const productColumns = db.prepare('PRAGMA table_info(Product)').all();
     if (productColumns.length) {
       const additions = {
+        size: 'TEXT',
         plantCare: 'TEXT',
         deliveryReturns: 'TEXT',
         deliveryNote: 'TEXT',

@@ -206,3 +206,50 @@ test('customer session correctly preserves state and pincode', async () => {
   assert.equal(verified.state, 'West Bengal');
   assert.equal(verified.pincode, '721253');
 });
+
+test('product size field supports text and number values and is saved in database schema', async () => {
+  const { mkdtempSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const path = await import('node:path');
+  const { execFileSync } = await import('node:child_process');
+  const Database = (await import('better-sqlite3')).default;
+
+  const dir = mkdtempSync(path.join(tmpdir(), 'sellersking-product-size-'));
+  const filename = path.join(dir, 'test.db');
+  const db = new Database(filename);
+
+  try {
+    db.exec('CREATE TABLE Settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+    db.exec('CREATE TABLE Product (id TEXT PRIMARY KEY, slug TEXT, title TEXT, price TEXT)');
+
+    // Run category & product schema initializer on clean database
+    execFileSync(process.execPath, ['scripts/initialize-categories.cjs'], {
+      env: { ...process.env, DATABASE_URL: `file:${filename}` },
+      stdio: 'pipe',
+    });
+
+    const columns = db.prepare('PRAGMA table_info(Product)').all().map(c => c.name);
+    assert.ok(columns.includes('size'), 'Product table must include size column');
+
+    // Test text size insertion
+    db.prepare(`
+      INSERT INTO Product (id, slug, title, price, size)
+      VALUES (?, ?, ?, ?, ?)
+    `).run('prod-1', 't-shirt-xl', 'Premium T-Shirt', '999', 'XL');
+
+    const prodText = db.prepare('SELECT id, title, size FROM Product WHERE id = ?').get('prod-1');
+    assert.equal(prodText.size, 'XL');
+
+    // Test numeric size insertion (e.g. shoe size 10)
+    db.prepare(`
+      INSERT INTO Product (id, slug, title, price, size)
+      VALUES (?, ?, ?, ?, ?)
+    `).run('prod-2', 'running-shoes-10', 'Running Shoes', '2499', '10');
+
+    const prodNum = db.prepare('SELECT id, title, size FROM Product WHERE id = ?').get('prod-2');
+    assert.equal(prodNum.size, '10');
+  } finally {
+    db.close();
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

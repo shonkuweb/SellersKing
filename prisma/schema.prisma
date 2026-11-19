@@ -21,6 +21,7 @@ model Product {
   title          String
   price          String
   description    String?
+  size           String?
   plantCare      String?
   deliveryReturns String?
   deliveryNote   String?

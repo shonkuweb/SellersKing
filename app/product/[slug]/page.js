@@ -217,6 +217,12 @@ export default function ProductPage() {
             {reviewCount > 0 ? <><span className={styles.stars} aria-hidden="true">{[1, 2, 3, 4, 5].map(star => star <= Math.round(rating) ? <FaStar key={star} /> : <FaRegStar key={star} />)}</span><span><strong>{rating.toFixed(1)}</strong> | {reviewCount} reviews</span>{product.demoMetrics && <span className={styles.demo}>Demo</span>}</> : <span className={styles.noReviews}>No reviews yet</span>}
           </div>
           <div className={styles.price}><strong>Rs. {money(product.price)}</strong>{discount > 0 && <><del>Rs. {money(product.oldPrice)}</del><span>{discount}% OFF</span></>}</div>
+          {product.size && (
+            <div className={styles.sizeSection} aria-label={`Product size: ${product.size}`}>
+              <span className={styles.sizeLabel}>Size:</span>
+              <span className={styles.sizeBadge}>{product.size}</span>
+            </div>
+          )}
           {product.demoMetrics && <p className={styles.viewers}><span className={styles.dot} /><span><strong>14</strong> people are viewing this right now</span><span className={styles.demo}>Demo</span></p>}
           {product.shippingScope === 'states' && product.deliveryStates && (
             <div style={{ fontSize: '0.84rem', color: '#0369a1', background: '#f0f9ff', border: '1px solid #bae6fd', padding: '0.45rem 0.75rem', borderRadius: '6px', margin: '0.6rem 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

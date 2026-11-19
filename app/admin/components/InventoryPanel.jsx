@@ -31,6 +31,7 @@ const blank = {
   deliveryPincodes: "",
   price: "",
   oldPrice: "",
+  size: "",
   description: "",
   image: "",
   image2: "",
@@ -106,6 +107,7 @@ export default function InventoryPanel() {
       image: product.image || "",
       image2: product.image2 || "",
       description: product.description || "",
+      size: product.size || "",
       ...Object.fromEntries(["plantCare", "deliveryReturns", "deliveryNote", "replacementInfo", "deliveryInfo", "supportInfo", "packagingInfo", "soldLast24Hours"].map(key => [key, product[key] ?? ""]))
     } : { ...blank });
     setError(""); setNotice(""); setProcessing(false);
@@ -365,6 +367,22 @@ export default function InventoryPanel() {
                 <label className={styles.label} htmlFor="product-old-price">Original price (₹, optional)</label>
                 <input className={styles.nameInput} id="product-old-price" type="number" min="0" max="10000000" step="0.01" value={form.oldPrice} onChange={event => change("oldPrice", event.target.value)} placeholder="Before discount" />
               </div>
+            </div>
+
+            <div style={{ marginBottom: 20 }}>
+              <label className={styles.label} htmlFor="product-size">Size (optional)</label>
+              <input
+                className={styles.nameInput}
+                id="product-size"
+                type="text"
+                maxLength={100}
+                value={form.size || ""}
+                onChange={event => change("size", event.target.value)}
+                placeholder="e.g. XL, 10, 500g, 12 inch, Free Size"
+              />
+              <p className={styles.hint} style={{ marginTop: -14, marginBottom: 0 }}>
+                Accepts both numbers and text (e.g. &quot;10&quot;, &quot;XL&quot;, &quot;500 ml&quot;, &quot;12 inch&quot;).
+              </p>
             </div>
 
             {/* Images */}
@@ -772,6 +790,11 @@ export default function InventoryPanel() {
                           </span>
                         ))}
                         <span className={invStyles.shippingPill}>{scopeLabel}</span>
+                        {product.size && (
+                          <span className={invStyles.categoryPill} style={{ background: '#f8fafc', color: '#1e293b', borderColor: '#cbd5e1', fontWeight: 600 }}>
+                            Size: {product.size}
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -858,6 +881,11 @@ export default function InventoryPanel() {
                             </div>
                             <div className={invStyles.tableTitleText}>
                               <strong>{product.title}</strong>
+                              {product.size && (
+                                <span style={{ display: "block", fontSize: 11, color: "#64748b", marginTop: 2 }}>
+                                  Size: {product.size}
+                                </span>
+                              )}
                             </div>
                           </div>
                         </td>

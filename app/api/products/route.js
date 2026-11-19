@@ -49,6 +49,8 @@ async function save(request, update) {
   if (data.inStock != null && typeof data.inStock !== 'boolean') return NextResponse.json({ error: 'Invalid stock status.' }, { status: 400 });
   if (data.isPublished != null && typeof data.isPublished !== 'boolean') return NextResponse.json({ error: 'Invalid publication status.' }, { status: 400 });
   if (data.description != null && (typeof data.description !== 'string' || data.description.length > 10000)) return NextResponse.json({ error: 'Description must be under 10,000 characters.' }, { status: 400 });
+  if (data.size != null && typeof data.size !== 'string' && typeof data.size !== 'number') return NextResponse.json({ error: 'Size must be text or a number.' }, { status: 400 });
+  const sizeValue = data.size != null && String(data.size).trim() !== '' ? String(data.size).trim().slice(0, 100) : null;
   if (data.image != null && (typeof data.image !== 'string' || data.image.length > 1400000 || (data.image && !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(data.image) && !/^https?:\/\/[^\s]+$/.test(data.image)))) return NextResponse.json({ error: 'Choose a valid JPG, PNG or WebP image.' }, { status: 400 });
   if (data.image2 != null && (typeof data.image2 !== 'string' || data.image2.length > 1400000 || (data.image2 && !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(data.image2) && !/^https?:\/\/[^\s]+$/.test(data.image2)))) return NextResponse.json({ error: 'Choose a valid JPG, PNG or WebP secondary image.' }, { status: 400 });
   const detailFields = ['plantCare', 'deliveryReturns', 'deliveryNote', 'deliveryPincodes', 'replacementInfo', 'deliveryInfo', 'supportInfo', 'packagingInfo'];
@@ -97,6 +99,7 @@ async function save(request, update) {
       deliveryPincodes,
       price: String(Number(data.price)),
       oldPrice: data.oldPrice ? String(Number(data.oldPrice)) : null,
+      size: data.size !== undefined ? sizeValue : (existing ? existing.size : null),
       description: data.description?.trim() || null, image: imageUrl, image2: imageUrl2,
       inStock: data.inStock !== false, isPublished: data.isPublished !== false,
     };
