@@ -424,17 +424,20 @@ export default function InventoryPanel() {
             </div>
 
             {/* Product Sizes & Multiple Variant Pricing */}
-            <div className={styles.sizeSectionContainer}>
-              <div className={styles.sizeSectionHeader}>
+            <div className={invStyles.sizeSectionContainer}>
+              <div className={invStyles.sizeSectionHeader}>
                 <div>
-                  <label className={styles.label} style={{ marginBottom: 2 }}>Product Sizes &amp; Pricing (Optional)</label>
-                  <p className={styles.hint} style={{ margin: 0 }}>
+                  <h4 className={invStyles.sizeSectionTitle}>
+                    <span>Product Sizes &amp; Pricing</span>
+                    <span className={invStyles.sizeSectionBadge}>Optional</span>
+                  </h4>
+                  <p className={invStyles.sizeSectionDesc}>
                     Define multiple sizes (e.g. S, M, XL, 6 inch, 10 inch, 500g) with individual selling price and stock status.
                   </p>
                 </div>
                 <button
                   type="button"
-                  className={styles.btnAddSize}
+                  className={invStyles.btnAddSize}
                   onClick={handleAddSizeRow}
                   title="Add a new size with custom price and stock"
                 >
@@ -444,80 +447,96 @@ export default function InventoryPanel() {
               </div>
 
               {form.sizes && form.sizes.length > 0 ? (
-                <div className={styles.sizesList}>
-                  {form.sizes.map((s, index) => (
-                    <div key={s.id || index} className={styles.sizeRow}>
-                      <div>
-                        <label className={styles.miniLabel}>Size / Dimension</label>
-                        <input
-                          type="text"
-                          className={styles.sizeInput}
-                          placeholder="e.g. XL, 10 inch, 500g"
-                          maxLength={100}
-                          value={s.size}
-                          onChange={(e) => handleSizeChange(index, 'size', e.target.value)}
-                          required
-                        />
-                      </div>
+                <>
+                  <div className={invStyles.sizesList}>
+                    {form.sizes.map((s, index) => (
+                      <div key={s.id || index} className={invStyles.sizeRow}>
+                        <div>
+                          <label className={invStyles.miniLabel}>Size / Dimension</label>
+                          <input
+                            type="text"
+                            className={invStyles.sizeInput}
+                            placeholder="e.g. XL, 10 inch, 500g"
+                            maxLength={100}
+                            value={s.size}
+                            onChange={(e) => handleSizeChange(index, 'size', e.target.value)}
+                            required
+                          />
+                        </div>
 
-                      <div>
-                        <label className={styles.miniLabel}>Price (₹)</label>
-                        <input
-                          type="number"
-                          className={styles.sizeInput}
-                          placeholder={form.price || "0.00"}
-                          min="0"
-                          max="10000000"
-                          step="0.01"
-                          value={s.price}
-                          onChange={(e) => handleSizeChange(index, 'price', e.target.value)}
-                          required
-                        />
-                      </div>
+                        <div>
+                          <label className={invStyles.miniLabel}>Price (₹)</label>
+                          <input
+                            type="number"
+                            className={invStyles.sizeInput}
+                            placeholder={form.price || "0.00"}
+                            min="0"
+                            max="10000000"
+                            step="0.01"
+                            value={s.price}
+                            onChange={(e) => handleSizeChange(index, 'price', e.target.value)}
+                            required
+                          />
+                        </div>
 
-                      <div>
-                        <label className={styles.miniLabel}>Stock Status</label>
-                        <select
-                          className={styles.sizeSelect}
-                          value={s.inStock ? "in_stock" : "sold_out"}
-                          onChange={(e) => handleSizeChange(index, 'inStock', e.target.value === "in_stock")}
-                        >
-                          <option value="in_stock">● In Stock</option>
-                          <option value="sold_out">✕ Sold Out</option>
-                        </select>
-                      </div>
+                        <div>
+                          <label className={invStyles.miniLabel}>Stock Status</label>
+                          <select
+                            className={`${invStyles.sizeSelect} ${s.inStock ? invStyles.sizeSelectInStock : invStyles.sizeSelectSoldOut}`}
+                            value={s.inStock ? "in_stock" : "sold_out"}
+                            onChange={(e) => handleSizeChange(index, 'inStock', e.target.value === "in_stock")}
+                          >
+                            <option value="in_stock">● In Stock</option>
+                            <option value="sold_out">✕ Sold Out</option>
+                          </select>
+                        </div>
 
-                      <div>
-                        <button
-                          type="button"
-                          className={styles.btnRemoveSize}
-                          onClick={() => handleRemoveSizeRow(index)}
-                          title="Remove this size"
-                          aria-label="Remove size"
-                        >
-                          <FiTrash2 />
-                        </button>
+                        <div>
+                          <button
+                            type="button"
+                            className={invStyles.btnRemoveSize}
+                            onClick={() => handleRemoveSizeRow(index)}
+                            title="Remove this size"
+                            aria-label="Remove size"
+                          >
+                            <FiTrash2 />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+
+                  <div className={invStyles.sizesListFooter}>
+                    <span className={invStyles.sizesCountText}>
+                      {form.sizes.length} {form.sizes.length === 1 ? "size variant" : "size variants"} configured
+                    </span>
+                    <button
+                      type="button"
+                      className={invStyles.btnAddSizeSecondary}
+                      onClick={handleAddSizeRow}
+                      style={{ padding: "6px 12px", fontSize: "12px" }}
+                    >
+                      <FiPlus />
+                      <span>Add Another Size</span>
+                    </button>
+                  </div>
+                </>
               ) : (
-                <div className={styles.singleSizeBox}>
-                  <label className={styles.miniLabel} htmlFor="product-size">Single Size / Free Size (Optional)</label>
-                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div className={invStyles.singleSizeBox}>
+                  <label className={invStyles.miniLabel} htmlFor="product-size">Single Size / Free Size (Optional)</label>
+                  <div className={invStyles.singleSizeRow}>
                     <input
-                      className={styles.nameInput}
+                      className={invStyles.singleSizeInput}
                       id="product-size"
                       type="text"
                       maxLength={100}
                       value={form.size || ""}
                       onChange={event => change("size", event.target.value)}
                       placeholder="e.g. Free Size, 10, 500g, 12 inch"
-                      style={{ flex: 1, minWidth: '200px' }}
                     />
                     <button
                       type="button"
-                      className={styles.btnAddSizeSecondary}
+                      className={invStyles.btnAddSizeSecondary}
                       onClick={handleAddSizeRow}
                       title="Add multiple sizes with individual prices & stock"
                     >

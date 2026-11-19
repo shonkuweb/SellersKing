@@ -760,7 +760,7 @@
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 16px;
+  padding: 16px 18px;
 }
 
 .sizeSectionHeader {
@@ -771,37 +771,65 @@
   margin-bottom: 14px;
 }
 
+.sizeSectionTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sizeSectionBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.sizeSectionDesc {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
 .btnAddSize {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 13px;
+  padding: 8px 14px;
   background: #2563eb;
   color: #ffffff;
   border: none;
   border-radius: 8px;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   font-family: inherit;
-  transition: background 0.15s ease;
+  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.2);
+  transition: all 0.15s ease;
 }
 
 .btnAddSize:hover {
   background: #1d4ed8;
+  transform: translateY(-1px);
 }
 
 .btnAddSizeSecondary {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 10px 16px;
   background: #eff6ff;
   color: #1d4ed8;
-  border: 1px solid #bfdbfe;
+  border: 1.5px solid #bfdbfe;
   border-radius: 8px;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
@@ -822,85 +850,150 @@
 
 .sizeRow {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr auto;
-  gap: 10px;
+  grid-template-columns: 2fr 1.5fr 1.5fr 40px;
+  gap: 12px;
   align-items: flex-end;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
-  padding: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.15s ease;
 }
 
-@media (max-width: 600px) {
-  .sizeRow {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
+.sizeRow:focus-within {
+  border-color: #93c5fd;
 }
 
 .miniLabel {
   display: block;
   font-size: 11.5px;
   font-weight: 700;
-  color: #475569;
-  margin-bottom: 4px;
+  color: #334155;
+  margin-bottom: 6px;
 }
 
 .sizeInput {
   width: 100%;
-  padding: 8px 12px;
+  padding: 9px 12px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  font-size: 13.5px;
+  font: 13.5px Inter, Arial, sans-serif;
   color: #0f172a;
   outline: none;
-  font-family: inherit;
+  background: #fff;
   box-sizing: border-box;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .sizeInput:focus {
   border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
 .sizeSelect {
   width: 100%;
-  padding: 8px 12px;
+  padding: 9px 12px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  font-size: 13px;
+  font: 13px Inter, Arial, sans-serif;
   font-weight: 600;
   color: #0f172a;
   outline: none;
   background: #fff;
-  font-family: inherit;
   box-sizing: border-box;
   cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sizeSelect:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.sizeSelectInStock {
+  color: #15803d;
+}
+
+.sizeSelectSoldOut {
+  color: #b91c1c;
 }
 
 .btnRemoveSize {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border: 1px solid #fecaca;
   background: #fef2f2;
   color: #dc2626;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 15px;
   transition: all 0.15s ease;
 }
 
 .btnRemoveSize:hover {
   background: #fee2e2;
   border-color: #ef4444;
+  color: #b91c1c;
 }
 
 .singleSizeBox {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
-  padding: 14px;
+  padding: 14px 16px;
+}
+
+.singleSizeRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.singleSizeInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: 14px Inter, Arial, sans-serif;
+  color: #0f172a;
+  background: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.singleSizeInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+.sizesListFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+.sizesCountText {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+@media (max-width: 650px) {
+  .sizeRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .btnRemoveSize {
+    width: 100%;
+    height: 36px;
+  }
 }
