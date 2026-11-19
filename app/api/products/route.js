@@ -17,7 +17,16 @@ function publicProduct(product) {
   if (!categoryIds.length && product.categoryId) {
     categoryIds = [product.categoryId];
   }
-  return { ...product, adeniumOptions, categoryIds };
+  let sizes = [];
+  if (adeniumOptions && typeof adeniumOptions === 'object') {
+    sizes = Object.entries(adeniumOptions).map(([size, val], idx) => ({
+      id: String(idx + 1),
+      size,
+      price: typeof val === 'object' && val !== null ? String(val.price) : String(val),
+      inStock: typeof val === 'object' && val !== null ? val.inStock !== false : true,
+    }));
+  }
+  return { ...product, adeniumOptions, sizes, categoryIds };
 }
 
 export async function GET(request) {
@@ -90,6 +99,42 @@ async function save(request, update) {
     const deliveryStates = typeof data.deliveryStates === 'string' ? data.deliveryStates.trim() || null : null;
     const deliveryPincodes = typeof data.deliveryPincodes === 'string' ? data.deliveryPincodes.trim() || null : null;
 
+    // Process multiple sizes with individual price and stock
+    let adeniumOptionsJson = null;
+    let computedSizeStr = null;
+
+    if (Array.isArray(data.sizes) && data.sizes.length > 0) {
+      const optionsMap = {};
+      const validSizeNames = [];
+      for (const item of data.sizes) {
+        if (!item) continue;
+        const sName = typeof item === 'string' ? item.trim() : (item.size != null ? String(item.size).trim() : '');
+        if (!sName) continue;
+        const sPrice = item.price && money(String(item.price)) ? String(Number(item.price)) : String(Number(data.price));
+        const sInStock = typeof item === 'object' && item !== null ? item.inStock !== false : true;
+        optionsMap[sName] = {
+          price: sPrice,
+          inStock: sInStock,
+        };
+        validSizeNames.push(sName);
+      }
+      if (Object.keys(optionsMap).length > 0) {
+        adeniumOptionsJson = JSON.stringify(optionsMap);
+        computedSizeStr = validSizeNames.join(', ');
+      }
+    } else if (data.adeniumOptions && typeof data.adeniumOptions === 'object') {
+      adeniumOptionsJson = JSON.stringify(data.adeniumOptions);
+      computedSizeStr = Object.keys(data.adeniumOptions).join(', ');
+    } else if (typeof data.adeniumOptions === 'string' && data.adeniumOptions.trim()) {
+      adeniumOptionsJson = data.adeniumOptions.trim();
+      try {
+        const parsed = JSON.parse(adeniumOptionsJson);
+        if (parsed && typeof parsed === 'object') {
+          computedSizeStr = Object.keys(parsed).join(', ');
+        }
+      } catch {}
+    }
+
     const fields = {
       title,
       categoryId: primaryCategoryId,
@@ -99,7 +144,10 @@ async function save(request, update) {
       deliveryPincodes,
       price: String(Number(data.price)),
       oldPrice: data.oldPrice ? String(Number(data.oldPrice)) : null,
-      size: data.size !== undefined ? sizeValue : (existing ? existing.size : null),
+      size: computedSizeStr || (data.size !== undefined ? sizeValue : (existing ? existing.size : null)),
+      adeniumOptions: data.sizes !== undefined || data.adeniumOptions !== undefined
+        ? adeniumOptionsJson
+        : (existing ? existing.adeniumOptions : null),
       description: data.description?.trim() || null, image: imageUrl, image2: imageUrl2,
       inStock: data.inStock !== false, isPublished: data.isPublished !== false,
     };

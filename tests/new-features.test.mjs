@@ -253,3 +253,62 @@ test('product size field supports text and number values and is saved in databas
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('multiple sizes with individual prices and stock allow selecting multiple sizes at checkout', async () => {
+  const { prepareCheckout } = await import('../lib/payment-core.mjs');
+
+  const multiSizeProduct = {
+    id: 'p-multi',
+    slug: 'ceramic-planter',
+    title: 'Ceramic Planter Pot',
+    price: '299.00',
+    inStock: true,
+    isPublished: true,
+    category: { isVisible: true },
+    adeniumOptions: JSON.stringify({
+      '6 inch': { price: '299.00', inStock: true },
+      '8 inch': { price: '499.00', inStock: true },
+      '10 inch': { price: '699.00', inStock: false }, // Sold out size
+    }),
+  };
+
+  const customer = {
+    name: 'Customer Test',
+    phone: '9876543210',
+    address: '10 Nursery Road',
+    pincode: '721253',
+  };
+
+  // 1. Customer purchases multiple available sizes of the same product
+  const checkoutInput = {
+    customer,
+    items: [
+      { slug: 'ceramic-planter', qty: 2, variant: '6 inch' },
+      { slug: 'ceramic-planter', qty: 1, variant: '8 inch' },
+    ],
+  };
+
+  const quote = prepareCheckout(checkoutInput, [multiSizeProduct]);
+  // Subtotal: 2 * 29900 + 1 * 49900 = 59800 + 49900 = 109700 paise (₹1097)
+  assert.equal(quote.subtotal, 109700);
+
+  const parsedItems = JSON.parse(quote.itemsJson);
+  assert.equal(parsedItems.length, 2);
+  assert.equal(parsedItems[0].variant, '6 inch');
+  assert.equal(parsedItems[0].qty, 2);
+  assert.equal(parsedItems[0].unitAmount, 29900);
+
+  assert.equal(parsedItems[1].variant, '8 inch');
+  assert.equal(parsedItems[1].qty, 1);
+  assert.equal(parsedItems[1].unitAmount, 49900);
+
+  // 2. Customer attempts to purchase sold out size (10 inch) -> must be blocked
+  assert.throws(() => {
+    prepareCheckout({
+      customer,
+      items: [
+        { slug: 'ceramic-planter', qty: 1, variant: '10 inch' },
+      ],
+    }, [multiSizeProduct]);
+  }, /sold out/i);
+});

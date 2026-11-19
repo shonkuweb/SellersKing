@@ -40,6 +40,7 @@ try {
     if (productColumns.length) {
       const additions = {
         size: 'TEXT',
+        adeniumOptions: 'TEXT',
         plantCare: 'TEXT',
         deliveryReturns: 'TEXT',
         deliveryNote: 'TEXT',

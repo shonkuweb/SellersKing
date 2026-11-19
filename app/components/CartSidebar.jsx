@@ -125,7 +125,7 @@ export default function CartSidebar() {
                         <FiTrash2 />
                       </button>
                     </div>
-                    {item.variant && <span className="cart-item-variant">Variant: {item.variant}</span>}
+                    {item.variant && <span className="cart-item-variant">Size: {item.variant}</span>}
                     <div className="cart-item-bottom">
                       <strong className="cart-item-price">₹{toAmount(item.price).toLocaleString('en-IN')}</strong>
                       <div className="qty-control-modern" aria-label="Item quantity controls">

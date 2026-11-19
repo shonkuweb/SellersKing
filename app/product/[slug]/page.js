@@ -110,8 +110,13 @@ export default function ProductPage() {
       }
     }
     if (variants.length) {
-      const selected = Object.entries(variantQtys).filter(([, quantity]) => quantity > 0);
-      if (!selected.length) { setPurchaseError('Please select at least one option.'); return false; }
+      const selected = Object.entries(variantQtys).filter(([variant, quantity]) => {
+        if (!quantity || quantity <= 0) return false;
+        const val = product.adeniumOptions?.[variant];
+        const isAvailable = typeof val === 'object' && val !== null ? val.inStock !== false : true;
+        return isAvailable;
+      });
+      if (!selected.length) { setPurchaseError('Please select at least one available size or option.'); return false; }
       selected.forEach(([variant, quantity]) => addItem(product.slug, quantity, variant));
     } else addItem(product.slug, qty);
     return true;
@@ -217,12 +222,31 @@ export default function ProductPage() {
             {reviewCount > 0 ? <><span className={styles.stars} aria-hidden="true">{[1, 2, 3, 4, 5].map(star => star <= Math.round(rating) ? <FaStar key={star} /> : <FaRegStar key={star} />)}</span><span><strong>{rating.toFixed(1)}</strong> | {reviewCount} reviews</span>{product.demoMetrics && <span className={styles.demo}>Demo</span>}</> : <span className={styles.noReviews}>No reviews yet</span>}
           </div>
           <div className={styles.price}><strong>Rs. {money(product.price)}</strong>{discount > 0 && <><del>Rs. {money(product.oldPrice)}</del><span>{discount}% OFF</span></>}</div>
-          {product.size && (
+          {variants.length > 0 ? (
+            <div className={styles.sizeSection} aria-label="Available sizes">
+              <span className={styles.sizeLabel}>Available Sizes:</span>
+              <div className={styles.sizeBadgesWrap}>
+                {variants.map(([variantName, val]) => {
+                  const isAvailable = typeof val === 'object' && val !== null ? val.inStock !== false : true;
+                  return (
+                    <span
+                      key={variantName}
+                      className={`${styles.sizeBadge} ${!isAvailable ? styles.sizeBadgeSoldOut : ''}`}
+                      title={!isAvailable ? `${variantName} is currently Sold Out` : `${variantName} is In Stock`}
+                    >
+                      {variantName}
+                      {!isAvailable && <span className={styles.sizeSoldOutDot}>(Sold Out)</span>}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          ) : product.size ? (
             <div className={styles.sizeSection} aria-label={`Product size: ${product.size}`}>
               <span className={styles.sizeLabel}>Size:</span>
               <span className={styles.sizeBadge}>{product.size}</span>
             </div>
-          )}
+          ) : null}
           {product.demoMetrics && <p className={styles.viewers}><span className={styles.dot} /><span><strong>14</strong> people are viewing this right now</span><span className={styles.demo}>Demo</span></p>}
           {product.shippingScope === 'states' && product.deliveryStates && (
             <div style={{ fontSize: '0.84rem', color: '#0369a1', background: '#f0f9ff', border: '1px solid #bae6fd', padding: '0.45rem 0.75rem', borderRadius: '6px', margin: '0.6rem 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -239,9 +263,82 @@ export default function ProductPage() {
             <div><input id="delivery-pincode" placeholder="Enter Pincode" inputMode="numeric" pattern="[1-9][0-9]{5}" maxLength={6} required title="Enter a valid six-digit Indian pincode" value={pincode} onChange={event => { setPincode(event.target.value.replace(/\D/g, '')); setDeliveryMessage(''); }} /><button type="submit">Check</button></div>
             {deliveryMessage && <p role="status">{deliveryMessage}<a href={whatsappUrl(`Hello, please confirm delivery of ${product.title} to ${pincode}.`)} target="_blank" rel="noopener noreferrer">Contact nursery</a></p>}
           </form>
-          {variants.length ? <div className={styles.variants}><h2>Select options</h2>{variants.map(([variant, price]) => <div key={variant}><span>{variant}<small>Rs. {money(price)}</small></span><div className={styles.quantity}><button type="button" aria-label={`Decrease ${variant} quantity`} onClick={() => setVariantQtys(current => ({ ...current, [variant]: Math.max(0, (current[variant] || 0) - 1) }))}><FiMinus /></button><strong>{variantQtys[variant] || 0}</strong><button type="button" aria-label={`Increase ${variant} quantity`} onClick={() => setVariantQtys(current => ({ ...current, [variant]: (current[variant] || 0) + 1 }))}><FiPlus /></button></div></div>)}</div> : <div className={styles.quantityRow}><strong>Qty:</strong><div className={styles.quantity}><button type="button" aria-label="Decrease quantity" disabled={qty <= 1} onClick={() => setQty(current => Math.max(1, current - 1))}><FiMinus /></button><output aria-live="polite">{qty}</output><button type="button" aria-label="Increase quantity" onClick={() => setQty(current => current + 1)}><FiPlus /></button></div></div>}
+          {variants.length ? (
+            <div className={styles.variants}>
+              <div className={styles.variantsHeader}>
+                <h2 className={styles.variantsTitle}>Select Available Sizes</h2>
+                <span className={styles.variantsSubtitle}>You can choose multiple sizes for this product:</span>
+              </div>
+              <div className={styles.variantsList}>
+                {variants.map(([variant, val]) => {
+                  const price = typeof val === 'object' && val !== null ? val.price : val;
+                  const isAvailable = typeof val === 'object' && val !== null ? val.inStock !== false : true;
+                  const q = variantQtys[variant] || 0;
+                  return (
+                    <div
+                      key={variant}
+                      className={`${styles.variantCard} ${!isAvailable ? styles.variantCardSoldOut : q > 0 ? styles.variantCardSelected : ''}`}
+                    >
+                      <div className={styles.variantDetails}>
+                        <strong className={styles.variantName}>{variant}</strong>
+                        <span className={styles.variantPrice}>Rs. {money(price)}</span>
+                        {!isAvailable ? (
+                          <span className={styles.badgeSoldOut}>Sold Out</span>
+                        ) : (
+                          <span className={styles.badgeInStock}>● In Stock</span>
+                        )}
+                      </div>
+                      <div className={styles.quantity}>
+                        <button
+                          type="button"
+                          aria-label={`Decrease ${variant} quantity`}
+                          disabled={!isAvailable || q <= 0}
+                          onClick={() => setVariantQtys(current => ({ ...current, [variant]: Math.max(0, (current[variant] || 0) - 1) }))}
+                        >
+                          <FiMinus />
+                        </button>
+                        <strong className={q > 0 ? styles.activeQty : ''}>{q}</strong>
+                        <button
+                          type="button"
+                          aria-label={`Increase ${variant} quantity`}
+                          disabled={!isAvailable}
+                          onClick={() => setVariantQtys(current => ({ ...current, [variant]: (current[variant] || 0) + 1 }))}
+                        >
+                          <FiPlus />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div className={styles.quantityRow}>
+              <strong>Qty:</strong>
+              <div className={styles.quantity}>
+                <button type="button" aria-label="Decrease quantity" disabled={qty <= 1} onClick={() => setQty(current => Math.max(1, current - 1))}><FiMinus /></button>
+                <output aria-live="polite">{qty}</output>
+                <button type="button" aria-label="Increase quantity" onClick={() => setQty(current => current + 1)}><FiPlus /></button>
+              </div>
+            </div>
+          )}
           {purchaseError && <p role="alert" className={styles.error}>{purchaseError}</p>}
-          <div className={styles.buttons}><button type="button" disabled={!product.inStock} onClick={() => { if (addSelection()) showCartAfterAdd(); }}>{product.inStock ? 'Add to Cart' : 'Sold Out'}</button><button type="button" disabled={!product.inStock} onClick={() => { if (addSelection()) router.push('/checkout'); }}>Buy It Now</button></div>
+          <div className={styles.buttons}>
+            <button
+              type="button"
+              disabled={!product.inStock}
+              onClick={() => { if (addSelection()) showCartAfterAdd(); }}
+            >
+              {product.inStock ? (variants.length ? 'Add Selected to Cart' : 'Add to Cart') : 'Sold Out'}
+            </button>
+            <button
+              type="button"
+              disabled={!product.inStock}
+              onClick={() => { if (addSelection()) router.push('/checkout'); }}
+            >
+              Buy It Now
+            </button>
+          </div>
           <PaymentMethods />
           {highlights.length > 0 && <div className={styles.highlights}>{highlights.map(([text, Icon], index) => <div key={index}><Icon aria-hidden="true" /><span>{text}</span></div>)}</div>}
           <div className={styles.accordions}>

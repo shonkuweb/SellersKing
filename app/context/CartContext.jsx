@@ -61,6 +61,10 @@ export function CartProvider({ children }) {
   const addItem = (slug, qty = 1, variant = null) => {
     const product = products.find(product => product.slug === slug);
     if (!product || product.inStock === false || !Number.isInteger(qty) || qty < 1) return;
+    if (variant && product.adeniumOptions && product.adeniumOptions[variant]) {
+      const opt = product.adeniumOptions[variant];
+      if (typeof opt === 'object' && opt !== null && opt.inStock === false) return;
+    }
     setItems((prev) => {
       const found = prev.find((i) => i.slug === slug && i.variant === variant);
       if (found) {
@@ -104,7 +108,13 @@ export function CartProvider({ children }) {
           if (!product || product.inStock === false) return null;
           let price = product.price;
           if (item.variant && product.adeniumOptions && product.adeniumOptions[item.variant]) {
-            price = product.adeniumOptions[item.variant];
+            const opt = product.adeniumOptions[item.variant];
+            if (typeof opt === 'object' && opt !== null) {
+              if (opt.inStock === false) return null;
+              price = opt.price ?? product.price;
+            } else {
+              price = opt;
+            }
           }
           return { ...product, qty: item.qty, variant: item.variant, price };
         })

@@ -32,6 +32,7 @@ const blank = {
   price: "",
   oldPrice: "",
   size: "",
+  sizes: [],
   description: "",
   image: "",
   image2: "",
@@ -88,16 +89,39 @@ export default function InventoryPanel() {
   const openForm = product => {
     imageVersion.current++;
     let catIds = [];
+    let parsedSizes = [];
     if (product) {
       if (Array.isArray(product.categoryIds)) catIds = product.categoryIds;
       else if (typeof product.categoryIds === "string") {
         try { catIds = JSON.parse(product.categoryIds); } catch {}
       }
       if (!catIds.length && product.categoryId) catIds = [product.categoryId];
+
+      if (Array.isArray(product.sizes) && product.sizes.length > 0) {
+        parsedSizes = product.sizes.map((s, idx) => ({
+          id: s.id || String(idx + 1),
+          size: s.size || "",
+          price: s.price != null ? String(s.price) : "",
+          inStock: s.inStock !== false,
+        }));
+      } else if (product.adeniumOptions) {
+        try {
+          const opts = typeof product.adeniumOptions === "string" ? JSON.parse(product.adeniumOptions) : product.adeniumOptions;
+          if (opts && typeof opts === "object") {
+            parsedSizes = Object.entries(opts).map(([sz, val], idx) => ({
+              id: String(idx + 1),
+              size: sz,
+              price: typeof val === "object" && val !== null ? String(val.price || "") : String(val || ""),
+              inStock: typeof val === "object" && val !== null ? val.inStock !== false : true,
+            }));
+          }
+        } catch {}
+      }
     }
     setForm(product ? {
       ...blank,
       ...product,
+      sizes: parsedSizes,
       categoryIds: catIds,
       categoryId: product.categoryId || catIds[0] || "",
       shippingScope: product.shippingScope || (product.deliveryPincodes ? "pincodes" : "all_india"),
@@ -111,6 +135,36 @@ export default function InventoryPanel() {
       ...Object.fromEntries(["plantCare", "deliveryReturns", "deliveryNote", "replacementInfo", "deliveryInfo", "supportInfo", "packagingInfo", "soldLast24Hours"].map(key => [key, product[key] ?? ""]))
     } : { ...blank });
     setError(""); setNotice(""); setProcessing(false);
+  };
+
+  const handleAddSizeRow = () => {
+    setForm(current => {
+      const existing = current.sizes || [];
+      const newRow = {
+        id: String(Date.now() + Math.random()),
+        size: "",
+        price: current.price || "",
+        inStock: true,
+      };
+      return { ...current, sizes: [...existing, newRow] };
+    });
+  };
+
+  const handleRemoveSizeRow = (index) => {
+    setForm(current => {
+      const next = (current.sizes || []).filter((_, i) => i !== index);
+      return { ...current, sizes: next };
+    });
+  };
+
+  const handleSizeChange = (index, field, value) => {
+    setForm(current => {
+      const next = (current.sizes || []).map((item, i) => {
+        if (i !== index) return item;
+        return { ...item, [field]: value };
+      });
+      return { ...current, sizes: next };
+    });
   };
 
   const close = () => {
@@ -369,20 +423,113 @@ export default function InventoryPanel() {
               </div>
             </div>
 
-            <div style={{ marginBottom: 20 }}>
-              <label className={styles.label} htmlFor="product-size">Size (optional)</label>
-              <input
-                className={styles.nameInput}
-                id="product-size"
-                type="text"
-                maxLength={100}
-                value={form.size || ""}
-                onChange={event => change("size", event.target.value)}
-                placeholder="e.g. XL, 10, 500g, 12 inch, Free Size"
-              />
-              <p className={styles.hint} style={{ marginTop: -14, marginBottom: 0 }}>
-                Accepts both numbers and text (e.g. &quot;10&quot;, &quot;XL&quot;, &quot;500 ml&quot;, &quot;12 inch&quot;).
-              </p>
+            {/* Product Sizes & Multiple Variant Pricing */}
+            <div className={styles.sizeSectionContainer}>
+              <div className={styles.sizeSectionHeader}>
+                <div>
+                  <label className={styles.label} style={{ marginBottom: 2 }}>Product Sizes &amp; Pricing (Optional)</label>
+                  <p className={styles.hint} style={{ margin: 0 }}>
+                    Define multiple sizes (e.g. S, M, XL, 6 inch, 10 inch, 500g) with individual selling price and stock status.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className={styles.btnAddSize}
+                  onClick={handleAddSizeRow}
+                  title="Add a new size with custom price and stock"
+                >
+                  <FiPlus />
+                  <span>Add Size</span>
+                </button>
+              </div>
+
+              {form.sizes && form.sizes.length > 0 ? (
+                <div className={styles.sizesList}>
+                  {form.sizes.map((s, index) => (
+                    <div key={s.id || index} className={styles.sizeRow}>
+                      <div>
+                        <label className={styles.miniLabel}>Size / Dimension</label>
+                        <input
+                          type="text"
+                          className={styles.sizeInput}
+                          placeholder="e.g. XL, 10 inch, 500g"
+                          maxLength={100}
+                          value={s.size}
+                          onChange={(e) => handleSizeChange(index, 'size', e.target.value)}
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className={styles.miniLabel}>Price (₹)</label>
+                        <input
+                          type="number"
+                          className={styles.sizeInput}
+                          placeholder={form.price || "0.00"}
+                          min="0"
+                          max="10000000"
+                          step="0.01"
+                          value={s.price}
+                          onChange={(e) => handleSizeChange(index, 'price', e.target.value)}
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className={styles.miniLabel}>Stock Status</label>
+                        <select
+                          className={styles.sizeSelect}
+                          value={s.inStock ? "in_stock" : "sold_out"}
+                          onChange={(e) => handleSizeChange(index, 'inStock', e.target.value === "in_stock")}
+                        >
+                          <option value="in_stock">● In Stock</option>
+                          <option value="sold_out">✕ Sold Out</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <button
+                          type="button"
+                          className={styles.btnRemoveSize}
+                          onClick={() => handleRemoveSizeRow(index)}
+                          title="Remove this size"
+                          aria-label="Remove size"
+                        >
+                          <FiTrash2 />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.singleSizeBox}>
+                  <label className={styles.miniLabel} htmlFor="product-size">Single Size / Free Size (Optional)</label>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <input
+                      className={styles.nameInput}
+                      id="product-size"
+                      type="text"
+                      maxLength={100}
+                      value={form.size || ""}
+                      onChange={event => change("size", event.target.value)}
+                      placeholder="e.g. Free Size, 10, 500g, 12 inch"
+                      style={{ flex: 1, minWidth: '200px' }}
+                    />
+                    <button
+                      type="button"
+                      className={styles.btnAddSizeSecondary}
+                      onClick={handleAddSizeRow}
+                      title="Add multiple sizes with individual prices & stock"
+                    >
+                      <FiPlus />
+                      <span>+ Add Multiple Sizes</span>
+                    </button>
+                  </div>
+                  <p className={styles.hint} style={{ marginTop: 6, marginBottom: 0 }}>
+                    If this plant or product is available in multiple sizes (e.g. Small, Medium, Large) with individual prices or stock, click <strong>&quot;+ Add Multiple Sizes&quot;</strong>.
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Images */}
