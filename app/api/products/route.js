@@ -35,7 +35,10 @@ export async function GET(request) {
   try {
     const products = await prisma.product.findMany({
       where: admin ? {} : { isPublished: true, category: { is: { isVisible: true } } },
-      orderBy: { createdAt: 'desc' },
+      orderBy: [
+        { order: 'asc' },
+        { createdAt: 'asc' },
+      ],
     });
     return NextResponse.json(products.map(publicProduct));
   } catch {
@@ -135,8 +138,26 @@ async function save(request, update) {
       } catch {}
     }
 
+    let order = 0;
+    if (!update) {
+      if (typeof data.order === 'number' && Number.isFinite(data.order)) {
+        order = Math.floor(data.order);
+      } else {
+        const lastProduct = await prisma.product.findFirst({
+          orderBy: { order: 'desc' },
+          select: { order: true },
+        });
+        order = (lastProduct?.order ?? -1) + 1;
+      }
+    } else {
+      order = typeof data.order === 'number' && Number.isFinite(data.order)
+        ? Math.floor(data.order)
+        : (existing?.order ?? 0);
+    }
+
     const fields = {
       title,
+      order,
       categoryId: primaryCategoryId,
       categoryIds: JSON.stringify(categoryIds),
       shippingScope,

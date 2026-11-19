@@ -109,7 +109,10 @@ async function saveCategory(request, isUpdate) {
     const isVisibleInGrid = data.isVisibleInGrid !== undefined ? Boolean(data.isVisibleInGrid) : (isUpdate && categories[index].isVisibleInGrid !== undefined ? categories[index].isVisibleInGrid : true);
     const isVisibleInShopBy = data.isVisibleInShopBy !== undefined ? Boolean(data.isVisibleInShopBy) : (isUpdate && categories[index].isVisibleInShopBy !== undefined ? categories[index].isVisibleInShopBy : true);
     const isVisible = data.isVisible !== undefined ? Boolean(data.isVisible) : (isVisibleInNav || isVisibleInGrid || isVisibleInShopBy);
-    const order = typeof data.order === 'number' && Number.isFinite(data.order) ? Math.floor(data.order) : (isUpdate && categories[index].order !== undefined ? categories[index].order : 0);
+    const defaultNewOrder = categories.reduce((max, c) => Math.max(max, c.order ?? 0), -1) + 1;
+    const order = typeof data.order === 'number' && Number.isFinite(data.order)
+      ? Math.floor(data.order)
+      : (isUpdate && categories[index].order !== undefined ? categories[index].order : defaultNewOrder);
 
     const category = {
       ...(isUpdate ? categories[index] : {}),

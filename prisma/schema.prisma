@@ -20,6 +20,7 @@ model Product {
   slug           String  @unique
   title          String
   price          String
+  order          Int     @default(0)
   description    String?
   size           String?
   plantCare      String?
@@ -51,6 +52,7 @@ model Product {
   updatedAt      DateTime @updatedAt
 
   @@index([categoryId])
+  @@index([order])
 }
 
 model Category {

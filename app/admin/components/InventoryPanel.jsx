@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import imageCompression from "browser-image-compression";
 import {
+  FiArrowDown,
+  FiArrowUp,
   FiBox,
   FiCheck,
   FiEdit2,
@@ -16,6 +18,7 @@ import {
   FiUpload,
   FiX
 } from "react-icons/fi";
+import { MdDragIndicator } from "react-icons/md";
 import { useCategories } from "../../hooks/useCategories";
 import { buildCategoryTree, flattenCategoryTree } from "../../../lib/category-tree.mjs";
 import { INDIAN_STATES } from "../../../lib/indian-regions.mjs";
@@ -65,6 +68,10 @@ export default function InventoryPanel() {
   const [selectedCatFilter, setSelectedCatFilter] = useState("");
   const [stockFilter, setStockFilter] = useState("all"); // 'all' | 'in_stock' | 'sold_out'
   const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
+  const [draggedProdId, setDraggedProdId] = useState(null);
+  const [dragOverProdId, setDragOverProdId] = useState(null);
+  const [dropPosition, setDropPosition] = useState(null); // 'before' | 'after'
+  const [reordering, setReordering] = useState(false);
 
   const fileRef = useRef(null);
   const fileRef2 = useRef(null);
@@ -236,7 +243,7 @@ export default function InventoryPanel() {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Unable to save product.");
-      setProducts(current => form.id ? current.map(p => p.id === form.id ? data.product : p) : [data.product, ...current]);
+      setProducts(current => form.id ? current.map(p => p.id === form.id ? data.product : p) : [...current, data.product]);
       setNotice(form.id ? "Product updated." : "Product added.");
       close();
     } catch (err) {
@@ -299,6 +306,103 @@ export default function InventoryPanel() {
     const numOld = Number(oldPrice);
     if (!numPrice || !numOld || numOld <= numPrice) return null;
     return Math.round(((numOld - numPrice) / numOld) * 100);
+  };
+
+  const persistProductOrder = async (orderedList) => {
+    setReordering(true);
+    try {
+      const response = await fetch("/api/products/reorder", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productIds: orderedList.map(p => p.id) }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Unable to save product order.");
+      setNotice("Product positions updated successfully.");
+      setTimeout(() => setNotice(""), 3500);
+    } catch (err) {
+      setError(err.message || "Failed to save product order.");
+    } finally {
+      setReordering(false);
+    }
+  };
+
+  const reorderProducts = (sourceId, targetId, position = "before") => {
+    if (!sourceId || !targetId || sourceId === targetId) return;
+    setProducts(current => {
+      const fromIdx = current.findIndex(p => p.id === sourceId);
+      const toIdx = current.findIndex(p => p.id === targetId);
+      if (fromIdx === -1 || toIdx === -1) return current;
+
+      const updated = [...current];
+      const [moved] = updated.splice(fromIdx, 1);
+      const targetAfterSplice = updated.findIndex(c => c.id === targetId);
+      const insertIdx = position === "after" ? targetAfterSplice + 1 : targetAfterSplice;
+      updated.splice(Math.max(0, Math.min(insertIdx, updated.length)), 0, moved);
+
+      const withNewOrders = updated.map((prod, idx) => ({ ...prod, order: idx }));
+      persistProductOrder(withNewOrders);
+      return withNewOrders;
+    });
+  };
+
+  const moveProductByArrow = (product, direction) => {
+    const idx = products.findIndex(p => p.id === product.id);
+    const targetIdx = idx + direction;
+    if (targetIdx < 0 || targetIdx >= products.length) return;
+    const targetProd = products[targetIdx];
+    reorderProducts(product.id, targetProd.id, direction === -1 ? "before" : "after");
+  };
+
+  const handleDragStart = (e, prodId) => {
+    if (searchQuery.trim()) return;
+    setDraggedProdId(prodId);
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", prodId);
+  };
+
+  const handleDragOver = (e, prodId) => {
+    if (searchQuery.trim() || !draggedProdId || draggedProdId === prodId) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const isAfter = viewMode === "grid"
+      ? (e.clientX - rect.left) > rect.width / 2
+      : (e.clientY - rect.top) > rect.height / 2;
+    const pos = isAfter ? "after" : "before";
+
+    if (dragOverProdId !== prodId || dropPosition !== pos) {
+      setDragOverProdId(prodId);
+      setDropPosition(pos);
+    }
+  };
+
+  const handleDragLeave = (e, prodId) => {
+    if (dragOverProdId === prodId && !e.currentTarget.contains(e.relatedTarget)) {
+      setDragOverProdId(null);
+      setDropPosition(null);
+    }
+  };
+
+  const handleDrop = (e, targetProdId) => {
+    e.preventDefault();
+    if (!draggedProdId || draggedProdId === targetProdId) {
+      setDraggedProdId(null);
+      setDragOverProdId(null);
+      setDropPosition(null);
+      return;
+    }
+    reorderProducts(draggedProdId, targetProdId, dropPosition || "before");
+    setDraggedProdId(null);
+    setDragOverProdId(null);
+    setDropPosition(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedProdId(null);
+    setDragOverProdId(null);
+    setDropPosition(null);
   };
 
   const flattenedCategories = flattenCategoryTree(buildCategoryTree(categories));
@@ -838,6 +942,10 @@ export default function InventoryPanel() {
                 <option value="in_stock">In Stock ({inStockCount})</option>
                 <option value="sold_out">Sold Out ({soldOutCount})</option>
               </select>
+
+              <span className={invStyles.reorderHint}>
+                ✨ Drag &amp; drop to reorder
+              </span>
             </div>
 
             {/* View Mode Toggle: Grid vs List */}
@@ -901,11 +1009,37 @@ export default function InventoryPanel() {
                     : "🇮🇳 All India";
 
                 const discountPercent = getDiscountPercent(product.price, product.oldPrice);
+                const isDraggingThis = draggedProdId === product.id;
+                const isDropTarget = dragOverProdId === product.id;
 
                 return (
-                  <article className={invStyles.productCard} key={product.id} role="listitem">
+                  <article
+                    className={`${invStyles.productCard} ${
+                      isDraggingThis ? invStyles.productCardDragging : ""
+                    } ${
+                      isDropTarget && dropPosition === "before" ? invStyles.productCardDropBefore : ""
+                    } ${
+                      isDropTarget && dropPosition === "after" ? invStyles.productCardDropAfter : ""
+                    }`}
+                    key={product.id}
+                    role="listitem"
+                    draggable={!searchQuery.trim() && !saving && !processing}
+                    onDragStart={(e) => handleDragStart(e, product.id)}
+                    onDragOver={(e) => handleDragOver(e, product.id)}
+                    onDragLeave={(e) => handleDragLeave(e, product.id)}
+                    onDrop={(e) => handleDrop(e, product.id)}
+                    onDragEnd={handleDragEnd}
+                  >
                     {/* Card Photo Container */}
                     <div className={invStyles.cardImageWrap}>
+                      <div
+                        className={invStyles.cardDragHandle}
+                        title="Drag to reorder plant position"
+                        aria-label="Drag to reorder plant position"
+                      >
+                        <MdDragIndicator />
+                      </div>
+
                       {product.image ? (
                         <img src={product.image} alt={product.title} className={invStyles.cardImg} loading="lazy" />
                       ) : (
@@ -984,6 +1118,26 @@ export default function InventoryPanel() {
                       <div className={invStyles.actionBtns}>
                         <button
                           type="button"
+                          className={invStyles.btnActionMove}
+                          onClick={() => moveProductByArrow(product, -1)}
+                          disabled={products.findIndex(p => p.id === product.id) === 0 || saving || processing}
+                          title="Move plant up/earlier"
+                          aria-label={`Move ${product.title} up`}
+                        >
+                          <FiArrowUp />
+                        </button>
+                        <button
+                          type="button"
+                          className={invStyles.btnActionMove}
+                          onClick={() => moveProductByArrow(product, 1)}
+                          disabled={products.findIndex(p => p.id === product.id) === products.length - 1 || saving || processing}
+                          title="Move plant down/later"
+                          aria-label={`Move ${product.title} down`}
+                        >
+                          <FiArrowDown />
+                        </button>
+                        <button
+                          type="button"
                           className={invStyles.btnActionEdit}
                           aria-label={`Edit ${product.title}`}
                           disabled={saving || processing}
@@ -1015,6 +1169,7 @@ export default function InventoryPanel() {
               <table className={invStyles.listTable}>
                 <thead>
                   <tr>
+                    <th style={{ width: 36, textAlign: "center" }}></th>
                     <th>Plant</th>
                     <th>Categories</th>
                     <th>Price</th>
@@ -1034,8 +1189,35 @@ export default function InventoryPanel() {
                         ? "📮 Pincodes"
                         : "🇮🇳 All India";
 
+                    const isDraggingThis = draggedProdId === product.id;
+                    const isDropTarget = dragOverProdId === product.id;
+
                     return (
-                      <tr key={product.id}>
+                      <tr
+                        key={product.id}
+                        draggable={!searchQuery.trim() && !saving && !processing}
+                        onDragStart={(e) => handleDragStart(e, product.id)}
+                        onDragOver={(e) => handleDragOver(e, product.id)}
+                        onDragLeave={(e) => handleDragLeave(e, product.id)}
+                        onDrop={(e) => handleDrop(e, product.id)}
+                        onDragEnd={handleDragEnd}
+                        className={`${
+                          isDraggingThis ? invStyles.tableRowDragging : ""
+                        } ${
+                          isDropTarget && dropPosition === "before" ? invStyles.tableRowDropBefore : ""
+                        } ${
+                          isDropTarget && dropPosition === "after" ? invStyles.tableRowDropAfter : ""
+                        }`}
+                      >
+                        <td style={{ width: 36, textAlign: "center" }}>
+                          <div
+                            className={invStyles.tableDragHandle}
+                            title="Drag to reorder plant position"
+                            aria-label="Drag to reorder plant position"
+                          >
+                            <MdDragIndicator />
+                          </div>
+                        </td>
                         <td>
                           <div className={invStyles.tableTitleCol}>
                             <div className={invStyles.tableThumb}>
@@ -1101,7 +1283,27 @@ export default function InventoryPanel() {
                           <span className={invStyles.shippingPill}>{scopeLabel}</span>
                         </td>
                         <td style={{ textAlign: "right" }}>
-                          <div style={{ display: "inline-flex", gap: 6 }}>
+                          <div style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+                            <button
+                              type="button"
+                              className={invStyles.btnActionMove}
+                              onClick={() => moveProductByArrow(product, -1)}
+                              disabled={products.findIndex(p => p.id === product.id) === 0 || saving || processing}
+                              title="Move plant up/earlier"
+                              aria-label={`Move ${product.title} up`}
+                            >
+                              <FiArrowUp />
+                            </button>
+                            <button
+                              type="button"
+                              className={invStyles.btnActionMove}
+                              onClick={() => moveProductByArrow(product, 1)}
+                              disabled={products.findIndex(p => p.id === product.id) === products.length - 1 || saving || processing}
+                              title="Move plant down/later"
+                              aria-label={`Move ${product.title} down`}
+                            >
+                              <FiArrowDown />
+                            </button>
                             <button
                               type="button"
                               className={invStyles.btnActionEdit}

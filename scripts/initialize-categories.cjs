@@ -59,11 +59,35 @@ try {
         inStock: 'BOOLEAN NOT NULL DEFAULT true',
         isPublished: 'BOOLEAN NOT NULL DEFAULT false',
         image2: 'TEXT',
+        order: 'INTEGER NOT NULL DEFAULT 0',
       };
       for (const [column, definition] of Object.entries(additions)) {
         if (!productColumns.some(existing => existing.name === column)) db.exec(`ALTER TABLE Product ADD COLUMN "${column}" ${definition}`);
       }
       db.exec('CREATE INDEX IF NOT EXISTS "Product_categoryId_idx" ON "Product"("categoryId")');
+      db.exec('CREATE INDEX IF NOT EXISTS "Product_order_idx" ON "Product"("order")');
+
+      // Initialize sequential orders for categories if all are zero
+      try {
+        const catList = db.prepare('SELECT id, "order" FROM Category ORDER BY "order" ASC, name ASC').all();
+        if (catList.length > 1 && catList.every(c => c.order === 0)) {
+          const updateCat = db.prepare('UPDATE Category SET "order" = ? WHERE id = ?');
+          catList.forEach((c, idx) => updateCat.run(idx, c.id));
+        }
+      } catch {}
+
+      // Initialize sequential orders for products if all are zero
+      try {
+        const hasCreatedAt = productColumns.some(c => c.name === 'createdAt');
+        const orderQuery = hasCreatedAt
+          ? 'SELECT id, "order" FROM Product ORDER BY "order" ASC, createdAt ASC'
+          : 'SELECT id, "order" FROM Product ORDER BY "order" ASC';
+        const prodList = db.prepare(orderQuery).all();
+        if (prodList.length > 1 && prodList.every(p => p.order === 0)) {
+          const updateProd = db.prepare('UPDATE Product SET "order" = ? WHERE id = ?');
+          prodList.forEach((p, idx) => updateProd.run(idx, p.id));
+        }
+      } catch {}
       db.exec(`CREATE TABLE IF NOT EXISTS "ProductCategory" (
         "productId" TEXT NOT NULL,
         "categoryId" TEXT NOT NULL,

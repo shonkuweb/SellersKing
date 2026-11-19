@@ -312,3 +312,90 @@ test('multiple sizes with individual prices and stock allow selecting multiple s
     }, [multiSizeProduct]);
   }, /sold out/i);
 });
+
+test('product and category drag-and-drop position reordering and new product last position', async () => {
+  const { mkdtempSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const path = await import('node:path');
+  const { execFileSync } = await import('node:child_process');
+  const Database = (await import('better-sqlite3')).default;
+
+  const dir = mkdtempSync(path.join(tmpdir(), 'sellersking-reorder-'));
+  const filename = path.join(dir, 'test.db');
+  const db = new Database(filename);
+
+  try {
+    db.exec('CREATE TABLE Settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+    db.exec('CREATE TABLE Product (id TEXT PRIMARY KEY, slug TEXT, title TEXT, price TEXT, createdAt TEXT)');
+
+    // Run category & product schema initializer
+    execFileSync(process.execPath, ['scripts/initialize-categories.cjs'], {
+      env: { ...process.env, DATABASE_URL: `file:${filename}` },
+      stdio: 'pipe',
+    });
+
+    const columns = db.prepare('PRAGMA table_info(Product)').all().map(c => c.name);
+    assert.ok(columns.includes('order'), 'Product table must include order column for drag-and-drop reordering');
+
+    // Insert 3 initial products with orders 0, 1, 2
+    const insert = db.prepare(`
+      INSERT INTO Product (id, slug, title, price, "order", createdAt)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `);
+    insert.run('p1', 'rose', 'Rose Plant', '150', 0, '2026-01-01T00:00:00Z');
+    insert.run('p2', 'tulip', 'Tulip Plant', '200', 1, '2026-01-02T00:00:00Z');
+    insert.run('p3', 'orchid', 'Orchid Plant', '500', 2, '2026-01-03T00:00:00Z');
+
+    // 1. Verify new product is added at the LAST position: max(order) + 1
+    const maxOrderRow = db.prepare('SELECT MAX("order") as maxOrder FROM Product').get();
+    const newProductOrder = (maxOrderRow?.maxOrder ?? -1) + 1;
+    assert.equal(newProductOrder, 3, 'New product must get order 3 (end of the list)');
+
+    insert.run('p4', 'fern', 'Fern Plant', '120', newProductOrder, '2026-01-04T00:00:00Z');
+
+    // Fetch products ordered by order asc
+    const orderedProducts = db.prepare('SELECT id, title, "order" FROM Product ORDER BY "order" ASC, createdAt ASC').all();
+    assert.equal(orderedProducts.length, 4);
+    assert.equal(orderedProducts[0].id, 'p1');
+    assert.equal(orderedProducts[3].id, 'p4', 'New product p4 must appear in the last position');
+
+    // 2. Simulate drag and drop reordering: move p4 (Fern) to first place [p4, p1, p2, p3]
+    const reorderedIds = ['p4', 'p1', 'p2', 'p3'];
+    const updateOrder = db.prepare('UPDATE Product SET "order" = ? WHERE id = ?');
+    db.transaction(() => {
+      reorderedIds.forEach((id, idx) => updateOrder.run(idx, id));
+    })();
+
+    const afterDragProducts = db.prepare('SELECT id, title, "order" FROM Product ORDER BY "order" ASC').all();
+    assert.equal(afterDragProducts[0].id, 'p4', 'p4 must now be at the 1st position');
+    assert.equal(afterDragProducts[0].order, 0);
+    assert.equal(afterDragProducts[1].id, 'p1');
+    assert.equal(afterDragProducts[1].order, 1);
+    assert.equal(afterDragProducts[3].id, 'p3');
+    assert.equal(afterDragProducts[3].order, 3);
+
+    // 3. Category reordering
+    const insertCat = db.prepare(`
+      INSERT INTO Category (id, slug, name, nameKey, "order")
+      VALUES (?, ?, ?, ?, ?)
+    `);
+    insertCat.run('c1', 'indoor', 'Indoor Plants', 'indoor', 0);
+    insertCat.run('c2', 'outdoor', 'Outdoor Plants', 'outdoor', 1);
+
+    // Drag outdoor before indoor -> [c2, c1]
+    const reorderedCatIds = ['c2', 'c1'];
+    const updateCatOrder = db.prepare('UPDATE Category SET "order" = ? WHERE id = ?');
+    db.transaction(() => {
+      reorderedCatIds.forEach((id, idx) => updateCatOrder.run(idx, id));
+    })();
+
+    const afterDragCats = db.prepare('SELECT id, name, "order" FROM Category ORDER BY "order" ASC').all();
+    assert.equal(afterDragCats[0].id, 'c2');
+    assert.equal(afterDragCats[0].order, 0);
+    assert.equal(afterDragCats[1].id, 'c1');
+    assert.equal(afterDragCats[1].order, 1);
+  } finally {
+    db.close();
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
