@@ -118,5 +118,5 @@ export default function VideoReels() {
     return () => { active = false; controller?.abort(); channel?.close(); window.removeEventListener('focus', refresh); document.removeEventListener('visibilitychange', onVisible); };
   }, []);
   if (!settings?.enabled || !settings.videos?.length) return null;
-  return <section className={styles.section} aria-labelledby="video-section-title"><h2 id="video-section-title">{settings.title}</h2><div className={styles.track} tabIndex={0} aria-label="Plant videos, scroll horizontally">{settings.videos.map(video => <VideoCard key={`${video.id}-${video.url}`} video={video} activeId={activeId} activate={setActiveId} />)}</div></section>;
+  return <section className={styles.section} aria-labelledby="video-section-title"><h2 id="video-section-title">{settings.title}</h2><div className={styles.track} tabIndex={0} aria-label="Product videos, scroll horizontally">{settings.videos.map(video => <VideoCard key={`${video.id}-${video.url}`} video={video} activeId={activeId} activate={setActiveId} />)}</div></section>;
 }

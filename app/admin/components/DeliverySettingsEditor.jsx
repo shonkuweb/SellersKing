@@ -84,7 +84,7 @@ export default function DeliverySettingsEditor({ onSavingChange }) {
   return (
     <div className={styles.workspace}>
       <p className={styles.hint}>
-        Set your nursery delivery fee and free shipping conditions. These rules automatically apply to all cart totals, checkout orders, and customer announcements.
+        Set your store delivery fee and free shipping conditions. These rules automatically apply to all cart totals, checkout orders, and customer announcements.
       </p>
 
       <form className={styles.editor} onSubmit={save} aria-label="Delivery settings">

@@ -11,8 +11,8 @@ const req = http.request({
   res.on('end', () => console.log(res.statusCode, body));
 });
 req.write(JSON.stringify({
-  slug: 'new-plant',
-  title: 'New Plant',
+  slug: 'new-product',
+  title: 'New Product',
   price: '200'
 }));
 req.end();

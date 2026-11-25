@@ -327,7 +327,7 @@ export default function NavbarSettingsEditor({ onSavingChange }) {
 
   // Permanently delete product from store
   const handleDeleteProduct = async (prod) => {
-    if (!window.confirm(`Permanently delete "${prod.title}" from nursery inventory?`)) return;
+    if (!window.confirm(`Permanently delete "${prod.title}" from store inventory?`)) return;
     try {
       const res = await fetch(`/api/products?id=${prod.id}`, { method: "DELETE" });
       if (!res.ok) {
@@ -440,7 +440,7 @@ export default function NavbarSettingsEditor({ onSavingChange }) {
 
               <div className={styles.formGrid}>
                 <div className={styles.field}>
-                  <label>Button Label (e.g. Indoor Plants, Summer Specials)</label>
+                  <label>Button Label (e.g. Electronics, Trending Deals)</label>
                   <input
                     type="text"
                     required

@@ -195,7 +195,7 @@ export default function CheckoutPage() {
                     <DiscountNudgeBanner subtotal={subtotal} />
                   </div>
                 )}
-                {!items.length ? <p className={styles.empty}>Your cart is empty. <Link href="/">Browse plants</Link></p> : items.map(item => <div className={styles.line} key={JSON.stringify([item.slug, item.variant, item.color])}>{item.image && <img src={item.image} alt="" />}<div><strong>{item.title}</strong><span>{item.variant ? `Size: ${item.variant} · ` : ''}{item.color ? `Color: ${item.color} · ` : ''}Qty: {item.qty}</span></div><strong>₹{money(Math.round(Number(item.price) * 100) * item.qty)}</strong></div>)}
+                {!items.length ? <p className={styles.empty}>Your cart is empty. <Link href="/">Browse products</Link></p> : items.map(item => <div className={styles.line} key={JSON.stringify([item.slug, item.variant, item.color])}>{item.image && <img src={item.image} alt="" />}<div><strong>{item.title}</strong><span>{item.variant ? `Size: ${item.variant} · ` : ''}{item.color ? `Color: ${item.color} · ` : ''}Qty: {item.qty}</span></div><strong>₹{money(Math.round(Number(item.price) * 100) * item.qty)}</strong></div>)}
                 {/* Affiliate Coupon Input */}
                 <div className={styles.couponSection}>
                   <div className={styles.couponInputRow}>

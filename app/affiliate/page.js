@@ -216,7 +216,7 @@ export default function AffiliatePage() {
 
     const affiliateLink = typeof window !== "undefined" && account.couponCode
       ? `${window.location.origin}/collection?ref=${account.couponCode}`
-      : `https://sabujkuthi.in/collection?ref=${account.couponCode || ""}`;
+      : `https://sellersking.com/collection?ref=${account.couponCode || ""}`;
 
     return (
       <div className={styles.dashboardContainer}>
@@ -268,7 +268,7 @@ export default function AffiliatePage() {
             <div className={styles.bannedContent}>
               <h3 className={styles.bannedTitle}>Affiliate Account Suspended</h3>
               <p className={styles.bannedReason}>
-                {account.banMessage || "Your affiliate account has been suspended by administration. Please contact nursery support if you have questions."}
+                {account.banMessage || "Your affiliate account has been suspended by administration. Please contact customer support if you have questions."}
               </p>
               <div className={styles.bannedSupportRow}>
                 <span>Need assistance? Contact our team on WhatsApp: </span>
@@ -439,7 +439,7 @@ export default function AffiliatePage() {
                 <div className={styles.kpiDetails}>
                   <span className={styles.kpiLabel}>Products Sold</span>
                   <span className={styles.kpiValue}>{account.stats?.productsSold || 0}</span>
-                  <span className={styles.kpiSub}>Plants & fertilizers</span>
+                  <span className={styles.kpiSub}>Products & items</span>
                 </div>
               </div>
 
@@ -488,8 +488,8 @@ export default function AffiliatePage() {
                               {prog.scopeType === "category"
                                 ? "Category Special"
                                 : prog.scopeType === "products"
-                                ? "Selected Plants"
-                                : "All Nursery Plants"}
+                                ? "Selected Products"
+                                : "All Store Products"}
                             </span>
                             {prog.minOrderValue > 0 && (
                               <span className={styles.eligibilityMiniTag}>
@@ -571,11 +571,11 @@ export default function AffiliatePage() {
       {/* Hero Intro */}
       <div className={styles.hero}>
         <div className={styles.heroBadge}>
-          <FiAward /> <span>Sellers King Info Tech Creator & Affiliate Hub</span>
+          <FiAward /> <span>SellersKing Creator & Affiliate Hub</span>
         </div>
-        <h1 className={styles.heroTitle}>Partner with Bengal&apos;s Premier Plant Nursery</h1>
+        <h1 className={styles.heroTitle}>Partner with SellersKing Affiliate Programme</h1>
         <p className={styles.heroSubtitle}>
-          Monetize your gardening passion. Share genuine plant care, exotic adeniums & organic fertilizers with your audience while earning attractive commissions.
+          Monetize your content and audience. Share genuine product reviews, trending gadgets & lifestyle deals with your followers while earning attractive commissions.
         </p>
       </div>
 
@@ -798,13 +798,13 @@ export default function AffiliatePage() {
                 <div className={styles.formGroup}>
                   <label htmlFor="affiliate-message">
                     Short Message / Creator Bio
-                    <span className={styles.labelHint}>(Tell us about your audience, favorite plants, or gardening niche)</span>
+                    <span className={styles.labelHint}>(Tell us about your audience, favorite products, or promotional niche)</span>
                   </label>
                   <div className={styles.textareaWrapper}>
                     <textarea
                       id="affiliate-message"
                       rows={3}
-                      placeholder="Hi! I share balcony gardening and adenium care videos with 25k plant enthusiasts in Bengal..."
+                      placeholder="Hi! I share product reviews, tech unboxing, and lifestyle deals with my followers..."
                       value={applyForm.message}
                       onChange={(e) => setApplyForm({ ...applyForm, message: e.target.value })}
                       className={styles.textarea}

@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { FaLeaf } from "react-icons/fa";
-import { FiChevronRight, FiPackage } from "react-icons/fi";
+import { FiChevronRight, FiPackage, FiShoppingBag } from "react-icons/fi";
 import ProductCard from "../components/ProductCard";
 import { useCart } from "../context/CartContext";
 import { useStoreSettings } from "../context/StoreSettingsContext";
@@ -17,7 +16,7 @@ export default function NewCollectionPage() {
     return (
       navbarSettings?.items?.find((i) => i.id === "new-collection") || {
         label: "New Collection",
-        description: "Fresh arrivals, exotic varieties, and newly potted nursery selections.",
+        description: "Fresh arrivals, trending products, and newly added store collections.",
         productIds: [],
       }
     );
@@ -48,13 +47,13 @@ export default function NewCollectionPage() {
         {/* Hero Banner */}
         <header className={styles.hero}>
           <div className={styles.badge}>
-            <FaLeaf aria-hidden="true" />
+            <FiShoppingBag aria-hidden="true" />
             <span>Latest Arrivals</span>
           </div>
           <h1 className={styles.title}>{config.label || "New Collection"}</h1>
           <p className={styles.description}>
             {config.description ||
-              "Discover our newest botanical additions, rare graftings, and fresh nursery arrivals."}
+              "Discover our newest additions, trending products, and fresh arrivals."}
           </p>
         </header>
 
@@ -76,7 +75,7 @@ export default function NewCollectionPage() {
           <div className={styles.empty}>
             <FiPackage style={{ width: 44, height: 44, color: "#8da595" }} />
             <h3>No Products Available</h3>
-            <p>New botanical arrivals will be listed soon. In the meantime, browse our main catalogue.</p>
+            <p>New arrivals will be listed soon. In the meantime, browse our main catalogue.</p>
             <Link href="/collection" className={styles.ctaBtn}>
               Browse All Categories
             </Link>

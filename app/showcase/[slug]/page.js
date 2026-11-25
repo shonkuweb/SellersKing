@@ -2,8 +2,7 @@
 
 import { use, useMemo } from "react";
 import Link from "next/link";
-import { FaLeaf } from "react-icons/fa";
-import { FiChevronRight, FiPackage } from "react-icons/fi";
+import { FiChevronRight, FiPackage, FiShoppingBag } from "react-icons/fi";
 import ProductCard from "../../components/ProductCard";
 import { useCart } from "../../context/CartContext";
 import { useStoreSettings } from "../../context/StoreSettingsContext";
@@ -28,7 +27,7 @@ export default function ShowcasePage({ params }) {
     return {
       id: slug,
       label: formattedTitle || "Collection Showcase",
-      description: "Explore our specially curated nursery selections, fresh saplings, and essentials.",
+      description: "Explore our specially curated product selections, trending items, and essentials.",
       productIds: [],
     };
   }, [navbarSettings, slug]);
@@ -56,13 +55,13 @@ export default function ShowcasePage({ params }) {
         {/* Hero Banner */}
         <header className={styles.hero}>
           <div className={styles.badge}>
-            <FaLeaf aria-hidden="true" />
-            <span>Nursery Showcase</span>
+            <FiShoppingBag aria-hidden="true" />
+            <span>Featured Showcase</span>
           </div>
           <h1 className={styles.title}>{config.label}</h1>
           <p className={styles.description}>
             {config.description ||
-              "Explore our handpicked collection of plants, saplings, organic fertilizers, and garden accessories."}
+              "Explore our handpicked collection of trending products, electronics, and lifestyle essentials."}
           </p>
         </header>
 
@@ -84,7 +83,7 @@ export default function ShowcasePage({ params }) {
           <div className={styles.empty}>
             <FiPackage style={{ width: 44, height: 44, color: "#8da595" }} />
             <h3>No Products in this Showcase Yet</h3>
-            <p>Products are being added to this showcase. Explore our complete nursery inventory below.</p>
+            <p>Products are being added to this showcase. Explore our complete store inventory below.</p>
             <Link href="/collection" className={styles.ctaBtn}>
               Browse All Categories
             </Link>

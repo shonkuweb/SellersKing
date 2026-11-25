@@ -19,8 +19,8 @@ import styles from "./BlogsPanel.module.css";
 const blankBlog = {
   title: "",
   slug: "",
-  category: "Plant Care",
-  author: "Sellers King Info Tech",
+  category: "Shopping Guides",
+  author: "SellersKing",
   excerpt: "",
   content: "",
   coverImage: "",
@@ -28,12 +28,12 @@ const blankBlog = {
 };
 
 const CATEGORIES = [
-  "Plant Care",
-  "Fertilizers",
-  "Gardening Tips",
-  "Adenium Care",
-  "Nursery Updates",
-  "Indoor Plants",
+  "Shopping Guides",
+  "Product Reviews",
+  "Buying Tips",
+  "Deals & Offers",
+  "Store Updates",
+  "Customer Guides",
 ];
 
 export default function BlogsPanel({ active }) {
@@ -354,7 +354,7 @@ export default function BlogsPanel({ active }) {
                   id="blog-title"
                   type="text"
                   required
-                  placeholder="e.g. Complete Guide to Adenium Desert Rose Care"
+                  placeholder="e.g. Complete Buying Guide: Top 10 Trending Products"
                   value={form.title}
                   onChange={(e) => handleTitleChange(e.target.value)}
                   className={styles.input}
@@ -396,7 +396,7 @@ export default function BlogsPanel({ active }) {
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
                   className={styles.input}
-                  placeholder="adenium-care-guide"
+                  placeholder="buying-guide-trending-products"
                 />
                 <span className={styles.hint}>Public link: /blog/{form.slug || "slug"}</span>
               </div>

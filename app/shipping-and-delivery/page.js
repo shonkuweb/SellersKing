@@ -32,7 +32,7 @@ export default function ShippingAndDeliveryPage() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>1. Shipping Coverage & Logistics Partners</h2>
           <p className={styles.sectionContent}>
-            <strong>{business.name}</strong> delivers across India covering over 19,000+ serviceable postal codes. To ensure safe, rapid, and temperature-conscious transit of our products (including live nursery specimens and fragile goods), we partner exclusively with verified national express couriers, including <strong>Delhivery Express, Blue Dart, DTDC, and India Post Speed Post</strong>.
+            <strong>{business.name}</strong> delivers across India covering over 19,000+ serviceable postal codes. To ensure safe and rapid transit of our products, we partner exclusively with verified national express couriers, including <strong>Delhivery Express, Blue Dart, DTDC, and India Post Speed Post</strong>.
           </p>
         </section>
 
@@ -63,10 +63,10 @@ export default function ShippingAndDeliveryPage() {
           </p>
           <ul className={styles.list}>
             <li>
-              <strong>Order Processing:</strong> Confirmed orders are queued for plant root inspection, hydration balancing, and protective packing within <strong>24 to 48 hours (1 to 2 business days)</strong>.
+              <strong>Order Processing:</strong> Confirmed orders are queued for quality inspection and protective packing within <strong>24 to 48 hours (1 to 2 business days)</strong>.
             </li>
             <li>
-              <strong>Dispatch Schedule:</strong> Orders are dispatched Monday through Saturday. To prevent live botanical specimens from remaining in transit hubs over extended Sunday closures, outstation live plant orders received over the late weekend may be dispatched on Monday morning.
+              <strong>Dispatch Schedule:</strong> Orders are dispatched Monday through Saturday. Tracking numbers are generated and shared as soon as packages are handed over to our courier partners.
             </li>
           </ul>
         </section>
@@ -87,13 +87,13 @@ export default function ShippingAndDeliveryPage() {
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>5. Specialized Transit Packaging</h2>
+          <h2 className={styles.sectionTitle}>5. Secure Transit Packaging</h2>
           <p className={styles.sectionContent}>
-            We pride ourselves on our zero-damage packaging protocol:
+            We pride ourselves on our zero-damage protective packaging protocol:
           </p>
           <ul className={styles.list}>
-            <li><strong>Live Plants:</strong> Root balls are securely wrapped with breathable moisture barriers to prevent dehydration. Heavy-duty, honeycomb-reinforced corrugated cartons with ventilation ports shield foliage from compression.</li>
-            <li><strong>Fragile & Tech Items:</strong> Protected with multi-layered shock-absorbing bubble cushioning, waterproof poly outer wrap, and fragile warning markings.</li>
+            <li><strong>Shockproof Cushioning:</strong> All items are packaged in multi-layered, shock-absorbing bubble cushioning, corrugated outer cartons, and waterproof security tape to withstand transit handling.</li>
+            <li><strong>Electronics & Fragile Items:</strong> Specially reinforced with corner foam protectors, anti-static barriers, and tamper-evident fragile security labels.</li>
           </ul>
         </section>
 

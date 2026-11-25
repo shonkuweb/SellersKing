@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
     if (!product) {
       return {
         title: "Product Not Found",
-        description: `Explore plants at ${business.name}.`
+        description: `Explore products at ${business.name}.`
       };
     }
 
@@ -26,11 +26,11 @@ export async function generateMetadata({ params }) {
       keywords: [
         product.title,
         `buy ${product.title} online`,
-        `${product.title} wholesale nursery`,
         `${product.title} price`,
+        `${product.title} best deals`,
         business.name,
-        "nursery plant",
-        `${business.locality} plant nursery`
+        "online shopping",
+        "ecommerce store"
       ],
       alternates: {
         canonical: `${siteUrl}/product/${slug}`
@@ -52,8 +52,8 @@ export async function generateMetadata({ params }) {
     };
   } catch (error) {
     return {
-      title: "Plants",
-      description: `Shop plants from ${business.name}, ${business.address}.`
+      title: "Products",
+      description: `Shop products from ${business.name}, ${business.address}.`
     };
   }
 }

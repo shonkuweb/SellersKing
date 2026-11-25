@@ -54,7 +54,7 @@ export default function TermsAndConditionsPage() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>3. Product Information, Pricing & Availability</h2>
           <p className={styles.sectionContent}>
-            We make every reasonable effort to ensure that product descriptions, catalog imagery, dimensions, size options, and colors are displayed accurately on our site. However, natural products such as live plants and botanical specimens will inherently vary in foliage, shape, tone, and maturity.
+            We make every reasonable effort to ensure that product descriptions, catalog imagery, dimensions, size options, and colors are displayed accurately on our site. Actual product packaging, colors, and finishes may slightly vary depending on screen display settings, lighting, or manufacturer revisions.
           </p>
           <p className={styles.sectionContent}>
             All prices listed on our platform are denominated in <strong>Indian Rupees (INR ₹)</strong> and are inclusive of applicable taxes unless stated otherwise. We reserve the right to revise catalog prices, promotional discounts, and availability at any time without prior notice. In the event of an inadvertent technical pricing discrepancy, we will contact you before dispatch or cancel the order with a full refund.
@@ -91,7 +91,7 @@ export default function TermsAndConditionsPage() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>7. Limitation of Liability</h2>
           <p className={styles.sectionContent}>
-            In no event shall {business.name}, its directors, employees, or partners be liable for any indirect, incidental, punitive, or consequential damages resulting from the use of our products, courier delays beyond reasonable control, natural climatic variations affecting botanical specimens, or temporary website downtime. Our maximum cumulative liability for any verified claim shall not exceed the amount actually paid by you for the specific order in dispute.
+            In no event shall {business.name}, its directors, employees, or partners be liable for any indirect, incidental, punitive, or consequential damages resulting from the use of our products, courier delivery delays beyond reasonable control, or temporary website maintenance downtime. Our maximum cumulative liability for any verified claim shall not exceed the amount actually paid by you for the specific order in dispute.
           </p>
         </section>
 

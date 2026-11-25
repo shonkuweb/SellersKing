@@ -161,7 +161,7 @@ export async function POST(request) {
     const token = await createAffiliateSession(account);
     const response = NextResponse.json({
       success: true,
-      message: 'Application submitted successfully! Our nursery team will review your profile shortly.',
+      message: 'Application submitted successfully! Our team will review your profile shortly.',
       account: {
         id: account.id,
         name: account.name,

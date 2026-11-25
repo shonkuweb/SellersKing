@@ -20,5 +20,5 @@ test('the invoice renderer creates a PDF from the original order snapshot',async
 });
 test('existing fulfilment statuses map to the new five-step progress bar',()=>{
  assert.equal(orderStageIndex('New'),0);assert.equal(orderStageIndex('Processing'),1);assert.equal(orderStageIndex('Shipped'),3);
- assert.equal(orderStages[orderStageIndex('Packaging')].badge,'Botanical Packaging');assert.equal(orderStageIndex('Delivered'),4);
+ assert.equal(orderStages[orderStageIndex('Packaging')].badge,'Protective Packaging');assert.equal(orderStageIndex('Delivered'),4);
 });

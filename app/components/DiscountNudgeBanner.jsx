@@ -48,7 +48,7 @@ export default function DiscountNudgeBanner({ subtotal, onCtaClick }) {
       </div>
 
       <p className={styles.nudgeMessage}>
-        Add just <strong>₹{status.remainingAmount.toLocaleString("en-IN")}</strong> more plants to get{" "}
+        Add just <strong>₹{status.remainingAmount.toLocaleString("en-IN")}</strong> more items to get{" "}
         <strong className={styles.highlight}>{status.discountLabel}</strong> on your order!
       </p>
 
@@ -64,7 +64,7 @@ export default function DiscountNudgeBanner({ subtotal, onCtaClick }) {
           className={styles.ctaButton}
           onClick={onCtaClick}
         >
-          <span>{status.bannerCtaText || "Add More Plants"}</span>
+          <span>{status.bannerCtaText || "Add More Items"}</span>
           <span aria-hidden="true">→</span>
         </Link>
       </div>

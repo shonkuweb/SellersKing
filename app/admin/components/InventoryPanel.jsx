@@ -311,7 +311,7 @@ export default function InventoryPanel() {
   const save = async event => {
     event.preventDefault();
     if (!form.categoryIds?.length && !form.categoryId) {
-      setError("Please select at least one category for this plant.");
+      setError("Please select at least one category for this product.");
       return;
     }
     setSaving(true);
@@ -518,7 +518,7 @@ export default function InventoryPanel() {
   return (
     <div className={styles.workspace}>
       <div className={styles.toolbar}>
-        <p>Manage the plants and products displayed in your store.</p>
+        <p>Manage the products and inventory displayed in your store.</p>
         <button
           type="button"
           className={styles.primary}
@@ -556,7 +556,7 @@ export default function InventoryPanel() {
               value={form.title}
               maxLength={120}
               required
-              placeholder="e.g. Adenium Desert Rose, Alphonso Mango Plant"
+              placeholder="e.g. Wireless Noise Cancelling Headphones, Casual Cotton Shirt"
               onChange={event => change("title", event.target.value)}
             />
 
@@ -735,7 +735,7 @@ export default function InventoryPanel() {
                     </button>
                   </div>
                   <p className={styles.hint} style={{ marginTop: 6, marginBottom: 0 }}>
-                    If this plant or product is available in multiple sizes (e.g. Small, Medium, Large) with individual prices or stock, click <strong>&quot;+ Add Multiple Sizes&quot;</strong>.
+                    If this product is available in multiple sizes (e.g. Small, Medium, Large) with individual prices or stock, click <strong>&quot;+ Add Multiple Sizes&quot;</strong>.
                   </p>
                 </div>
               )}
@@ -1029,7 +1029,7 @@ export default function InventoryPanel() {
             {form.shippingScope === "states" && (
               <div className={invStyles.statesPickerBox}>
                 <span className={styles.label} style={{ marginBottom: 4 }}>Select Allowed States / Territories</span>
-                <p className={styles.hint} style={{ margin: "0 0 10px" }}>Only customers shipping to selected states will be permitted to checkout this plant.</p>
+                <p className={styles.hint} style={{ margin: "0 0 10px" }}>Only customers shipping to selected states will be permitted to checkout this product.</p>
                 <div className={invStyles.statesGrid}>
                   {INDIAN_STATES.map(stateName => {
                     const currentSelected = (form.deliveryStates || "").split(",").map(s => s.trim()).filter(Boolean);
@@ -1065,16 +1065,16 @@ export default function InventoryPanel() {
                   placeholder="e.g. 700001, 721253, 700091"
                   onChange={event => change("deliveryPincodes", event.target.value)}
                 />
-                <p className={styles.hint}>Separate multiple pincodes with commas. Customers outside these pincodes cannot place an order for this plant.</p>
+                <p className={styles.hint}>Separate multiple pincodes with commas. Customers outside these pincodes cannot place an order for this product.</p>
               </div>
             )}
 
             <label className={styles.label} htmlFor="product-description">Description (optional)</label>
-            <textarea className={styles.nameInput} id="product-description" rows={4} maxLength={10000} value={form.description || ""} onChange={event => change("description", event.target.value)} placeholder="Tell customers about this plant" />
+            <textarea className={styles.nameInput} id="product-description" rows={4} maxLength={10000} value={form.description || ""} onChange={event => change("description", event.target.value)} placeholder="Tell customers about this product" />
 
             <h3 className={styles.fieldHeading}>Product information</h3>
             {[
-              ["plantCare", "Plant Care Tips", "Watering, sunlight, soil and other care instructions"],
+              ["plantCare", "Specifications & Details", "Dimensions, material, technical specifications and care instructions"],
               ["deliveryReturns", "Delivery & Returns", "Delivery times and the return policy for this product"],
             ].map(([key, label, placeholder]) => (
               <div key={key}>
@@ -1086,10 +1086,10 @@ export default function InventoryPanel() {
             <h3 className={styles.fieldHeading}>Highlights below purchase buttons</h3>
             <div className={styles.formColumns}>
               {[
-                ["replacementInfo", "Replacement", "e.g. 7-day live plant guarantee"],
+                ["replacementInfo", "Replacement", "e.g. 7-day replacement guarantee"],
                 ["deliveryInfo", "Delivery", "e.g. Ships across India in 3-5 days"],
-                ["supportInfo", "Guidance", "e.g. Lifetime WhatsApp gardening advice"],
-                ["packagingInfo", "Packaging", "e.g. 5-layer corrugated ventilated box"],
+                ["supportInfo", "Support", "e.g. Dedicated WhatsApp customer support"],
+                ["packagingInfo", "Packaging", "e.g. 5-layer shockproof protective carton"],
               ].map(([key, label, placeholder]) => (
                 <div key={key}>
                   <label className={styles.label} htmlFor={`product-${key}`}>{label}</label>
@@ -1160,7 +1160,7 @@ export default function InventoryPanel() {
                 <FiSearch aria-hidden="true" />
                 <input
                   type="search"
-                  placeholder="Search plants or categories…"
+                  placeholder="Search products or categories…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   aria-label="Search products"
@@ -1240,7 +1240,7 @@ export default function InventoryPanel() {
               </span>
               <h3>No products found</h3>
               <p>
-                No plants match your search criteria. Try modifying your search or clearing the active filters.
+                No products match your search criteria. Try modifying your search or clearing the active filters.
               </p>
               <button
                 type="button"
@@ -1295,8 +1295,8 @@ export default function InventoryPanel() {
                     <div className={invStyles.cardImageWrap}>
                       <div
                         className={invStyles.cardDragHandle}
-                        title="Drag to reorder plant position"
-                        aria-label="Drag to reorder plant position"
+                        title="Drag to reorder product position"
+                        aria-label="Drag to reorder product position"
                       >
                         <MdDragIndicator />
                       </div>
@@ -1397,7 +1397,7 @@ export default function InventoryPanel() {
                           className={invStyles.btnActionMove}
                           onClick={() => moveProductByArrow(product, -1)}
                           disabled={products.findIndex(p => p.id === product.id) === 0 || saving || processing}
-                          title="Move plant up/earlier"
+                          title="Move product up/earlier"
                           aria-label={`Move ${product.title} up`}
                         >
                           <FiArrowUp />
@@ -1407,7 +1407,7 @@ export default function InventoryPanel() {
                           className={invStyles.btnActionMove}
                           onClick={() => moveProductByArrow(product, 1)}
                           disabled={products.findIndex(p => p.id === product.id) === products.length - 1 || saving || processing}
-                          title="Move plant down/later"
+                          title="Move product down/later"
                           aria-label={`Move ${product.title} down`}
                         >
                           <FiArrowDown />
@@ -1446,7 +1446,7 @@ export default function InventoryPanel() {
                 <thead>
                   <tr>
                     <th style={{ width: 36, textAlign: "center" }}></th>
-                    <th>Plant</th>
+                    <th>Product</th>
                     <th>Categories</th>
                     <th>Price</th>
                     <th>Stock Status</th>
@@ -1488,8 +1488,8 @@ export default function InventoryPanel() {
                         <td style={{ width: 36, textAlign: "center" }}>
                           <div
                             className={invStyles.tableDragHandle}
-                            title="Drag to reorder plant position"
-                            aria-label="Drag to reorder plant position"
+                            title="Drag to reorder product position"
+                            aria-label="Drag to reorder product position"
                           >
                             <MdDragIndicator />
                           </div>
@@ -1580,7 +1580,7 @@ export default function InventoryPanel() {
                               className={invStyles.btnActionMove}
                               onClick={() => moveProductByArrow(product, -1)}
                               disabled={products.findIndex(p => p.id === product.id) === 0 || saving || processing}
-                              title="Move plant up/earlier"
+                              title="Move product up/earlier"
                               aria-label={`Move ${product.title} up`}
                             >
                               <FiArrowUp />
@@ -1590,7 +1590,7 @@ export default function InventoryPanel() {
                               className={invStyles.btnActionMove}
                               onClick={() => moveProductByArrow(product, 1)}
                               disabled={products.findIndex(p => p.id === product.id) === products.length - 1 || saving || processing}
-                              title="Move plant down/later"
+                              title="Move product down/later"
                               aria-label={`Move ${product.title} down`}
                             >
                               <FiArrowDown />

@@ -117,11 +117,11 @@ export default async function BlogPostPage({ params }) {
         {/* Share Box */}
         <div className={styles.shareBox}>
           <div>
-            <strong>Enjoyed this article? Share it with gardening friends!</strong>
+            <strong>Enjoyed this article? Share it with friends!</strong>
           </div>
           <a
             href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
-              `${blog.title} - Sellers King Info Tech`
+              `${blog.title} - SellersKing`
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -134,7 +134,7 @@ export default async function BlogPostPage({ params }) {
 
         <Link href="/blog" className={styles.backLink}>
           <FiArrowLeft aria-hidden="true" />
-          <span>Back to All Gardening Articles</span>
+          <span>Back to All Articles</span>
         </Link>
       </div>
     </article>

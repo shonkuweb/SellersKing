@@ -7,6 +7,7 @@ import {
   FiArrowRight,
   FiAward,
   FiCheckCircle,
+  FiGrid,
   FiLogOut,
   FiMapPin,
   FiPackage,
@@ -15,7 +16,7 @@ import {
   FiTruck,
   FiUser
 } from "react-icons/fi";
-import { FaLeaf, FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { useCustomer } from "../context/CustomerContext";
 import { business } from "../../lib/business.mjs";
 import styles from "./page.module.css";
@@ -117,9 +118,9 @@ export default function AccountPage() {
             <FiAward />
             <span>Creator & Partner Network</span>
           </div>
-          <h2 className={styles.affiliateHeading}>Join Sellers King Info Tech Affiliate Programme</h2>
+          <h2 className={styles.affiliateHeading}>Join SellersKing Affiliate Programme</h2>
           <p className={styles.affiliateSub}>
-            Share authentic gardening, rare caudex adeniums & organic fertilizers with your audience. Earn attractive commissions and exclusive discount codes for your followers.
+            Share genuine product reviews, unboxing videos & trending deals with your audience. Earn attractive commissions and exclusive discount codes for your followers.
           </p>
         </div>
         <Link href="/affiliate" className={styles.affiliateJoinBtn}>
@@ -142,11 +143,11 @@ export default function AccountPage() {
 
         <Link href="/collection" className={styles.actionTile}>
           <div className={styles.tileIconBox}>
-            <FaLeaf />
+            <FiGrid />
           </div>
           <div className={styles.tileContent}>
-            <p className={styles.tileTitle}>Plant Collection</p>
-            <span className={styles.tileDesc}>Explore nursery plants & adeniums</span>
+            <p className={styles.tileTitle}>All Products</p>
+            <span className={styles.tileDesc}>Explore trending products & collections</span>
           </div>
         </Link>
 
@@ -160,8 +161,8 @@ export default function AccountPage() {
             <FaWhatsapp />
           </div>
           <div className={styles.tileContent}>
-            <p className={styles.tileTitle}>Nursery WhatsApp</p>
-            <span className={styles.tileDesc}>Chat directly with our plant experts</span>
+            <p className={styles.tileTitle}>Customer Support</p>
+            <span className={styles.tileDesc}>Chat directly with our helpdesk team</span>
           </div>
         </a>
       </div>
@@ -184,9 +185,9 @@ export default function AccountPage() {
             <FiShoppingBag />
           </div>
           <h3>No orders yet</h3>
-          <p>You haven't placed any orders with this phone number yet. Browse our lush plant catalogue!</p>
+          <p>You haven't placed any orders with this phone number yet. Browse our complete product catalogue!</p>
           <Link href="/collection" className="btn-modern-primary" style={{ display: 'inline-flex', width: 'auto', padding: '12px 24px' }}>
-            <span>Explore Plants</span>
+            <span>Start Shopping</span>
             <FiArrowRight />
           </Link>
         </div>

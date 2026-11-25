@@ -8,8 +8,8 @@ const reviews = [
     location: "Salt Lake, Kolkata, West Bengal",
     avatar: "AB",
     stars: 5,
-    tag: "Beauty Products • Organic Skincare Serum",
-    quote: "Ordered the organic glow skincare set from Sellers King Info Tech. The packaging was immaculate, 100% genuine ingredients, and delivered within two days. My skin feels nourished and refreshed. Incredible product quality!",
+    tag: "Beauty & Personal Care • Organic Skincare Set",
+    quote: "Ordered the organic glow skincare set from SellersKing. The packaging was immaculate, 100% genuine ingredients, and delivered within two days. My skin feels nourished and refreshed. Incredible product quality!",
   },
   {
     id: 2,
@@ -17,8 +17,8 @@ const reviews = [
     location: "Hazratganj, Lucknow, Uttar Pradesh",
     avatar: "RA",
     stars: 5,
-    tag: "Electronics Products • Wireless Earbuds & 65W Charger",
-    quote: "I bought the wireless noise-cancelling earbuds and fast charger. The sound clarity and build quality exceeded my expectations. Prompt delivery and authentic warranty from Sellers King Info Tech.",
+    tag: "Electronics • Wireless ANC Earbuds & 65W Fast Charger",
+    quote: "I bought the wireless noise-cancelling earbuds and fast charger. The sound clarity and build quality exceeded my expectations. Prompt delivery and authentic warranty from SellersKing.",
   },
   {
     id: 3,
@@ -26,8 +26,8 @@ const reviews = [
     location: "Medinipur, West Bengal",
     avatar: "SM",
     stars: 5,
-    tag: "Premium Plants Products • Exotic Grafted Adenium",
-    quote: "I ordered premium grafted Adeniums from Sellers King Info Tech. They reached with thick, solid caudex and healthy green buds. The specialized transit packing kept every branch completely intact.",
+    tag: "Home & Kitchen • Smart Air Fryer & Blender",
+    quote: "I ordered the smart multi-function electric air fryer from SellersKing. Delivered in heavy-duty protective packaging within 48 hours. Works effortlessly with genuine manufacturer warranty.",
   },
   {
     id: 4,
@@ -35,8 +35,8 @@ const reviews = [
     location: "Gomti Nagar, Lucknow, Uttar Pradesh",
     avatar: "PS",
     stars: 5,
-    tag: "Beauty Products • Pure Ayurvedic Hair Oil & Mist",
-    quote: "The pure botanical hair oil and organic rose water mist arrived safely sealed. Excellent texture, natural fragrance, and zero harsh chemicals. Sellers King Info Tech has become my go-to for trusted beauty essentials.",
+    tag: "Beauty & Wellness • Pure Botanical Hair Serum & Mist",
+    quote: "The pure botanical hair serum and organic rose water arrived safely sealed. Excellent texture, natural fragrance, and zero harsh chemicals. SellersKing has become my go-to for trusted essentials.",
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const reviews = [
     location: "Kothrud, Pune, Maharashtra",
     avatar: "RK",
     stars: 5,
-    tag: "Electronics Products • Smartwatch & Bluetooth Speaker",
+    tag: "Gadgets & Wearables • Smartwatch & Bluetooth Speaker",
     quote: "Super fast shipping and reliable customer service! The smartwatch battery life and sync features work flawlessly. Authentic electronics at genuine prices with secure parcel tracking.",
   },
   {
@@ -53,8 +53,8 @@ const reviews = [
     location: "Indiranagar, Bengaluru, Karnataka",
     avatar: "MN",
     stars: 5,
-    tag: "Premium Plants Products • Rare Variegated Monstera",
-    quote: "Online plant delivery can be tricky, but Sellers King Info Tech sets the benchmark for premium plants. Zero stem damage, well-developed roots, and lush foliage ready for display in my living room.",
+    tag: "Fashion & Travel • Premium Ergonomic Backpack",
+    quote: "Online shopping can be unpredictable, but SellersKing sets the benchmark for genuine branded goods. Robust build quality, water-resistant material, and swift express delivery right to my doorstep.",
   },
 ];
 

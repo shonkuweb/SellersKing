@@ -40,7 +40,7 @@ export default function ProductPage() {
     setQty(1); setVariantQtys({}); setPurchaseError('');
     setActiveImageIndex(0);
     setShareUrl(window.location.href);
-    try { setFavorite(JSON.parse(localStorage.getItem('nursery-wishlist') || '[]').includes(slug)); }
+    try { setFavorite((JSON.parse(localStorage.getItem('sellersking-wishlist') || localStorage.getItem('nursery-wishlist') || '[]')).includes(slug)); }
     catch { setFavorite(false); }
 
     const prodColors = Array.isArray(product?.colors) ? product.colors : [];
@@ -117,8 +117,8 @@ export default function ProductPage() {
     const next = !favorite;
     setFavorite(next);
     try {
-      const saved = JSON.parse(localStorage.getItem('nursery-wishlist') || '[]');
-      localStorage.setItem('nursery-wishlist', JSON.stringify(next ? [...new Set([...saved, slug])] : saved.filter(item => item !== slug)));
+      const saved = JSON.parse(localStorage.getItem('sellersking-wishlist') || localStorage.getItem('nursery-wishlist') || '[]');
+      localStorage.setItem('sellersking-wishlist', JSON.stringify(next ? [...new Set([...saved, slug])] : saved.filter(item => item !== slug)));
     } catch {}
   };
 
@@ -336,7 +336,7 @@ export default function ProductPage() {
           <form className={styles.delivery} onSubmit={checkDelivery}>
             <label htmlFor="delivery-pincode"><FiMapPin aria-hidden="true" />Check delivery & availability</label>
             <div><input id="delivery-pincode" placeholder="Enter Pincode" inputMode="numeric" pattern="[1-9][0-9]{5}" maxLength={6} required title="Enter a valid six-digit Indian pincode" value={pincode} onChange={event => { setPincode(event.target.value.replace(/\D/g, '')); setDeliveryMessage(''); }} /><button type="submit">Check</button></div>
-            {deliveryMessage && <p role="status">{deliveryMessage}<a href={whatsappUrl(`Hello, please confirm delivery of ${product.title} to ${pincode}.`)} target="_blank" rel="noopener noreferrer">Contact nursery</a></p>}
+            {deliveryMessage && <p role="status">{deliveryMessage}<a href={whatsappUrl(`Hello, please confirm delivery of ${product.title} to ${pincode}.`)} target="_blank" rel="noopener noreferrer">Contact support</a></p>}
           </form>
           {variants.length ? (
             <div className={styles.variants}>
@@ -417,7 +417,7 @@ export default function ProductPage() {
           <PaymentMethods />
           {highlights.length > 0 && <div className={styles.highlights}>{highlights.map(([text, Icon], index) => <div key={index}><Icon aria-hidden="true" /><span>{text}</span></div>)}</div>}
           <div className={styles.accordions}>
-            {[['Product Description', product.description], ['Plant Care Tips', product.plantCare], ['Delivery & Returns', product.deliveryReturns]].map(([title, content], index) => <details key={`${product.id}-${title}`} open={index === 0}><summary>{title}<FiChevronDown aria-hidden="true" /></summary><p>{content || 'Information has not been provided yet.'}</p></details>)}
+            {[['Product Description', product.description], ['Specifications & Details', product.plantCare], ['Delivery & Returns', product.deliveryReturns]].map(([title, content], index) => <details key={`${product.id}-${title}`} open={index === 0}><summary>{title}<FiChevronDown aria-hidden="true" /></summary><p>{content || 'Information has not been provided yet.'}</p></details>)}
           </div>
         </section>
       </div>

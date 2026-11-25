@@ -13,19 +13,19 @@ export default function ContactPage() {
   return (
     <main className={styles.page}>
       <h1>Contact Us</h1>
-      <p className={styles.intro}>Have a question about our plants? Send us a message.</p>
+      <p className={styles.intro}>Have a question about our products or your order? Send us a message.</p>
 
       <div className={styles.contactLayout}>
-        <aside className={styles.infoCol} aria-label="Nursery contact information">
+        <aside className={styles.infoCol} aria-label="Store contact information">
           <div className={styles.infoCard}>
             <h2>{business.name}</h2>
-            <p className={styles.infoTagline}>Grow greener, live better.</p>
+            <p className={styles.infoTagline}>Shop smarter, live better.</p>
 
             <div className={styles.infoItems}>
               <div className={styles.infoItem}>
                 <FiMapPin className={styles.infoIcon} aria-hidden="true" />
                 <div>
-                  <strong>Nursery Location</strong>
+                  <strong>Store Location</strong>
                   <p>{business.address}</p>
                 </div>
               </div>
@@ -33,7 +33,7 @@ export default function ContactPage() {
               <div className={styles.infoItem}>
                 <FiPhone className={styles.infoIcon} aria-hidden="true" />
                 <div>
-                  <strong>Phone / Orders</strong>
+                  <strong>Phone / Support</strong>
                   <p><a href={`tel:${business.phone}`}>{business.phoneDisplay}</a></p>
                 </div>
               </div>
@@ -49,14 +49,14 @@ export default function ContactPage() {
               <div className={styles.infoItem}>
                 <FiClock className={styles.infoIcon} aria-hidden="true" />
                 <div>
-                  <strong>Visiting Hours</strong>
-                  <p>Mon – Sun: 8:00 AM – 7:00 PM IST</p>
+                  <strong>Support Hours</strong>
+                  <p>Mon – Sat: 9:00 AM – 7:00 PM IST</p>
                 </div>
               </div>
             </div>
 
             <a
-              href={whatsappUrl("Hello Sellers King Info Tech, I'd like to ask a question.")}
+              href={whatsappUrl("Hello SellersKing, I'd like to ask a question.")}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.infoWhatsappBtn}

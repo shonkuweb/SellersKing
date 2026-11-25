@@ -18,7 +18,7 @@ export default function SiteFooter() {
   const subscribe = (event) => {
     event.preventDefault();
     const email = new FormData(event.currentTarget).get("email");
-    window.open(contactUrl(`Hello! I'd like to receive updates on new plants and offers. My email is ${email}`), "_blank", "noopener,noreferrer");
+    window.open(contactUrl(`Hello! I'd like to receive updates on new products and offers. My email is ${email}`), "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -34,7 +34,7 @@ export default function SiteFooter() {
               <img className="footer-logo" src={business.footerLogoCdn || "/images/sellersking-logo.png"} alt={business.name} width={2172} height={724} />
             </Link>
             <div className="footer-intro">
-              <p>Grow greener, live better.<br />With Sellersking Infotech PVT. LTD.</p>
+              <p>Shop smarter, live better.<br />With Sellersking Infotech PVT. LTD.</p>
               <div className="footer-socials">
                 <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
                 <a href={`tel:${business.phone}`} aria-label={`Call ${business.name}`}><FiPhone /></a>
@@ -46,7 +46,7 @@ export default function SiteFooter() {
               <nav aria-label="Quick links">
                 <h2>Quick Links</h2>
                 <ul>
-                  {[["Home", "/"], ["Shop All", "/collection"], ["Plant Collection", "/collection"], ["Checkout", "/checkout"], ["Contact Us", "/contact"]].map(([label, href]) => (
+                  {[["Home", "/"], ["Shop All", "/collection"], ["All Products", "/collection"], ["Checkout", "/checkout"], ["Contact Us", "/contact"]].map(([label, href]) => (
                     <li key={label}><Link href={href}>{label}<FiChevronRight aria-hidden="true" /></Link></li>
                   ))}
                 </ul>
@@ -77,10 +77,10 @@ export default function SiteFooter() {
           <div className="footer-newsletter-column">
             <section className="footer-newsletter" aria-labelledby="footer-newsletter-title">
               <h2 id="footer-newsletter-title">Stay Updated</h2>
-              <p>Get the latest updates on new plants,<br />offers and more.</p>
+              <p>Get the latest updates on new arrivals,<br />exclusive offers and deals.</p>
               <form onSubmit={subscribe}>
                 <FiMail aria-hidden="true" />
-                <input type="email" name="email" placeholder="Enter your email" aria-label="Email for plant updates" required />
+                <input type="email" name="email" placeholder="Enter your email" aria-label="Email for product updates" required />
                 <button type="submit">Subscribe<FiArrowRight aria-hidden="true" /></button>
               </form>
             </section>

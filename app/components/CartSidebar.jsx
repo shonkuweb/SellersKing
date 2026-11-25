@@ -95,13 +95,13 @@ export default function CartSidebar() {
                 <FiShoppingBag className="empty-cart-icon" />
               </div>
               <h3>Your cart is empty</h3>
-              <p>Explore our beautiful nursery collection and bring home your favorite plants!</p>
+              <p>Explore our curated collection and add your favorite products to cart!</p>
               <Link
                 href="/collection"
                 className="btn-modern-primary mt-4"
                 onClick={() => setIsSidebarOpen(false)}
               >
-                Browse Plants <FiArrowRight />
+                Start Shopping <FiArrowRight />
               </Link>
             </div>
           ) : (

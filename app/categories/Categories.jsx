@@ -238,7 +238,7 @@ export default function Categories() {
                   <Link
                     href={`/category/${category.slug}`}
                     className={styles.cardImageLink}
-                    aria-label={`View plants in ${category.name}`}
+                    aria-label={`View products in ${category.name}`}
                   >
                     {category.image ? (
                       <img
@@ -264,7 +264,7 @@ export default function Categories() {
                         <h2 className={styles.categoryTitle}>{category.name}</h2>
                       </Link>
                       <span className={styles.countBadge}>
-                        {count} {count === 1 ? "plant" : "plants"}
+                        {count} {count === 1 ? "product" : "products"}
                       </span>
                     </div>
 

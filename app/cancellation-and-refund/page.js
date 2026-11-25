@@ -5,7 +5,7 @@ import { FiChevronRight, FiRefreshCw } from "react-icons/fi";
 
 export const metadata = {
   title: `Cancellation & Refund Policy | ${business.name}`,
-  description: `Cancellation, return, and refund policies for orders placed on ${business.name}. Transparent timelines, live plant transit guarantees, and 5-7 business day refunds.`,
+  description: `Cancellation, return, and refund policies for orders placed on ${business.name}. Transparent timelines, transit damage protection, and 5-7 business day refunds.`,
 };
 
 export default function CancellationAndRefundPage() {
@@ -47,17 +47,17 @@ export default function CancellationAndRefundPage() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>2. Return & Replacement Eligibility</h2>
           <p className={styles.sectionContent}>
-            Because our catalog includes live plants, organic materials, and specialized goods, our return criteria are categorized as follows:
+            We want you to be completely satisfied with every purchase from our store. Our return and replacement guidelines are as follows:
           </p>
           <div className={styles.highlightBox}>
-            <strong>Live Plants & Botanical Items (Perishable Goods):</strong> Live plants undergo specialized transit packaging with moisture-retaining root wraps and ventilated corrugated boxes. In the rare event your plant arrives severely wilted, broken, decayed, or dead on arrival due to courier delays, you must notify us within <strong>24 to 48 hours of delivery</strong> with clear photographs or an unboxing video showing the damaged condition. Upon verification, we will immediately arrange a <strong>free replacement</strong> or a <strong>full refund</strong>.
+            <strong>Damaged or Defective Items on Arrival:</strong> In the rare event an item reaches you in damaged condition, physically defective, or with missing parts, you must notify our customer support team within <strong>48 hours of delivery</strong> with clear photographs or an unboxing video. Upon quick verification, we will immediately arrange a <strong>free replacement</strong> or a <strong>full refund</strong>.
           </div>
           <ul className={styles.list}>
             <li>
-              <strong>Non-Perishable Goods (Pots, Planters, Tools, Accessories, Tech Products):</strong> You may initiate a return or replacement request within <strong>7 calendar days</strong> of delivery if the item is defective, mechanically damaged, or if an incorrect item was delivered.
+              <strong>Standard Products (Electronics, Home, Lifestyle, Fashion & Accessories):</strong> Eligible for return or replacement within <strong>7 calendar days</strong> of delivery if defective, damaged, or if an incorrect model/color/size was received.
             </li>
             <li>
-              <strong>Condition of Return:</strong> Non-perishable items must be unused, in their original brand packaging, accompanied by original tags, user manuals, and the purchase invoice.
+              <strong>Condition of Return:</strong> Returned items must be unused, unwashed, in their original brand packaging with all tags, barcode labels, accessories, and warranty cards intact.
             </li>
           </ul>
         </section>
@@ -68,10 +68,10 @@ export default function CancellationAndRefundPage() {
             Returns or refunds will not be entertained in the following circumstances:
           </p>
           <ul className={styles.list}>
-            <li>Damage resulting from improper care, overwatering, repotting shock after 48 hours of receipt, or neglect after delivery.</li>
-            <li>Minor cosmetic shedding of yellow leaves or soil loosening during transit, which is normal for live plant transportation and does not affect the root health.</li>
-            <li>Requests initiated beyond the stipulated 48-hour (live plants) or 7-day (non-perishables) notification window.</li>
-            <li>Items returned without original packaging or parts missing.</li>
+            <li>Damage resulting from misuse, mishandling, liquid spillage, or alterations made to the product after delivery.</li>
+            <li>Requests initiated beyond the stipulated 48-hour (transit damage) or 7-day return window.</li>
+            <li>Items returned without original packaging, accessories, or original purchase invoice.</li>
+            <li>Personal care or hygiene products where security seals have been broken.</li>
           </ul>
         </section>
 

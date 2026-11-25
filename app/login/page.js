@@ -2,8 +2,7 @@
 
 import { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FiEye, FiEyeOff, FiLock, FiPhone, FiUser, FiArrowRight, FiCheckCircle, FiAlertCircle, FiMapPin } from "react-icons/fi";
-import { FaLeaf } from "react-icons/fa";
+import { FiEye, FiEyeOff, FiLock, FiPhone, FiUser, FiArrowRight, FiCheckCircle, FiAlertCircle, FiMapPin, FiShoppingBag } from "react-icons/fi";
 import { useCustomer } from "../context/CustomerContext";
 import { INDIAN_STATES, getStateFromPincode } from "../../lib/indian-regions.mjs";
 import styles from "./page.module.css";
@@ -129,8 +128,8 @@ function LoginForm() {
     <div className={styles.container}>
       <div className={styles.authCard}>
         <div className={styles.brandBadge}>
-          <FaLeaf />
-          <span>SabujKuthi Nursery</span>
+          <FiShoppingBag />
+          <span>SellersKing</span>
         </div>
 
         <h1 className={styles.title}>
@@ -139,7 +138,7 @@ function LoginForm() {
         <p className={styles.subtitle}>
           {mode === "login"
             ? "Log in with your mobile number and password to track orders and manage your account."
-            : "Sign up to track live orders, view purchase history, and enjoy smooth plant shopping."}
+            : "Sign up to track live orders, view purchase history, and enjoy smooth online shopping."}
         </p>
 
         <div className={styles.tabSwitch} role="tablist">
@@ -333,7 +332,7 @@ function LoginForm() {
                 {state && pincode.length === 6 && (
                   <p style={{ fontSize: '0.8rem', color: '#2563EB', margin: '0.35rem 0 0', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <FiMapPin />
-                    <span>Selected for {pincode}, {state} · Used to verify plant delivery</span>
+                    <span>Selected for {pincode}, {state} · Used to verify product delivery</span>
                   </p>
                 )}
               </div>

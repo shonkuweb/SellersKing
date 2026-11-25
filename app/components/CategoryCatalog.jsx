@@ -13,7 +13,7 @@ export default function CategoryCatalog({ categories, products, loading, error, 
   const visible = categories.filter(category => category.isVisible !== false);
   const current = categorySlug ? visible.find(category => category.slug === categorySlug) : null;
 
-  if (loading) return <div id="shop" className={styles.message} role="status">Loading plants…</div>;
+  if (loading) return <div id="shop" className={styles.message} role="status">Loading products…</div>;
   if (error) return <div id="shop" className={styles.message} role="alert">Unable to load products. Please refresh to try again.</div>;
   if (categorySlug && !current) return <section id="shop" className={styles.message}><h1>Category unavailable</h1><Link href="/">Back to store</Link></section>;
 
@@ -78,7 +78,7 @@ export default function CategoryCatalog({ categories, products, loading, error, 
       )}
 
       {!sections.length && !showShopByCategory && <p className={styles.message}>No products available yet.</p>}
-      {searchQuery && !matchingProducts.length && <p className={styles.message}>No plants match your search.</p>}
+      {searchQuery && !matchingProducts.length && <p className={styles.message}>No products match your search.</p>}
       {sections.length === 0 && showShopByCategory && <ShopByCategory categories={shopCategories} products={products} />}
 
       {sections.map((category, index) => {

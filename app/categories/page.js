@@ -1,9 +1,9 @@
 import Categories from "./Categories";
 
 export const metadata = {
-  title: "Categories | SabujKuthi Nursery",
+  title: "Categories | SellersKing",
   alternates: { canonical: "/categories" },
-  description: "Browse our complete categories and collections at SabujKuthi Nursery.",
+  description: "Browse our complete categories and collections at SellersKing.",
 };
 
 export default function CategoriesPage() {

@@ -3,7 +3,7 @@
 import { useStoreSettings } from "../context/StoreSettingsContext";
 import styles from "./PackingTicker.module.css";
 
-const defaultMessage = "🌿 Since plants are delicate and require careful selection and packing from the field, please allow 4–5 days for us to prepare your order.";
+const defaultMessage = "⚡ Express Pan-India Delivery • Handpicked Quality Products • 100% Genuine Guarantee";
 
 export default function PackingTicker() {
   const { heroSettings } = useStoreSettings();

@@ -311,7 +311,7 @@ export default function AffiliatePanel({ active }) {
       minOrderValue: 0,
       startDate: new Date().toISOString().slice(0, 10),
       endDate: "",
-      terms: "Valid on all nursery orders. Payouts processed monthly.",
+      terms: "Valid on all store orders. Payouts processed monthly.",
       status: "active",
       partnerIds: approvedPartners.map((p) => p.id) // Default: enroll all approved partners
     });
@@ -1259,7 +1259,7 @@ export default function AffiliatePanel({ active }) {
                   required
                   value={programmeModal.title}
                   onChange={(e) => setProgrammeModal({ ...programmeModal, title: e.target.value })}
-                  placeholder="e.g. Monsoon Adenium Special Campaign"
+                  placeholder="e.g. Festive Special Promotion Campaign"
                   className={styles.modalInput}
                 />
               </div>
@@ -1272,7 +1272,7 @@ export default function AffiliatePanel({ active }) {
                   rows={2}
                   value={programmeModal.description}
                   onChange={(e) => setProgrammeModal({ ...programmeModal, description: e.target.value })}
-                  placeholder="Goals, product highlights, seasonal plant recommendations..."
+                  placeholder="Goals, product highlights, featured items..."
                   className={styles.modalTextarea}
                 />
               </div>
@@ -1356,7 +1356,7 @@ export default function AffiliatePanel({ active }) {
                     />
                     <div>
                       <strong>All Products</strong>
-                      <span>Applies to all store plants & fertilizers</span>
+                      <span>Applies to all store products</span>
                     </div>
                   </label>
 
@@ -1370,7 +1370,7 @@ export default function AffiliatePanel({ active }) {
                     />
                     <div>
                       <strong>Specific Category</strong>
-                      <span>Assign to a specific plant category</span>
+                      <span>Assign to a specific product category</span>
                     </div>
                   </label>
 

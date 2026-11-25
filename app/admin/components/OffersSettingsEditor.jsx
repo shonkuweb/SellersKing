@@ -282,7 +282,7 @@ export default function OffersSettingsEditor({ onSavingChange }) {
             </div>
             <div className={styles.nudgeFooter}>
               <span>65% completed</span>
-              <span className={styles.previewCtaBtn}>{rule.bannerCtaText || "Add More Plants"} →</span>
+              <span className={styles.previewCtaBtn}>{rule.bannerCtaText || "Add More Items"} →</span>
             </div>
           </div>
         </div>

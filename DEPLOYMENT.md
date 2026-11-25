@@ -47,7 +47,7 @@ RAZORPAY_KEY_SECRET=xxxxxxxxxxxxxxxx
 RAZORPAY_WEBHOOK_SECRET=your_long_random_webhook_secret
 
 # Your live public site domain (HTTPS)
-NEXT_PUBLIC_SITE_URL=https://sabujkuthi.com
+NEXT_PUBLIC_SITE_URL=https://sellersking.com
 
 # Port to expose on VPS localhost (change if 3005 is used by another app)
 APP_PORT=3005

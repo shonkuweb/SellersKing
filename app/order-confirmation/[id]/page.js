@@ -12,7 +12,7 @@ export default function OrderConfirmation() {
   useEffect(() => {
     let active = true;
     const token = sessionStorage.getItem(`paid-order:${id}`);
-    if (!token) { setError('Open this receipt in the browser used at checkout. Please contact the nursery if you need help finding your order.'); return; }
+    if (!token) { setError('Open this receipt in the browser used at checkout. Please contact customer support if you need help finding your order.'); return; }
     checkoutPost('/api/checkout/status', { orderId: id, token }).then(result => {
       if (!active) return;
       if (result.status !== 'paid') setError('Your payment is still awaiting confirmation. Return to checkout to check its status.');

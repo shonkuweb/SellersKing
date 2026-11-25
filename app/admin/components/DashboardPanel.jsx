@@ -116,7 +116,7 @@ export default function DashboardPanel({ active }) {
         <div>
           <h2 className={styles.title}>Store Overview & Analytics</h2>
           <p className={styles.subtitle}>
-            Monitor your nursery sales, incoming orders, visitor traffic, and customer registrations.
+            Monitor your store sales, incoming orders, visitor traffic, and customer registrations.
           </p>
         </div>
 

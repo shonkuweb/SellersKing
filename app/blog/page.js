@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { FaLeaf } from "react-icons/fa";
 import { FiArrowRight, FiCalendar, FiChevronRight, FiClock, FiFileText } from "react-icons/fi";
 import styles from "./page.module.css";
 
-const CATEGORIES = ["All", "Plant Care", "Fertilizers", "Gardening Tips"];
+const CATEGORIES = ["All", "Shopping Guides", "Product Reviews", "Buying Tips", "Deals & Offers"];
 
 export default function BlogListingPage() {
   const [blogs, setBlogs] = useState([]);
@@ -42,18 +41,18 @@ export default function BlogListingPage() {
         <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
           <Link href="/">Home</Link>
           <FiChevronRight aria-hidden="true" />
-          <span>Gardening Blog</span>
+          <span>Articles & Guides</span>
         </nav>
 
         {/* Hero Header */}
         <header className={styles.hero}>
           <div className={styles.badge}>
-            <FaLeaf aria-hidden="true" />
-            <span>Nursery Knowledge & Guides</span>
+            <FiFileText aria-hidden="true" />
+            <span>Shopping Knowledge & Guides</span>
           </div>
-          <h1 className={styles.title}>Sellers King Info Tech Blog</h1>
+          <h1 className={styles.title}>SellersKing Blog</h1>
           <p className={styles.subtitle}>
-            Practical growing advice, organic fertilizer recipes, and seasonal plant protection tips directly from our nursery grounds.
+            Expert buying guides, curated product comparisons, and shopping tips to help you make the best purchase.
           </p>
         </header>
 

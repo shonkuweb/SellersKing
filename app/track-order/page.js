@@ -17,17 +17,17 @@ import {
   FiTruck,
   FiUser
 } from "react-icons/fi";
-import { FaLeaf, FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { useCustomer } from "../context/CustomerContext";
 import { business } from "../../lib/business.mjs";
 import styles from "./page.module.css";
 
 const STAGE_DESCRIPTIONS = [
-  "Your order has been confirmed and verified by our nursery team.",
-  "Healthy, top-grade plant saplings are being hand-selected from our nursery beds.",
-  "Packed with moist coco-peat roots and protective, shock-absorbent corrugated packaging.",
-  "Handed over to our delivery courier partner with live-plant transit care labels.",
-  "Your healthy plants have been delivered to your doorstep. Happy gardening!"
+  "Your order has been confirmed and verified by our fulfillment team.",
+  "Your items are being carefully handpicked and quality-checked from our inventory.",
+  "Securely packed with protective, shock-absorbent packaging for safe transit.",
+  "Handed over to our delivery courier partner with tracking generated.",
+  "Your package has been safely delivered to your doorstep. Thank you for shopping with us!"
 ];
 
 function TrackOrderContent() {
@@ -144,12 +144,12 @@ function TrackOrderContent() {
       <div className={styles.container}>
         <div className={styles.headerArea}>
           <div className={styles.badge}>
-            <FaLeaf />
-            <span>Sellers King Info Tech Order Tracking</span>
+            <FiPackage />
+            <span>SellersKing Order Tracking</span>
           </div>
           <h1 className={styles.title}>Track Your Order</h1>
           <p className={styles.subtitle}>
-            Monitor your plant order from nursery selection to safe delivery at your door.
+            Monitor your order from warehouse packing to safe delivery at your door.
           </p>
         </div>
 
@@ -159,7 +159,7 @@ function TrackOrderContent() {
           </div>
           <h2>Customer Login Required</h2>
           <p>
-            To protect customer privacy and ensure order security, you must be logged in to your Sellers King Info Tech account to track orders.
+            To protect customer privacy and ensure order security, you must be logged in to your SellersKing account to track orders.
           </p>
           <div className={styles.loginGateActions}>
             <Link
@@ -185,8 +185,8 @@ function TrackOrderContent() {
     <div className={styles.container}>
       <div className={styles.headerArea}>
         <div className={styles.badge}>
-          <FaLeaf />
-          <span>Sellers King Info Tech Live Tracking</span>
+          <FiPackage />
+          <span>SellersKing Live Tracking</span>
         </div>
         <h1 className={styles.title}>Track Your Order</h1>
         <p className={styles.subtitle}>
@@ -339,7 +339,7 @@ function TrackOrderContent() {
             <div className={styles.detailBox}>
               <h4 className={styles.detailBoxTitle}>
                 <FiShoppingBag />
-                <span>Plants Ordered ({orderData.items.reduce((s, i) => s + (i.qty || 1), 0)})</span>
+                <span>Items Ordered ({orderData.items.reduce((s, i) => s + (i.qty || 1), 0)})</span>
               </h4>
               <div className={styles.itemList}>
                 {orderData.items.map((item, idx) => (
@@ -365,16 +365,16 @@ function TrackOrderContent() {
           {/* WhatsApp Support Banner */}
           <div className={styles.supportBanner}>
             <p>
-              🌿 Need immediate assistance or care advice for your order <strong>{orderData.reference}</strong>?
+              Need immediate assistance regarding your order <strong>{orderData.reference}</strong>?
             </p>
             <a
-              href={`https://wa.me/918637054105?text=${encodeURIComponent(`Hello Sellers King Info Tech, I would like an update on my order ${orderData.reference}.`)}`}
+              href={`https://wa.me/918637054105?text=${encodeURIComponent(`Hello SellersKing, I would like an update on my order ${orderData.reference}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.whatsappBtn}
             >
               <FaWhatsapp />
-              <span>WhatsApp Nursery</span>
+              <span>WhatsApp Support</span>
             </a>
           </div>
         </article>

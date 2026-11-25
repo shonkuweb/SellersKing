@@ -75,11 +75,11 @@ export async function POST(request) {
 
   const category = typeof data.category === 'string' && data.category.trim()
     ? data.category.trim().slice(0, 60)
-    : 'Plant Care';
+    : 'Shopping Guides';
 
   const author = typeof data.author === 'string' && data.author.trim()
     ? data.author.trim().slice(0, 80)
-    : 'SabujKuthi Nursery';
+    : 'SellersKing';
 
   const isPublished = Boolean(data.isPublished !== false);
 

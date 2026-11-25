@@ -358,7 +358,7 @@ export default function CategoriesPanel() {
               className={styles.nameInput}
               value={form.name}
               maxLength={80}
-              placeholder="e.g. Fruit Plants, Mango, Indoor Bonsai"
+              placeholder="e.g. Electronics, Fashion, Home & Kitchen"
               required
               onChange={event => setForm({ ...form, name: event.target.value })}
             />
@@ -441,7 +441,7 @@ export default function CategoriesPanel() {
       ) : loadError ? (
         <div className={styles.empty}><p role="alert">{loadError}</p><button className={styles.secondary} onClick={load}>Try again</button></div>
       ) : categories.length === 0 ? (
-        !form && <div className={styles.empty}><span className={styles.emptyIcon}><FiGrid aria-hidden="true" /></span><h2>No categories yet</h2><p>Add your first category to start organizing your plants.</p><button className={styles.secondary} onClick={() => openForm()}><FiPlus aria-hidden="true" />Create category</button></div>
+        !form && <div className={styles.empty}><span className={styles.emptyIcon}><FiGrid aria-hidden="true" /></span><h2>No categories yet</h2><p>Add your first category to start organizing your products.</p><button className={styles.secondary} onClick={() => openForm()}><FiPlus aria-hidden="true" />Create category</button></div>
       ) : (
         <>
           <div className={styles.listHeader}>
