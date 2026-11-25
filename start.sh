@@ -15,5 +15,5 @@ fi
 echo "Running additive schema upgrades and category initializer..."
 node scripts/initialize-categories.cjs
 
-echo "Starting SabujKuthi Nursery Next.js application on port ${PORT:-3000}..."
+echo "Starting Sellersking Infotech Next.js application on port ${PORT:-3000}..."
 exec node server.js
