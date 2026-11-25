@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Install dependencies only when needed
 FROM base AS deps
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential python3 python-is-python3 && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 # Install dependencies
