@@ -7,11 +7,11 @@ import { FaWhatsapp } from "react-icons/fa";
 
 const contactUrl = whatsappUrl;
 const careLinks = [
-  ["Help & Support", FiHeadphones],
-  ["Shipping Info", FiPackage],
-  ["Returns & Refunds", FiRefreshCw],
-  ["Privacy Policy", FiShield],
-  ["Terms & Conditions", FiFileText],
+  { label: "Terms & Conditions", href: "/terms-and-conditions", Icon: FiFileText },
+  { label: "Privacy Policy", href: "/privacy-policy", Icon: FiShield },
+  { label: "Refund & Cancellation", href: "/cancellation-and-refund", Icon: FiRefreshCw },
+  { label: "Shipping & Delivery", href: "/shipping-and-delivery", Icon: FiPackage },
+  { label: "Help & Support", href: "/contact", Icon: FiHeadphones },
 ];
 
 export default function SiteFooter() {
@@ -34,7 +34,7 @@ export default function SiteFooter() {
               <img className="footer-logo" src={business.footerLogoCdn || "/images/sellersking-logo.png"} alt={business.name} width={2172} height={724} />
             </Link>
             <div className="footer-intro">
-              <p>Grow greener, live better.<br />With {business.name}.</p>
+              <p>Grow greener, live better.<br />With Sellersking Infotech PVT. LTD.</p>
               <div className="footer-socials">
                 <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
                 <a href={`tel:${business.phone}`} aria-label={`Call ${business.name}`}><FiPhone /></a>
@@ -54,8 +54,13 @@ export default function SiteFooter() {
               <nav aria-label="Customer care">
                 <h2>Customer Care</h2>
                 <ul>
-                  {careLinks.map(([label, Icon]) => (
-                    <li key={label}><a href={contactUrl(`Hello, I'd like information about ${label.toLowerCase()}.`)} target="_blank" rel="noopener noreferrer"><Icon aria-hidden="true" />{label}</a></li>
+                  {careLinks.map(({ label, href, Icon }) => (
+                    <li key={label}>
+                      <Link href={href}>
+                        <Icon aria-hidden="true" />
+                        {label}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </nav>
@@ -82,7 +87,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="footer-credits">
-          <p>© {new Date().getFullYear()} {business.name}. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Sellersking Infotech PVT. LTD. All rights reserved.</p>
           <p>Made with <span aria-label="love">♥</span> in West Bengal</p>
         </div>
       </div>

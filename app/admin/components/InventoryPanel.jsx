@@ -36,6 +36,7 @@ const blank = {
   oldPrice: "",
   size: "",
   sizes: [],
+  colors: [],
   description: "",
   image: "",
   image2: "",
@@ -97,6 +98,7 @@ export default function InventoryPanel() {
     imageVersion.current++;
     let catIds = [];
     let parsedSizes = [];
+    let parsedColors = [];
     if (product) {
       if (Array.isArray(product.categoryIds)) catIds = product.categoryIds;
       else if (typeof product.categoryIds === "string") {
@@ -124,11 +126,35 @@ export default function InventoryPanel() {
           }
         } catch {}
       }
+
+      if (Array.isArray(product.colors) && product.colors.length > 0) {
+        parsedColors = product.colors.map((c, idx) => ({
+          id: c.id || String(idx + 1),
+          name: c.name || "",
+          hex: c.hex || "#10B981",
+          image: c.image || "",
+          inStock: c.inStock !== false,
+        }));
+      } else if (product.colors && typeof product.colors === "string") {
+        try {
+          const parsed = JSON.parse(product.colors);
+          if (Array.isArray(parsed)) {
+            parsedColors = parsed.map((c, idx) => ({
+              id: c.id || String(idx + 1),
+              name: c.name || "",
+              hex: c.hex || "#10B981",
+              image: c.image || "",
+              inStock: c.inStock !== false,
+            }));
+          }
+        } catch {}
+      }
     }
     setForm(product ? {
       ...blank,
       ...product,
       sizes: parsedSizes,
+      colors: parsedColors,
       categoryIds: catIds,
       categoryId: product.categoryId || catIds[0] || "",
       shippingScope: product.shippingScope || (product.deliveryPincodes ? "pincodes" : "all_india"),
@@ -172,6 +198,66 @@ export default function InventoryPanel() {
       });
       return { ...current, sizes: next };
     });
+  };
+
+  const COLOR_PRESETS = [
+    { name: "Red", hex: "#EF4444" },
+    { name: "Pink", hex: "#EC4899" },
+    { name: "Yellow", hex: "#FACC15" },
+    { name: "White", hex: "#F8FAFC" },
+    { name: "Green", hex: "#10B981" },
+    { name: "Blue", hex: "#3B82F6" },
+    { name: "Orange", hex: "#F97316" },
+    { name: "Purple", hex: "#8B5CF6" },
+    { name: "Variegated", hex: "#84CC16" },
+    { name: "Black", hex: "#0F172A" },
+  ];
+
+  const handleAddColorRow = (defaultPreset) => {
+    setForm(current => {
+      const existing = current?.colors || [];
+      const newRow = {
+        id: String(Date.now() + Math.random()),
+        name: defaultPreset?.name || "",
+        hex: defaultPreset?.hex || "#2563EB",
+        image: defaultPreset?.image || "",
+        inStock: true,
+      };
+      return { ...current, colors: [...existing, newRow] };
+    });
+  };
+
+  const handleRemoveColorRow = (index) => {
+    setForm(current => {
+      const next = (current?.colors || []).filter((_, i) => i !== index);
+      return { ...current, colors: next };
+    });
+  };
+
+  const handleColorChange = (index, field, value) => {
+    setForm(current => {
+      const next = (current?.colors || []).map((item, i) => {
+        if (i !== index) return item;
+        return { ...item, [field]: value };
+      });
+      return { ...current, colors: next };
+    });
+  };
+
+  const handleColorImageUpload = async (index, file) => {
+    if (!file) return;
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      setError("Choose a JPG, PNG or WebP image for the color photo.");
+      return;
+    }
+    setError("");
+    try {
+      const compressed = await imageCompression(file, { maxSizeMB: 0.8, maxWidthOrHeight: 1200, useWebWorker: true });
+      const dataUrl = await imageCompression.getDataUrlFromFile(compressed);
+      handleColorChange(index, "image", dataUrl);
+    } catch {
+      setError("Unable to process color photo. Please try another image.");
+    }
   };
 
   const close = () => {
@@ -655,6 +741,181 @@ export default function InventoryPanel() {
               )}
             </div>
 
+            {/* Colors & Catalog Photos Section */}
+            <div className={invStyles.colorSectionContainer}>
+              <div className={invStyles.colorSectionHeader}>
+                <div>
+                  <h4 className={invStyles.colorSectionTitle}>
+                    <span>Product Colors &amp; Catalog Photos</span>
+                    <span className={invStyles.colorSectionBadge}>Optional</span>
+                  </h4>
+                  <p className={invStyles.colorSectionDesc}>
+                    Define available colors and assign specific catalog photos for each color. Customers can click a color to see its photo.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className={invStyles.btnAddColor}
+                  onClick={() => handleAddColorRow()}
+                  title="Add a color variant"
+                >
+                  <FiPlus />
+                  <span>Add Color</span>
+                </button>
+              </div>
+
+              {/* Quick Preset Buttons */}
+              <div className={invStyles.colorPresetsRow}>
+                <span className={invStyles.colorPresetsLabel}>Quick Add:</span>
+                {COLOR_PRESETS.map((p) => (
+                  <button
+                    key={p.name}
+                    type="button"
+                    className={invStyles.presetPill}
+                    onClick={() => handleAddColorRow(p)}
+                    title={`Add ${p.name}`}
+                  >
+                    <span className={invStyles.presetDot} style={{ backgroundColor: p.hex }} />
+                    <span>{p.name}</span>
+                  </button>
+                ))}
+              </div>
+
+              {form.colors && form.colors.length > 0 ? (
+                <>
+                  <div className={invStyles.colorsList}>
+                    {form.colors.map((c, index) => (
+                      <div key={c.id || index} className={invStyles.colorRow}>
+                        {/* Swatch & native picker */}
+                        <div className={invStyles.colorPickerWrap}>
+                          <label className={invStyles.miniLabel}>Swatch</label>
+                          <div
+                            className={invStyles.colorSwatchInput}
+                            style={{ backgroundColor: c.hex || "#2563EB" }}
+                            title="Click to pick swatch color"
+                          >
+                            <input
+                              type="color"
+                              className={invStyles.nativeColorInput}
+                              value={c.hex || "#2563EB"}
+                              onChange={(e) => handleColorChange(index, "hex", e.target.value)}
+                              aria-label={`Color swatch for ${c.name || 'item'}`}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Color Name */}
+                        <div>
+                          <label className={invStyles.miniLabel}>Color Name</label>
+                          <input
+                            type="text"
+                            className={invStyles.sizeInput}
+                            placeholder="e.g. Red, Variegated, Rose Gold"
+                            value={c.name}
+                            onChange={(e) => handleColorChange(index, "name", e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        {/* Catalog Photo */}
+                        <div>
+                          <label className={invStyles.miniLabel}>Catalog Photo (Per Color)</label>
+                          <div className={invStyles.colorPhotoWrap}>
+                            {c.image ? (
+                              <img src={c.image} alt={c.name || "Color preview"} className={invStyles.colorPhotoThumb} />
+                            ) : (
+                              <div className={invStyles.colorPhotoPlaceholder} title="No photo assigned yet">
+                                <FiImage aria-hidden="true" />
+                              </div>
+                            )}
+                            <div className={invStyles.colorPhotoActions}>
+                              <label htmlFor={`color-file-${c.id || index}`} className={invStyles.btnUploadColorImg}>
+                                <FiUpload aria-hidden="true" />
+                                <span>{c.image ? "Change Photo" : "Upload Photo"}</span>
+                              </label>
+                              <input
+                                id={`color-file-${c.id || index}`}
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp"
+                                style={{ display: "none" }}
+                                onChange={(e) => {
+                                  handleColorImageUpload(index, e.target.files?.[0]);
+                                  e.target.value = "";
+                                }}
+                              />
+                              {c.image && (
+                                <button
+                                  type="button"
+                                  className={invStyles.btnRemoveColorImg}
+                                  onClick={() => handleColorChange(index, "image", "")}
+                                >
+                                  Remove photo
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Stock Status */}
+                        <div>
+                          <label className={invStyles.miniLabel}>Stock</label>
+                          <select
+                            className={`${invStyles.sizeSelect} ${c.inStock ? invStyles.sizeSelectInStock : invStyles.sizeSelectSoldOut}`}
+                            value={c.inStock ? "in_stock" : "sold_out"}
+                            onChange={(e) => handleColorChange(index, "inStock", e.target.value === "in_stock")}
+                          >
+                            <option value="in_stock">In Stock</option>
+                            <option value="sold_out">Sold Out</option>
+                          </select>
+                        </div>
+
+                        {/* Remove Row */}
+                        <div>
+                          <button
+                            type="button"
+                            className={invStyles.btnRemoveColor}
+                            onClick={() => handleRemoveColorRow(index)}
+                            title="Remove this color"
+                            aria-label={`Remove color ${c.name || index + 1}`}
+                          >
+                            <FiTrash2 />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={invStyles.colorsListFooter}>
+                    <span className={invStyles.colorsCountText}>
+                      {form.colors.length} {form.colors.length === 1 ? "color configured" : "colors configured"}
+                    </span>
+                    <button
+                      type="button"
+                      className={invStyles.btnAddSizeSecondary}
+                      onClick={() => handleAddColorRow()}
+                    >
+                      <FiPlus />
+                      <span>Add Another Color</span>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className={invStyles.singleColorBox}>
+                  <p className={styles.hint} style={{ margin: "0 0 10px 0" }}>
+                    No color variants configured for this product. Click <strong>&quot;Add Color&quot;</strong> or one of the <strong>quick buttons above</strong> if this product has multiple colors or color-specific catalog photos.
+                  </p>
+                  <button
+                    type="button"
+                    className={invStyles.btnAddSizeSecondary}
+                    onClick={() => handleAddColorRow()}
+                  >
+                    <FiPlus />
+                    <span>+ Configure Product Colors</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
             {/* Images */}
             <span className={styles.label}>Product images (up to 2)</span>
             <div className={styles.formColumns}>
@@ -1095,6 +1356,21 @@ export default function InventoryPanel() {
                             Size: {product.size}
                           </span>
                         )}
+                        {Array.isArray(product.colors) && product.colors.length > 0 && (
+                          <div className={invStyles.productColorsPills} title={`${product.colors.length} color variant(s)`}>
+                            {product.colors.map((c, i) => (
+                              <span
+                                key={c.id || i}
+                                className={invStyles.colorDot}
+                                style={{ backgroundColor: c.hex || "#e2e8f0" }}
+                                title={`${c.name || "Color"} ${c.image ? "• has photo" : ""}`}
+                              />
+                            ))}
+                            <span className={invStyles.colorCountLabel}>
+                              {product.colors.length} {product.colors.length === 1 ? "color" : "colors"}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -1233,6 +1509,21 @@ export default function InventoryPanel() {
                                 <span style={{ display: "block", fontSize: 11, color: "#64748b", marginTop: 2 }}>
                                   Size: {product.size}
                                 </span>
+                              )}
+                              {Array.isArray(product.colors) && product.colors.length > 0 && (
+                                <div className={invStyles.productColorsPills} title={`${product.colors.length} color variant(s)`}>
+                                  {product.colors.map((c, i) => (
+                                    <span
+                                      key={c.id || i}
+                                      className={invStyles.colorDot}
+                                      style={{ backgroundColor: c.hex || "#e2e8f0" }}
+                                      title={`${c.name || "Color"} ${c.image ? "• has photo" : ""}`}
+                                    />
+                                  ))}
+                                  <span className={invStyles.colorCountLabel}>
+                                    {product.colors.length} {product.colors.length === 1 ? "color" : "colors"}
+                                  </span>
+                                </div>
                               )}
                             </div>
                           </div>

@@ -107,7 +107,7 @@ export default function CartSidebar() {
           ) : (
             <div className="cart-items-list">
               {cartItems.map((item) => (
-                <article className="cart-item-modern" key={`${item.slug}-${item.variant || 'base'}`}>
+                <article className="cart-item-modern" key={`${item.slug}-${item.variant || 'base'}-${item.color || 'default'}`}>
                   <div
                     className={`cart-item-img ${item.imageClass || ''}`}
                     style={item.image ? { backgroundImage: `url(${item.image})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
@@ -119,20 +119,23 @@ export default function CartSidebar() {
                         type="button"
                         className="cart-item-remove"
                         aria-label={`Remove ${item.title} from cart`}
-                        onClick={() => removeItem(item.slug, item.variant)}
+                        onClick={() => removeItem(item.slug, item.variant, item.color)}
                         title="Remove item"
                       >
                         <FiTrash2 />
                       </button>
                     </div>
-                    {item.variant && <span className="cart-item-variant">Size: {item.variant}</span>}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '4px' }}>
+                      {item.variant && <span className="cart-item-variant">Size: {item.variant}</span>}
+                      {item.color && <span className="cart-item-variant">Color: {item.color}</span>}
+                    </div>
                     <div className="cart-item-bottom">
                       <strong className="cart-item-price">₹{toAmount(item.price).toLocaleString('en-IN')}</strong>
                       <div className="qty-control-modern" aria-label="Item quantity controls">
                         <button
                           type="button"
                           aria-label="Decrease quantity"
-                          onClick={() => updateQty(item.slug, item.variant, item.qty - 1)}
+                          onClick={() => updateQty(item.slug, item.variant, item.qty - 1, item.color)}
                         >
                           <FiMinus />
                         </button>
@@ -140,7 +143,7 @@ export default function CartSidebar() {
                         <button
                           type="button"
                           aria-label="Increase quantity"
-                          onClick={() => updateQty(item.slug, item.variant, item.qty + 1)}
+                          onClick={() => updateQty(item.slug, item.variant, item.qty + 1, item.color)}
                         >
                           <FiPlus />
                         </button>

@@ -1,0 +1,179 @@
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 36px 20px 80px;
+  color: #0F172A;
+  font-family: inherit;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748B;
+  margin-bottom: 24px;
+}
+
+.breadcrumb a {
+  color: #2563EB;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.breadcrumb a:hover {
+  color: #1D4ED8;
+  text-decoration: underline;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1D4ED8;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0F172A;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 19px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sectionContent {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #334155;
+  margin: 0 0 12px 0;
+}
+
+.list {
+  margin: 10px 0 16px 0;
+  padding-left: 24px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #334155;
+}
+
+.list li {
+  margin-bottom: 8px;
+}
+
+.highlightBox {
+  background: #F8FAFC;
+  border-left: 4px solid #2563EB;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #1E293B;
+}
+
+.highlightBox strong {
+  color: #0F172A;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.contactCard {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.contactLabel {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748B;
+  margin-bottom: 6px;
+}
+
+.contactValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F172A;
+  word-break: break-word;
+}
+
+.contactValue a {
+  color: #2563EB;
+  text-decoration: none;
+}
+
+.contactValue a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 24px 16px 60px;
+  }
+  .card {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .sectionTitle {
+    font-size: 17px;
+  }
+  .sectionContent, .list {
+    font-size: 14px;
+  }
+}

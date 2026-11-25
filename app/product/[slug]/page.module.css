@@ -149,3 +149,117 @@
   .page { max-width: 1560px; }
 }
 @media (prefers-reduced-motion: reduce) { .accordions summary svg { transition: none; } }
+
+/* ==========================================================================
+   Product Colors & Swatches
+   ========================================================================== */
+
+.colorSection {
+  margin: 8px 0 20px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.colorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.colorLabel {
+  font-size: 13px;
+  color: #475569;
+}
+
+.colorLabel strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.colorSoldOutNote {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #dc2626;
+}
+
+.colorSwatchesWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.colorChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.colorChip:hover {
+  border-color: #2563eb;
+  background: #f0fdf4;
+}
+
+.colorChipSelected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.colorChipSoldOut {
+  opacity: 0.55;
+  background: #f1f5f9;
+}
+
+.colorChipDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.colorChipImg {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #cbd5e1;
+  flex-shrink: 0;
+}
+
+.colorChipName {
+  white-space: nowrap;
+}
+
+.colorChipCheck {
+  font-size: 13px;
+  color: #2563eb;
+}
+
+.colorChipSoldOutBadge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 2px;
+}
+

@@ -399,3 +399,55 @@ test('product and category drag-and-drop position reordering and new product las
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('product colors and catalog photos support color variants and cart checkout line items', async () => {
+  const { business } = await import('../lib/business.mjs');
+  assert.equal(business.name, 'Sellersking Infotech PVT. LTD.');
+  assert.equal(business.legalName, 'Sellersking Infotech PVT. LTD.');
+
+  // Test checkout with color variant
+  const product = {
+    id: 'prod-color-1',
+    slug: 'hibiscus-exotic',
+    title: 'Exotic Hibiscus',
+    price: '250',
+    oldPrice: '350',
+    isPublished: true,
+    inStock: true,
+    colors: JSON.stringify([
+      { id: '1', name: 'Crimson Red', hex: '#EF4444', image: 'https://cdn.sellersking.com/red.webp', inStock: true },
+      { id: '2', name: 'Golden Yellow', hex: '#FACC15', image: 'https://cdn.sellersking.com/yellow.webp', inStock: true },
+      { id: '3', name: 'Snow White', hex: '#FFFFFF', image: '', inStock: false },
+    ]),
+    category: { isVisible: true },
+  };
+
+  const products = [product];
+
+  // Cart items with two different colors of the same product
+  const items = [
+    { slug: 'hibiscus-exotic', qty: 1, color: 'Crimson Red' },
+    { slug: 'hibiscus-exotic', qty: 2, color: 'Golden Yellow' },
+  ];
+
+  const checkout = prepareCheckout({
+    items,
+    customer: {
+      name: 'Anita Roy',
+      phone: '9876543210',
+      address: '123 Park Street, Near Metro Station',
+      city: 'Kolkata',
+      state: 'West Bengal',
+      pincode: '700016',
+    },
+  }, products);
+
+  const parsedItems = JSON.parse(checkout.itemsJson);
+  assert.equal(parsedItems.length, 2);
+  assert.equal(parsedItems[0].color, 'Crimson Red');
+  assert.equal(parsedItems[0].qty, 1);
+  assert.equal(parsedItems[1].color, 'Golden Yellow');
+  assert.equal(parsedItems[1].qty, 2);
+  assert.equal(checkout.subtotal, (250 * 1 + 250 * 2) * 100);
+});
+

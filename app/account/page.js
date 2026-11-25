@@ -215,7 +215,7 @@ export default function AccountPage() {
                 {order.items.slice(0, 3).map((item, idx) => (
                   <div key={idx} className={styles.orderItemRow}>
                     <span className={styles.orderItemTitle}>
-                      {item.title} {item.variant ? `(${item.variant})` : ''}
+                      {item.title} {[item.variant ? `Size: ${item.variant}` : '', item.color ? `Color: ${item.color}` : ''].filter(Boolean).length ? `(${[item.variant ? `Size: ${item.variant}` : '', item.color ? `Color: ${item.color}` : ''].filter(Boolean).join(', ')})` : ''}
                     </span>
                     <span className={styles.orderItemQty}>Qty: {item.qty}</span>
                   </div>

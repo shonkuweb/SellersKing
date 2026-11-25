@@ -4,7 +4,7 @@ import Link from "next/link";
 import { whatsappUrl } from "../../../lib/business.mjs";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FiChevronDown, FiChevronLeft, FiChevronRight, FiHeart, FiImage, FiMapPin, FiMessageCircle, FiMinus, FiPackage, FiPlus, FiRefreshCw, FiTruck } from "react-icons/fi";
+import { FiCheck, FiChevronDown, FiChevronLeft, FiChevronRight, FiHeart, FiImage, FiMapPin, FiMessageCircle, FiMinus, FiPackage, FiPlus, FiRefreshCw, FiTruck } from "react-icons/fi";
 import { FaFacebookF, FaFire, FaStar, FaRegStar, FaTwitter } from "react-icons/fa";
 import { useCategories } from "../../hooks/useCategories";
 import { useCart } from "../../context/CartContext";
@@ -24,6 +24,7 @@ export default function ProductPage() {
   const router = useRouter();
   const [qty, setQty] = useState(1);
   const [variantQtys, setVariantQtys] = useState({});
+  const [selectedColor, setSelectedColor] = useState(null);
   const [favorite, setFavorite] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [pincode, setPincode] = useState('');
@@ -41,6 +42,14 @@ export default function ProductPage() {
     setShareUrl(window.location.href);
     try { setFavorite(JSON.parse(localStorage.getItem('nursery-wishlist') || '[]').includes(slug)); }
     catch { setFavorite(false); }
+
+    const prodColors = Array.isArray(product?.colors) ? product.colors : [];
+    if (prodColors.length > 0) {
+      const firstAvail = prodColors.find(c => c.inStock !== false) || prodColors[0];
+      setSelectedColor(firstAvail?.name || null);
+    } else {
+      setSelectedColor(null);
+    }
 
     if (customer?.pincode && product) {
       setPincode(customer.pincode);
@@ -67,7 +76,21 @@ export default function ProductPage() {
   const related = products.filter(item => item.categoryId === product.categoryId && item.id !== product.id).slice(0, 4);
   const rating = product.demoMetrics ? 4.4 : Number(product.rating);
   const reviewCount = product.demoMetrics ? 110 : product.reviews;
-  const images = [product.image, product.image2].filter(Boolean);
+  const colors = Array.isArray(product.colors) ? product.colors : [];
+  const activeColorObj = colors.find(c => c.name === selectedColor);
+  const colorImage = activeColorObj?.image;
+  const baseImages = [product.image, product.image2].filter(Boolean);
+  const images = colorImage
+    ? [colorImage, ...baseImages.filter(img => img !== colorImage)]
+    : baseImages;
+
+  const handleSelectColor = (colorName) => {
+    setSelectedColor(colorName);
+    const chosen = colors.find(c => c.name === colorName);
+    if (chosen?.image) {
+      setActiveImageIndex(0);
+    }
+  };
 
   const handleTouchStart = e => {
     setTouchStartX(e.touches[0].clientX);
@@ -102,6 +125,17 @@ export default function ProductPage() {
   const addSelection = () => {
     setPurchaseError('');
     if (!product.inStock) return false;
+    if (colors.length > 0) {
+      if (!selectedColor) {
+        setPurchaseError('Please select a color for this product.');
+        return false;
+      }
+      const chosen = colors.find(c => c.name === selectedColor);
+      if (chosen && chosen.inStock === false) {
+        setPurchaseError(`The color "${selectedColor}" is currently sold out. Please select an available color.`);
+        return false;
+      }
+    }
     if (pincode && /^[1-9][0-9]{5}$/.test(pincode)) {
       const check = isProductDeliverableToLocation(product, pincode);
       if (!check.deliverable) {
@@ -117,8 +151,8 @@ export default function ProductPage() {
         return isAvailable;
       });
       if (!selected.length) { setPurchaseError('Please select at least one available size or option.'); return false; }
-      selected.forEach(([variant, quantity]) => addItem(product.slug, quantity, variant));
-    } else addItem(product.slug, qty);
+      selected.forEach(([variant, quantity]) => addItem(product.slug, quantity, variant, selectedColor));
+    } else addItem(product.slug, qty, undefined, selectedColor);
     return true;
   };
 
@@ -247,6 +281,47 @@ export default function ProductPage() {
               <span className={styles.sizeBadge}>{product.size}</span>
             </div>
           ) : null}
+          {colors.length > 0 && (
+            <div className={styles.colorSection} aria-label="Available colors">
+              <div className={styles.colorHeader}>
+                <span className={styles.colorLabel}>
+                  Color: <strong>{selectedColor || 'Choose a color'}</strong>
+                </span>
+                {activeColorObj?.inStock === false && (
+                  <span className={styles.colorSoldOutNote}>(Currently Sold Out)</span>
+                )}
+              </div>
+              <div className={styles.colorSwatchesWrap}>
+                {colors.map((c) => {
+                  const isSelected = selectedColor === c.name;
+                  const isAvailable = c.inStock !== false;
+                  return (
+                    <button
+                      key={c.id || c.name}
+                      type="button"
+                      className={`${styles.colorChip} ${isSelected ? styles.colorChipSelected : ''} ${!isAvailable ? styles.colorChipSoldOut : ''}`}
+                      onClick={() => handleSelectColor(c.name)}
+                      title={`${c.name} ${!isAvailable ? '(Sold Out)' : ''} ${c.image ? '• Click to view catalog photo' : ''}`}
+                      aria-label={`Select color ${c.name}`}
+                      aria-pressed={isSelected}
+                    >
+                      {c.image ? (
+                        <img src={c.image} alt="" className={styles.colorChipImg} />
+                      ) : (
+                        <span
+                          className={styles.colorChipDot}
+                          style={{ backgroundColor: c.hex || '#e2e8f0' }}
+                        />
+                      )}
+                      <span className={styles.colorChipName}>{c.name}</span>
+                      {isSelected && <FiCheck className={styles.colorChipCheck} aria-hidden="true" />}
+                      {!isAvailable && <span className={styles.colorChipSoldOutBadge}>Sold Out</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
           {product.demoMetrics && <p className={styles.viewers}><span className={styles.dot} /><span><strong>14</strong> people are viewing this right now</span><span className={styles.demo}>Demo</span></p>}
           {product.shippingScope === 'states' && product.deliveryStates && (
             <div style={{ fontSize: '0.84rem', color: '#0369a1', background: '#f0f9ff', border: '1px solid #bae6fd', padding: '0.45rem 0.75rem', borderRadius: '6px', margin: '0.6rem 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

@@ -26,7 +26,10 @@ function publicProduct(product) {
       inStock: typeof val === 'object' && val !== null ? val.inStock !== false : true,
     }));
   }
-  return { ...product, adeniumOptions, sizes, categoryIds };
+  let colors = [];
+  try { colors = product.colors ? JSON.parse(product.colors) : []; } catch {}
+  if (!Array.isArray(colors)) colors = [];
+  return { ...product, adeniumOptions, sizes, categoryIds, colors };
 }
 
 export async function GET(request) {
@@ -138,6 +141,40 @@ async function save(request, update) {
       } catch {}
     }
 
+    // Process product colors and catalog photos per color
+    let colorsJson = null;
+    if (Array.isArray(data.colors) && data.colors.length > 0) {
+      const processedColors = [];
+      for (let i = 0; i < data.colors.length; i++) {
+        const c = data.colors[i];
+        if (!c || typeof c !== 'object') continue;
+        const name = typeof c.name === 'string' ? c.name.trim() : '';
+        if (!name) continue;
+        const hex = typeof c.hex === 'string' && /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(c.hex.trim()) ? c.hex.trim() : '#22c55e';
+        let colorImg = typeof c.image === 'string' ? c.image.trim() : null;
+        if (colorImg && colorImg.startsWith('data:image/')) {
+          const colorSlug = name.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || `color-${i + 1}`;
+          try {
+            colorImg = await uploadDataUrlToR2(colorImg, 'sellersking/products/colors', `${baseSlug}-${colorSlug}`);
+          } catch (err) {
+            console.warn(`R2 upload failed for color ${name}:`, err);
+          }
+        }
+        processedColors.push({
+          id: String(c.id || i + 1),
+          name,
+          hex,
+          image: colorImg || null,
+          inStock: c.inStock !== false,
+        });
+      }
+      if (processedColors.length > 0) {
+        colorsJson = JSON.stringify(processedColors);
+      }
+    } else if (typeof data.colors === 'string' && data.colors.trim()) {
+      colorsJson = data.colors.trim();
+    }
+
     let order = 0;
     if (!update) {
       if (typeof data.order === 'number' && Number.isFinite(data.order)) {
@@ -169,6 +206,9 @@ async function save(request, update) {
       adeniumOptions: data.sizes !== undefined || data.adeniumOptions !== undefined
         ? adeniumOptionsJson
         : (existing ? existing.adeniumOptions : null),
+      colors: data.colors !== undefined
+        ? colorsJson
+        : (existing ? existing.colors : null),
       description: data.description?.trim() || null, image: imageUrl, image2: imageUrl2,
       inStock: data.inStock !== false, isPublished: data.isPublished !== false,
     };

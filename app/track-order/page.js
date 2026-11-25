@@ -345,7 +345,7 @@ function TrackOrderContent() {
                 {orderData.items.map((item, idx) => (
                   <div key={idx} className={styles.itemRow}>
                     <span>
-                      {item.title} {item.variant ? `(${item.variant})` : ""} × {item.qty}
+                      {item.title} {[item.variant ? `Size: ${item.variant}` : '', item.color ? `Color: ${item.color}` : ''].filter(Boolean).length ? `(${[item.variant ? `Size: ${item.variant}` : '', item.color ? `Color: ${item.color}` : ''].filter(Boolean).join(', ')})` : ''} × {item.qty}
                     </span>
                     <strong>₹{(Number(item.price) * item.qty).toLocaleString("en-IN")}</strong>
                   </div>

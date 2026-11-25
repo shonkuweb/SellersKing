@@ -41,6 +41,7 @@ model Product {
   rating         Float   @default(0)
   reviews        Int     @default(0)
   adeniumOptions String? // Stored as JSON string
+  colors         String? // Stored as JSON string array of colors with photos
   categoryId     String?
   category       Category? @relation("PrimaryCategory", fields: [categoryId], references: [id], onDelete: SetNull)
   categoryIds    String? // Stored as JSON string array e.g. '["id1","id2"]'

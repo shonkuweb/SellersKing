@@ -58,19 +58,23 @@ export function CartProvider({ children }) {
     localStorage.setItem("blooming-partners-cart", JSON.stringify(items));
   }, [items]);
 
-  const addItem = (slug, qty = 1, variant = null) => {
+  const addItem = (slug, qty = 1, variant = null, color = null) => {
     const product = products.find(product => product.slug === slug);
     if (!product || product.inStock === false || !Number.isInteger(qty) || qty < 1) return;
     if (variant && product.adeniumOptions && product.adeniumOptions[variant]) {
       const opt = product.adeniumOptions[variant];
       if (typeof opt === 'object' && opt !== null && opt.inStock === false) return;
     }
+    if (color && Array.isArray(product.colors)) {
+      const colObj = product.colors.find(c => c.name.toLowerCase() === String(color).toLowerCase());
+      if (colObj && colObj.inStock === false) return;
+    }
     setItems((prev) => {
-      const found = prev.find((i) => i.slug === slug && i.variant === variant);
+      const found = prev.find((i) => i.slug === slug && (i.variant || null) === (variant || null) && (i.color || null) === (color || null));
       if (found) {
-        return prev.map((i) => (i.slug === slug && i.variant === variant ? { ...i, qty: i.qty + qty } : i));
+        return prev.map((i) => (i.slug === slug && (i.variant || null) === (variant || null) && (i.color || null) === (color || null) ? { ...i, qty: i.qty + qty } : i));
       }
-      return [...prev, { slug, qty, variant }];
+      return [...prev, { slug, qty, variant: variant || null, color: color || null }];
     });
   };
 
@@ -78,15 +82,15 @@ export function CartProvider({ children }) {
     if (window.matchMedia('(min-width: 768px)').matches) setIsSidebarOpen(true);
   };
 
-  const updateQty = (slug, variant, qty) => {
+  const updateQty = (slug, variant, qty, color = null) => {
     if (qty <= 0) {
-      setItems((prev) => prev.filter((i) => !(i.slug === slug && i.variant === variant)));
+      setItems((prev) => prev.filter((i) => !(i.slug === slug && (i.variant || null) === (variant || null) && (i.color || null) === (color || null))));
       return;
     }
-    setItems((prev) => prev.map((i) => (i.slug === slug && i.variant === variant ? { ...i, qty } : i)));
+    setItems((prev) => prev.map((i) => (i.slug === slug && (i.variant || null) === (variant || null) && (i.color || null) === (color || null) ? { ...i, qty } : i)));
   };
 
-  const removeItem = (slug, variant) => setItems((prev) => prev.filter((i) => !(i.slug === slug && i.variant === variant)));
+  const removeItem = (slug, variant, color = null) => setItems((prev) => prev.filter((i) => !(i.slug === slug && (i.variant || null) === (variant || null) && (i.color || null) === (color || null))));
   const clear = () => setItems([]);
 
   const removePurchased = useCallback((orderId, purchased) => {
@@ -94,7 +98,7 @@ export function CartProvider({ children }) {
     try { processed = JSON.parse(localStorage.getItem('nursery-confirmed-cart-orders') || '[]'); } catch {}
     if (processed.includes(orderId)) return;
     setItems(current => current.map(item => {
-      const paid = purchased.find(line => line.slug === item.slug && (line.variant || null) === (item.variant || null));
+      const paid = purchased.find(line => line.slug === item.slug && (line.variant || null) === (item.variant || null) && (line.color || null) === (item.color || null));
       return paid ? { ...item, qty: Math.max(0, item.qty - paid.qty) } : item;
     }).filter(item => item.qty > 0));
     try { localStorage.setItem('nursery-confirmed-cart-orders', JSON.stringify([...processed, orderId].slice(-100))); } catch {}
@@ -116,7 +120,12 @@ export function CartProvider({ children }) {
               price = opt;
             }
           }
-          return { ...product, qty: item.qty, variant: item.variant, price };
+          let image = product.image;
+          if (item.color && Array.isArray(product.colors)) {
+            const col = product.colors.find(c => c.name.toLowerCase() === String(item.color).toLowerCase());
+            if (col?.image) image = col.image;
+          }
+          return { ...product, qty: item.qty, variant: item.variant, color: item.color, price, image };
         })
         .filter(Boolean),
     [items, products]

@@ -60,6 +60,7 @@ try {
         isPublished: 'BOOLEAN NOT NULL DEFAULT false',
         image2: 'TEXT',
         order: 'INTEGER NOT NULL DEFAULT 0',
+        colors: 'TEXT',
       };
       for (const [column, definition] of Object.entries(additions)) {
         if (!productColumns.some(existing => existing.name === column)) db.exec(`ALTER TABLE Product ADD COLUMN "${column}" ${definition}`);

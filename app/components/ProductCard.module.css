@@ -60,3 +60,28 @@
     transform: translateY(-1px);
   }
 }
+
+.colorDotsWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: -2px;
+  margin-bottom: 2px;
+}
+
+.colorDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.moreColors {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  margin-left: 2px;
+}
+
