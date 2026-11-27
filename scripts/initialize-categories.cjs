@@ -325,6 +325,36 @@ try {
     for (const order of db.prepare('SELECT id FROM "Order" WHERE orderNumber IS NULL ORDER BY createdAt, rowid').all()) assignNumber.run(++lastNumber, order.id);
     db.exec('CREATE UNIQUE INDEX IF NOT EXISTS "Order_orderNumber_key" ON "Order"("orderNumber")');
     db.prepare("INSERT INTO Settings (key, value) VALUES ('order_number_sequence', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(String(lastNumber));
+
+    // Automatically migrate legacy nursery copy in Settings table
+    try {
+      const navSetting = db.prepare("SELECT value FROM Settings WHERE key = 'navbar_settings'").get();
+      if (navSetting && navSetting.value && (navSetting.value.includes('nursery') || navSetting.value.includes('plant') || navSetting.value.includes('potted'))) {
+        let nav = JSON.parse(navSetting.value);
+        if (Array.isArray(nav.items)) {
+          for (const item of nav.items) {
+            if (item.id === 'new-collection' && (item.description.includes('nursery') || item.description.includes('potted') || item.description.includes('exotic'))) {
+              item.description = 'Fresh arrivals, trending products, and newly added store collections.';
+            } else if (item.id === 'blog' && (item.description.includes('plant') || item.description.includes('nursery'))) {
+              item.description = 'Expert buying guides, curated articles, and store updates.';
+            }
+          }
+          db.prepare("UPDATE Settings SET value = ? WHERE key = 'navbar_settings'").run(JSON.stringify(nav));
+        }
+      }
+      const heroSetting = db.prepare("SELECT value FROM Settings WHERE key = 'homepage_hero_settings'").get();
+      if (heroSetting && heroSetting.value && (heroSetting.value.includes('SabujKuthi') || heroSetting.value.includes('plants are delicate'))) {
+        let hero = JSON.parse(heroSetting.value);
+        if (hero.belowTickerText && hero.belowTickerText.includes('SabujKuthi')) {
+          hero.belowTickerText = 'SellersKing • Fast Pan-India Delivery | WhatsApp Support: +91 86370 54105';
+        }
+        if (hero.endTickerText && hero.endTickerText.includes('plants are delicate')) {
+          hero.endTickerText = '⚡ Express Pan-India Delivery • Handpicked Quality Products • 100% Genuine Guarantee';
+        }
+        db.prepare("UPDATE Settings SET value = ? WHERE key = 'homepage_hero_settings'").run(JSON.stringify(hero));
+      }
+    } catch {}
+
     const key = 'migration_categories_database_v1';
     if (!db.prepare('SELECT key FROM Settings WHERE key = ?').get(key)) {
       const legacyPath = path.join(process.cwd(), 'app/data/categories.json');

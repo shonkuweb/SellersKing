@@ -37,22 +37,25 @@ export default function ShippingAndDeliveryPage() {
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>2. Shipping Charges & Free Delivery Threshold</h2>
+          <h2 className={styles.sectionTitle}>2. Shipping & Delivery Charges</h2>
           <p className={styles.sectionContent}>
-            We maintain a clear, transparent, and subsidised shipping structure across all orders:
+            Delivery charges are variable and calculated dynamically for every order. Delivery charges are subject to the following factors:
           </p>
           <div className={styles.highlightBox}>
             <ul style={{ margin: 0, paddingLeft: "20px" }}>
-              <li style={{ marginBottom: "6px" }}>
-                <strong>Orders Below ₹3,999:</strong> Standard subsidized flat shipping rate of <strong>₹40 only</strong> anywhere in India.
+              <li style={{ marginBottom: "8px" }}>
+                <strong>Product Weight:</strong> Total physical and volumetric weight of the ordered items. Heavy, dense, or bulky goods require scaled freight handling.
+              </li>
+              <li style={{ marginBottom: "8px" }}>
+                <strong>Delivery Distance:</strong> Distance between our fulfillment center and your destination delivery address / postal PIN code (local, regional, metro, or national transit zones).
               </li>
               <li>
-                <strong>Orders of ₹3,999 and Above:</strong> <strong>100% FREE Pan-India Shipping</strong> applied automatically at checkout.
+                <strong>Product Category:</strong> Specific merchandise categories (such as fragile items, electronics, oversized goods, or delicate products) requiring specialized protective packaging and courier handling.
               </li>
             </ul>
           </div>
           <p className={styles.sectionContent}>
-            There are no hidden handling charges, platform fees, or packing surcharges. What you see during checkout is the final amount payable.
+            The exact delivery charge applicable to your order is computed and displayed transparently at checkout before you make payment. There are no hidden handling fees or surprise surcharges upon delivery.
           </p>
         </section>
 

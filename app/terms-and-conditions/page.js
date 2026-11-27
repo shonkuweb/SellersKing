@@ -59,6 +59,9 @@ export default function TermsAndConditionsPage() {
           <p className={styles.sectionContent}>
             All prices listed on our platform are denominated in <strong>Indian Rupees (INR ₹)</strong> and are inclusive of applicable taxes unless stated otherwise. We reserve the right to revise catalog prices, promotional discounts, and availability at any time without prior notice. In the event of an inadvertent technical pricing discrepancy, we will contact you before dispatch or cancel the order with a full refund.
           </p>
+          <p className={styles.sectionContent}>
+            <strong>Delivery & Shipping Charges:</strong> Delivery charges are variable and subject to product weight, delivery distance (destination PIN code/region), and product category. Applicable delivery charges are calculated and displayed transparently at checkout prior to order confirmation and payment.
+          </p>
         </section>
 
         <section className={styles.section}>
