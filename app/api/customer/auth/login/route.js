@@ -6,24 +6,26 @@ import { createCustomerSession } from '../../../../../lib/customer-session.mjs';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { password } = body;
+    const rawPassword = body.password;
     const rawPhone = body.phone;
 
-    const phone = normalizePhone(rawPhone);
+    const phone = normalizePhone(String(rawPhone || ''));
     if (!phone) {
       return NextResponse.json({ success: false, message: 'Please enter your registered phone number.' }, { status: 400 });
     }
 
-    if (typeof password !== 'string' || !password) {
+    if (typeof rawPassword !== 'string' || !rawPassword) {
       return NextResponse.json({ success: false, message: 'Please enter your password.' }, { status: 400 });
     }
+
+    const password = rawPassword.trim();
 
     let customer = await prisma.customer.findUnique({
       where: { phone }
     });
 
     // Default demo user fallback: 1234567890 / password123
-    if (phone === '1234567890' && password === 'password123') {
+    if (phone === '1234567890' && (password === 'password123' || rawPassword === 'password123')) {
       if (!customer) {
         customer = await prisma.customer.create({
           data: {
@@ -37,7 +39,7 @@ export async function POST(request) {
             isBanned: false,
           }
         });
-      } else if (!verifyPassword(password, customer.passwordHash)) {
+      } else if (!verifyPassword(password, customer.passwordHash) && !verifyPassword('password123', customer.passwordHash)) {
         customer = await prisma.customer.update({
           where: { id: customer.id },
           data: {
@@ -48,7 +50,9 @@ export async function POST(request) {
       }
     }
 
-    if (!customer || !verifyPassword(password, customer.passwordHash)) {
+    const isPassValid = customer && (verifyPassword(password, customer.passwordHash) || verifyPassword(rawPassword, customer.passwordHash));
+
+    if (!customer || !isPassValid) {
       return NextResponse.json({ success: false, message: 'Incorrect phone number or password. Please try again.' }, { status: 401 });
     }
 
