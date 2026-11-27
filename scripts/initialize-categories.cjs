@@ -1,7 +1,8 @@
 const Database = require('better-sqlite3');
 const path = require('node:path');
 const fs = require('node:fs');
-const { randomUUID } = require('node:crypto');
+const crypto = require('node:crypto');
+const { randomUUID } = crypto;
 
 // Use the same database as the Prisma adapter, including the production volume.
 const url = process.env.DATABASE_URL || `file:${process.env.SQLITE_DB_PATH || path.join(process.cwd(), 'dev.db')}`;
@@ -208,6 +209,31 @@ try {
       if (!customerColumns.some(col => col.name === 'bannedAt')) db.exec('ALTER TABLE "Customer" ADD COLUMN "bannedAt" DATETIME');
       if (!customerColumns.some(col => col.name === 'lastActiveAt')) db.exec('ALTER TABLE "Customer" ADD COLUMN "lastActiveAt" DATETIME');
       if (!customerColumns.some(col => col.name === 'lastLoginAt')) db.exec('ALTER TABLE "Customer" ADD COLUMN "lastLoginAt" DATETIME');
+    }
+
+    // Seed default demo user account: 1234567890 / password123
+    try {
+      const demoUser = db.prepare('SELECT id FROM "Customer" WHERE phone = ?').get('1234567890');
+      const salt = 'f3b2a1c0d4e5f6789012345678abcdef';
+      const derivedKey = crypto.scryptSync('password123', salt, 64).toString('hex');
+      const demoHash = `${salt}:${derivedKey}`;
+
+      if (!demoUser) {
+        db.prepare(`INSERT INTO "Customer" (id, phone, passwordHash, name, email, state, pincode, isBanned, createdAt, updatedAt)
+          VALUES (?, ?, ?, ?, ?, ?, ?, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`).run(
+          'demo-user-1234567890',
+          '1234567890',
+          demoHash,
+          'Demo User',
+          'demo@sellersking.in',
+          'West Bengal',
+          '700001'
+        );
+      } else {
+        db.prepare('UPDATE "Customer" SET passwordHash = ?, isBanned = 0 WHERE phone = ?').run(demoHash, '1234567890');
+      }
+    } catch (e) {
+      console.warn('Could not seed demo customer:', e);
     }
     const orderColumns = db.prepare('PRAGMA table_info("Order")').all();
     if (!orderColumns.some(column => column.name === 'orderNumber')) db.exec('ALTER TABLE "Order" ADD COLUMN "orderNumber" INTEGER');

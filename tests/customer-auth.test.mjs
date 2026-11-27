@@ -313,3 +313,27 @@ test('admin can permanently delete customer account while orders remain intact',
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('demo user credentials 1234567890 and password123 are seeded and verified', () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'sellersking-demo-user-'));
+  const filename = path.join(dir, 'test.db');
+  const db = new Database(filename);
+
+  try {
+    db.exec('CREATE TABLE Settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+    execFileSync(
+      process.execPath,
+      ['scripts/initialize-categories.cjs'],
+      { env: { ...process.env, DATABASE_URL: `file:${filename}` }, stdio: 'pipe' }
+    );
+
+    const demoUser = db.prepare('SELECT id, phone, passwordHash, isBanned FROM Customer WHERE phone = ?').get('1234567890');
+    assert.ok(demoUser, 'Demo user account must be automatically seeded');
+    assert.equal(demoUser.phone, '1234567890');
+    assert.equal(demoUser.isBanned, 0);
+    assert.equal(verifyPassword('password123', demoUser.passwordHash), true, 'password123 must verify against demo user hash');
+  } finally {
+    db.close();
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

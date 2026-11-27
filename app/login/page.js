@@ -186,6 +186,30 @@ function LoginForm() {
           </div>
         )}
 
+        {mode === "login" && (
+          <div className={styles.demoBox}>
+            <div className={styles.demoInfo}>
+              <span className={styles.demoLabel}>Demo User Credentials:</span>
+              <div className={styles.demoCreds}>
+                <span>Phone: <strong>1234567890</strong></span>
+                <span>•</span>
+                <span>Password: <strong>password123</strong></span>
+              </div>
+            </div>
+            <button
+              type="button"
+              className={styles.demoFillBtn}
+              onClick={() => {
+                setPhone("1234567890");
+                setPassword("password123");
+                setError("");
+              }}
+            >
+              Fill Demo
+            </button>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className={styles.form}>
           {mode === "signup" && (
             <div className={styles.field}>
